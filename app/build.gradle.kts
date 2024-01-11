@@ -67,6 +67,7 @@ dependencies {
 
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:${Versions.RETROFIT_VERSION}")
+    implementation("com.squareup.retrofit2:converter-moshi:${Versions.MOSHI_CONVERTER_VERSION}")
 
     // RxJava
     implementation("io.reactivex.rxjava3:rxandroid:${Versions.RXANDROID_VERSION}")

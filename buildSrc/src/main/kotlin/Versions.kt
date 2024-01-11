@@ -9,6 +9,7 @@ object Versions {
     const val COMPOSE_BOM_VERSION = "2023.10.01"
 
     const val RETROFIT_VERSION = "2.9.0"
+    const val MOSHI_CONVERTER_VERSION = "2.9.0"
 
     const val RXANDROID_VERSION = "3.0.2"
     const val RXJAVA_VERSION = "3.1.8"
