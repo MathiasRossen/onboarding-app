@@ -9,10 +9,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import dk.mathiasrossen.onboardingapp.ui.theme.OnboardingAppTheme
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun OnboardingAppBar() {
+fun OnboardingTopAppBar() {
     TopAppBar(
         title = {
             Text("NewsApp")
@@ -28,6 +27,6 @@ fun OnboardingAppBar() {
 @Composable
 private fun TopAppBarPreview() {
     OnboardingAppTheme {
-        OnboardingAppBar()
+        OnboardingTopAppBar()
     }
 }
