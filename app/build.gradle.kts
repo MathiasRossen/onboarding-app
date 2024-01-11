@@ -68,6 +68,10 @@ dependencies {
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:${Versions.RETROFIT_VERSION}")
 
+    // RxJava
+    implementation("io.reactivex.rxjava3:rxandroid:${Versions.RXANDROID_VERSION}")
+    implementation("io.reactivex.rxjava3:rxjava:${Versions.RXJAVA_VERSION}")
+
     // Test implementations
     testImplementation("junit:junit:${Versions.JUNIT_VERSION}")
     androidTestImplementation("androidx.test.ext:junit:${Versions.ANDROIDX_JUNIT_VERSION}")
