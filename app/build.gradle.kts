@@ -53,7 +53,7 @@ dependencies {
 
     // Android libraries
     implementation("androidx.core:core-ktx:${Versions.ANDROIDX_CORE_VERSION}")
-    implementation("androidx.core:core-splashscreen:1.0.1")
+    implementation("androidx.core:core-splashscreen:${Versions.ANDROIDX_CORE_SPLASHSCREEN_VERSION}")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:${Versions.ANDROIDX_LIFECYCLE_VERSION}")
     implementation("androidx.activity:activity-compose:${Versions.ANDROIDX_ACTIVITY_COMPOSE_VERSION}")
 
@@ -64,12 +64,12 @@ dependencies {
     implementation("androidx.compose.material3:material3")
 
     // Retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:retrofit:${Versions.RETROFIT_VERSION}")
 
     // Test implementations
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    testImplementation("junit:junit:${Versions.JUNIT_VERSION}")
+    androidTestImplementation("androidx.test.ext:junit:${Versions.ANDROIDX_JUNIT_VERSION}")
+    androidTestImplementation("androidx.test.espresso:espresso-core:${Versions.ANDROIDX_ESPRESSO_VERSION}")
 
     // Test implementations for Jetpack Compose
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
