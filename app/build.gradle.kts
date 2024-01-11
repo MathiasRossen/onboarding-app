@@ -56,12 +56,14 @@ dependencies {
     implementation("androidx.core:core-splashscreen:${Versions.ANDROIDX_CORE_SPLASHSCREEN_VERSION}")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:${Versions.ANDROIDX_LIFECYCLE_VERSION}")
     implementation("androidx.activity:activity-compose:${Versions.ANDROIDX_ACTIVITY_COMPOSE_VERSION}")
+    implementation("androidx.navigation:navigation-compose:${Versions.ANDROIDX_NAVIGATION_COMPOSE_VERSION}")
 
     // Jetpack Compose
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
+    implementation("androidx.compose.material:material")
 
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:${Versions.RETROFIT_VERSION}")

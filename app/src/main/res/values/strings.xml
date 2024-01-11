@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">OnboardingApp</string>
+
+    <!-- Navigation -->
+    <string name="navigation_sources_title">Source list</string>
+    <string name="navigation_favorites_title">Favorites</string>
+    <string name="navigation_about_title">About</string>
 </resources>

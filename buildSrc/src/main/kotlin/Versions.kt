@@ -3,6 +3,7 @@ object Versions {
     const val ANDROIDX_CORE_SPLASHSCREEN_VERSION = "1.0.1"
     const val ANDROIDX_LIFECYCLE_VERSION = "2.6.2"
     const val ANDROIDX_ACTIVITY_COMPOSE_VERSION = "1.8.2"
+    const val ANDROIDX_NAVIGATION_COMPOSE_VERSION = "2.7.6"
 
     // Jetpack Compose version
     const val COMPOSE_BOM_VERSION = "2023.10.01"
