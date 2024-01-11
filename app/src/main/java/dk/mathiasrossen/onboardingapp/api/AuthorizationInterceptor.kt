@@ -1,4 +1,4 @@
-package dk.mathiasrossen.onboardingapp.services
+package dk.mathiasrossen.onboardingapp.api
 
 import dk.mathiasrossen.onboardingapp.BuildConfig
 import okhttp3.Interceptor

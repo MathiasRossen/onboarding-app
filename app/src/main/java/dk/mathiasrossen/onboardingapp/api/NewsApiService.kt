@@ -1,6 +1,6 @@
-package dk.mathiasrossen.onboardingapp.services
+package dk.mathiasrossen.onboardingapp.api
 
-import dk.mathiasrossen.onboardingapp.models.NewsSource
+import dk.mathiasrossen.onboardingapp.api.response_models.NewsSourcesResponse
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import okhttp3.OkHttpClient
@@ -13,7 +13,7 @@ import retrofit2.http.Query
 
 interface NewsApiService {
     @GET("v2/top-headlines/sources")
-    fun getSources(@Query("language") language: String = "en"): Single<List<NewsSource>>
+    fun getSources(@Query("language") language: String = "en"): Single<NewsSourcesResponse>
 }
 
 val client = OkHttpClient.Builder()
