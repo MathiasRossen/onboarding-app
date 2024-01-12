@@ -4,6 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import dk.mathiasrossen.onboardingapp.BuildConfig
 import dk.mathiasrossen.onboardingapp.api.AuthorizationInterceptor
 import dk.mathiasrossen.onboardingapp.api.NewsApiService
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -24,7 +25,7 @@ object NetworkModule {
 
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
-        .baseUrl("https://newsapi.org")
+        .baseUrl(BuildConfig.API_BASE_URL)
         .addConverterFactory(MoshiConverterFactory.create())
         .addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(Schedulers.io()))
         .client(okHttpClient)

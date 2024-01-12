@@ -20,6 +20,7 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        buildConfigField("String", "API_BASE_URL", "\"https://newsapi.org\"")
         buildConfigField("String", "API_KEY", "\"9bf05c7546e9499f82ea4df0c24ce8d1\"")
     }
 
@@ -89,9 +90,9 @@ dependencies {
     testImplementation("org.mockito:mockito-core:${Versions.MOCKITO_VERSION}")
     androidTestImplementation("androidx.test.ext:junit:${Versions.ANDROIDX_JUNIT_VERSION}")
     androidTestImplementation("androidx.test.espresso:espresso-core:${Versions.ANDROIDX_ESPRESSO_VERSION}")
-
-    // Test implementations for Jetpack Compose
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+
+    // Compose debug implementations
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 }
