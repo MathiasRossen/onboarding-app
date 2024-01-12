@@ -12,6 +12,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import dagger.hilt.android.AndroidEntryPoint
 import dk.mathiasrossen.onboardingapp.navigation.Screen
 import dk.mathiasrossen.onboardingapp.ui.appbar.OnboardingBottomAppBar
 import dk.mathiasrossen.onboardingapp.ui.appbar.OnboardingTopAppBar
@@ -19,10 +20,11 @@ import dk.mathiasrossen.onboardingapp.ui.sources.SourcesScreen
 import dk.mathiasrossen.onboardingapp.ui.sources.SourcesScreenViewModel
 import dk.mathiasrossen.onboardingapp.ui.theme.OnboardingAppTheme
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val sourcesScreenViewModel by viewModels<SourcesScreenViewModel>()
+        val sourcesScreenViewModel: SourcesScreenViewModel by viewModels()
         installSplashScreen().setKeepOnScreenCondition {
             sourcesScreenViewModel.newsSources.value.isEmpty()
         }
