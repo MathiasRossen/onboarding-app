@@ -5,4 +5,6 @@ import dk.mathiasrossen.onboardingapp.models.NewsSource
 data class NewsSourcesResponse(
     val status: String,
     val sources: List<NewsSource>
-)
+) {
+    val sourcesSorted: List<NewsSource> get() = sources.sortedBy { newsSource -> newsSource.name }
+}
