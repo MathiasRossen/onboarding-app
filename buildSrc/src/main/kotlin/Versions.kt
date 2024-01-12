@@ -20,7 +20,6 @@ object Versions {
 
     // Hilt
     const val HILT_VERSION = "2.48"
-    const val HILT_COMPILER_VERSION = "2.44"
 
     // Test implementation versions
     const val JUNIT_VERSION = "4.13.2"

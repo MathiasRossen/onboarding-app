@@ -2,12 +2,14 @@ package dk.mathiasrossen.onboardingapp.ui.sources
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import dk.mathiasrossen.onboardingapp.api.NewsApiService
 import dk.mathiasrossen.onboardingapp.models.NewsSource
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.Disposable
 import javax.inject.Inject
 
+@HiltViewModel
 class SourcesScreenViewModel @Inject constructor(newsApiService: NewsApiService) : ViewModel() {
     private var disposable = Disposable.disposed()
 
