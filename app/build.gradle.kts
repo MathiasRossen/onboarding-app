@@ -19,7 +19,7 @@ android {
             useSupportLibrary = true
         }
         val newsApiKey: String by project
-        buildConfigField("String", "API_KEY", newsApiKey)
+        buildConfigField("String", "API_KEY", "\"9bf05c7546e9499f82ea4df0c24ce8d1\"")
     }
 
     buildTypes {
