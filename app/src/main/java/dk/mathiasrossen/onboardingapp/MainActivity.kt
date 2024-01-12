@@ -23,7 +23,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val sourcesScreenViewModel by viewModels<SourcesScreenViewModel>()
-        sourcesScreenViewModel.fetchSources()
         installSplashScreen().setKeepOnScreenCondition {
             sourcesScreenViewModel.newsSources.value.isEmpty()
         }

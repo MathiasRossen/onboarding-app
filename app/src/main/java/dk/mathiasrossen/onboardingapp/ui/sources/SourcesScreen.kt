@@ -18,7 +18,6 @@ import dk.mathiasrossen.onboardingapp.ui.theme.Typography
 
 @Composable
 fun SourcesScreen(sourcesScreenViewModel: SourcesScreenViewModel = viewModel()) {
-    sourcesScreenViewModel.fetchSources()
     val sourcesState by sourcesScreenViewModel.newsSources.collectAsState()
     LazyColumn(
         contentPadding = PaddingValues(16.dp),
