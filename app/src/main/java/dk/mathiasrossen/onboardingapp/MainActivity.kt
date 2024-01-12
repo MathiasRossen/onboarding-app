@@ -3,6 +3,7 @@ package dk.mathiasrossen.onboardingapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -15,15 +16,19 @@ import dk.mathiasrossen.onboardingapp.navigation.Screen
 import dk.mathiasrossen.onboardingapp.ui.appbar.OnboardingBottomAppBar
 import dk.mathiasrossen.onboardingapp.ui.appbar.OnboardingTopAppBar
 import dk.mathiasrossen.onboardingapp.ui.sources.SourcesScreen
+import dk.mathiasrossen.onboardingapp.ui.sources.SourcesScreenViewModel
 import dk.mathiasrossen.onboardingapp.ui.theme.OnboardingAppTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        installSplashScreen()
+        val sourcesScreenViewModel by viewModels<SourcesScreenViewModel>()
+        sourcesScreenViewModel.fetchSources()
+        installSplashScreen().setKeepOnScreenCondition {
+            sourcesScreenViewModel.newsSources.value.isEmpty()
+        }
         setContent {
             val navController = rememberNavController()
-
             OnboardingAppTheme {
                 Scaffold(
                     topBar = {
@@ -39,7 +44,7 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.padding(innerPadding)
                     ) {
                         composable(Screen.Sources.route) {
-                            SourcesScreen()
+                            SourcesScreen(sourcesScreenViewModel)
                         }
                         composable(Screen.Favorites.route) {
                             Text(text = "Favorites")
