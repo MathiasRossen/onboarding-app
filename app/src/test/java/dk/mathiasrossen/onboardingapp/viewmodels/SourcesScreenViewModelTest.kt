@@ -10,6 +10,7 @@ import org.junit.Assert
 import org.junit.Test
 import org.mockito.BDDMockito.given
 import org.mockito.kotlin.mock
+import org.mockito.kotlin.verify
 
 class SourcesScreenViewModelTest {
     private val service = mock<NewsApiService>()
@@ -29,6 +30,15 @@ class SourcesScreenViewModelTest {
         viewModel = createViewModel()
 
         Assert.assertEquals(mockNewsSourcesResponse.sourcesSorted, viewModel.newsSources.value)
+    }
+
+    @Test
+    fun init_serviceGetsSources() {
+        given(service.getSources()).willReturn(Single.just(NewsSourcesResponse("", emptyList())))
+
+        viewModel = createViewModel()
+
+        verify(service).getSources()
     }
 
     private fun createViewModel() = SourcesScreenViewModel(service, Schedulers.trampoline())
