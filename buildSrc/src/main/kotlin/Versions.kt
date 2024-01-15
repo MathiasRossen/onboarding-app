@@ -22,6 +22,10 @@ object Versions {
     const val HILT_VERSION = "2.48"
     const val HILT_TESTING_VERSION = "2.44"
 
+    // DataStore
+    const val DATASTORE_PREFERENCES_VERSION = "1.0.0"
+    const val DATASTORE_PREFERENCES_RXJAVA_VERSION = "1.0.0"
+
     // Test implementation versions
     const val JUNIT_VERSION = "4.13.2"
     const val MOCKITO_VERSION = "5.5.0"

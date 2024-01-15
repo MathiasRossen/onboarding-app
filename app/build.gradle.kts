@@ -85,6 +85,10 @@ dependencies {
     implementation("com.google.dagger:hilt-android:${Versions.HILT_VERSION}")
     kapt("com.google.dagger:hilt-android-compiler:${Versions.HILT_VERSION}")
 
+    // DataStore
+    implementation("androidx.datastore:datastore-preferences:${Versions.DATASTORE_PREFERENCES_VERSION}")
+    implementation("androidx.datastore:datastore-preferences-rxjava3:${Versions.DATASTORE_PREFERENCES_RXJAVA_VERSION}")
+
     // Test implementations
     testImplementation("junit:junit:${Versions.JUNIT_VERSION}")
     testImplementation("org.mockito:mockito-core:${Versions.MOCKITO_VERSION}")
