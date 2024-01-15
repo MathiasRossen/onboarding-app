@@ -31,11 +31,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
@@ -88,6 +88,9 @@ dependencies {
     // Test implementations
     testImplementation("junit:junit:${Versions.JUNIT_VERSION}")
     testImplementation("org.mockito:mockito-core:${Versions.MOCKITO_VERSION}")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:${Versions.MOCKITO_KOTLIN_VERSION}")
+    testImplementation("com.google.dagger:hilt-android-testing:${Versions.HILT_TESTING_VERSION}")
+    kaptTest("com.google.dagger:hilt-android-compiler:${Versions.HILT_VERSION}")
     androidTestImplementation("androidx.test.ext:junit:${Versions.ANDROIDX_JUNIT_VERSION}")
     androidTestImplementation("androidx.test.espresso:espresso-core:${Versions.ANDROIDX_ESPRESSO_VERSION}")
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")

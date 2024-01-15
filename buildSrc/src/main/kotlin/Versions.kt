@@ -20,10 +20,12 @@ object Versions {
 
     // Hilt
     const val HILT_VERSION = "2.48"
+    const val HILT_TESTING_VERSION = "2.44"
 
     // Test implementation versions
     const val JUNIT_VERSION = "4.13.2"
     const val MOCKITO_VERSION = "5.5.0"
+    const val MOCKITO_KOTLIN_VERSION = "5.1.0"
     const val ANDROIDX_JUNIT_VERSION = "1.1.5"
     const val ANDROIDX_ESPRESSO_VERSION = "3.5.1"
 }
