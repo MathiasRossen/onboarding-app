@@ -14,17 +14,19 @@ import org.mockito.kotlin.verify
 
 class SourcesScreenViewModelTest {
     private val service = mock<NewsApiService>()
+    private val scheduler = Schedulers.trampoline()
     private lateinit var viewModel: SourcesScreenViewModel
+
 
     @Test
     fun init_onSucess_newsSourcesReturned() {
         val mockNewsSourcesResponse = NewsSourcesResponse(
-                "ok",
-                listOf(
-                    createNewsSource("1", "HorseNews"),
-                    createNewsSource("2", "DonkeyNews")
-                )
+            "ok",
+            listOf(
+                createNewsSource("1", "HorseNews"),
+                createNewsSource("2", "DonkeyNews")
             )
+        )
         given(service.getSources()).willReturn(Single.just(mockNewsSourcesResponse))
 
         viewModel = createViewModel()
@@ -41,7 +43,7 @@ class SourcesScreenViewModelTest {
         verify(service).getSources()
     }
 
-    private fun createViewModel() = SourcesScreenViewModel(service, Schedulers.trampoline())
+    private fun createViewModel() = SourcesScreenViewModel(service, scheduler)
 
     private fun createNewsSource(id: String, name: String): NewsSource {
         return NewsSource(
