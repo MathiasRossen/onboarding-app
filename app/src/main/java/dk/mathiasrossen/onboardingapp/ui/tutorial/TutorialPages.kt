@@ -12,11 +12,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import dk.mathiasrossen.onboardingapp.R
 import dk.mathiasrossen.onboardingapp.ui.theme.ButtonColors
 import dk.mathiasrossen.onboardingapp.ui.theme.OnboardingAppTheme
@@ -42,7 +42,7 @@ fun TutorialPageOne(onButtonClick: () -> Unit) {
             contentDescription = null,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
+                .padding(dimensionResource(id = R.dimen.tutorial_page_image_padding))
         )
     }
 }
@@ -77,12 +77,12 @@ private fun TutorialPage(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(36.dp)
+            .padding(dimensionResource(id = R.dimen.tutorial_page_content_padding))
     ) {
         Column(
             modifier = Modifier.weight(1f),
             verticalArrangement = Arrangement.spacedBy(
-                space = 8.dp, Alignment.CenterVertically
+                space = dimensionResource(id = R.dimen.base_arrangement_space_small), Alignment.CenterVertically
             )
         ) {
             content()

@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Base -->
     <dimen name="base_content_padding">16dp</dimen>
+    <dimen name="base_arrangement_space_small">8dp</dimen>
+    <dimen name="base_arrangement_space_medium">16dp</dimen>
+    <dimen name="base_arrangement_space_large">24dp</dimen>
+
+    <!-- Tutorial -->
+    <dimen name="tutorial_page_content_padding">32dp</dimen>
+    <dimen name="tutorial_page_image_padding">16dp</dimen>
 </resources>

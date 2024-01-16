@@ -8,9 +8,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import dk.mathiasrossen.onboardingapp.R
 import dk.mathiasrossen.onboardingapp.models.NewsSource
 import dk.mathiasrossen.onboardingapp.ui.theme.OnboardingAppTheme
 import dk.mathiasrossen.onboardingapp.ui.theme.Typography
@@ -19,8 +20,8 @@ import dk.mathiasrossen.onboardingapp.ui.theme.Typography
 fun SourcesScreen(sourcesScreenViewModel: SourcesScreenViewModel = viewModel()) {
     val sourcesState by sourcesScreenViewModel.newsSources
     LazyColumn(
-        contentPadding = PaddingValues(16.dp),
-        verticalArrangement = Arrangement.spacedBy(26.dp)
+        contentPadding = PaddingValues(dimensionResource(id = R.dimen.base_content_padding)),
+        verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.base_arrangement_space_large))
     ) {
         items(sourcesState) { newsSource ->
             NewsSourceView(newsSource)
@@ -30,7 +31,7 @@ fun SourcesScreen(sourcesScreenViewModel: SourcesScreenViewModel = viewModel()) 
 
 @Composable
 fun NewsSourceView(newsSource: NewsSource) {
-    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+    Column(verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.base_arrangement_space_small))) {
         Text(text = newsSource.name, style = Typography.titleLarge)
         Text(text = newsSource.description, style = Typography.bodyMedium)
     }
