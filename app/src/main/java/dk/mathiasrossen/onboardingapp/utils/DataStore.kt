@@ -1,8 +1,8 @@
 package dk.mathiasrossen.onboardingapp.utils
 
 import android.content.Context
+import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.rxjava3.rxPreferencesDataStore
-import androidx.datastore.rxjava3.RxDataStore
+import androidx.datastore.preferences.preferencesDataStore
 
-val Context.dataStore: RxDataStore<Preferences> by rxPreferencesDataStore("store")
+val Context.dataStore: DataStore<Preferences> by preferencesDataStore("store")
