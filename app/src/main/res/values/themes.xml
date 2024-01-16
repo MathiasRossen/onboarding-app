@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.OnboardingApp" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.OnboardingApp" parent="Theme.AppCompat.Light.NoActionBar" />
 
     <style name="Theme.OnboardingApp.SplashScreen" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/blue_gray_dark</item>

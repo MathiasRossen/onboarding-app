@@ -1,6 +1,8 @@
 plugins {
+    kotlin("kapt")
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -18,6 +20,8 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        buildConfigField("String", "API_BASE_URL", "\"https://newsapi.org\"")
+        buildConfigField("String", "API_KEY", "\"9bf05c7546e9499f82ea4df0c24ce8d1\"")
     }
 
     buildTypes {
@@ -27,14 +31,15 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -47,20 +52,54 @@ android {
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
-    implementation("androidx.activity:activity-compose:1.8.2")
-    implementation(platform("androidx.compose:compose-bom:2023.08.00"))
+    val composeBom = platform("androidx.compose:compose-bom:${Versions.COMPOSE_BOM_VERSION}")
+    implementation(composeBom)
+    androidTestImplementation(composeBom)
+
+    // Android libraries
+    implementation("androidx.core:core-ktx:${Versions.ANDROIDX_CORE_VERSION}")
+    implementation("androidx.core:core-splashscreen:${Versions.ANDROIDX_CORE_SPLASHSCREEN_VERSION}")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:${Versions.ANDROIDX_LIFECYCLE_VERSION}")
+    implementation("androidx.activity:activity-compose:${Versions.ANDROIDX_ACTIVITY_COMPOSE_VERSION}")
+    implementation("androidx.navigation:navigation-compose:${Versions.ANDROIDX_NAVIGATION_COMPOSE_VERSION}")
+    implementation("androidx.appcompat:appcompat:${Versions.ANDROIDX_APPCOMPAT_VERSION}")
+
+    // Jetpack Compose
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
-    implementation("androidx.core:core-splashscreen:1.0.1")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    androidTestImplementation(platform("androidx.compose:compose-bom:2023.08.00"))
+    implementation("androidx.compose.material:material")
+
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:${Versions.RETROFIT_VERSION}")
+    implementation("com.squareup.retrofit2:converter-moshi:${Versions.MOSHI_CONVERTER_VERSION}")
+    implementation("com.squareup.retrofit2:adapter-rxjava3:${Versions.RETROFIT_VERSION}")
+    implementation("com.squareup.okhttp3:logging-interceptor:${Versions.LOGGING_INTERCEPTOR_VERSION}")
+
+    // RxJava
+    implementation("io.reactivex.rxjava3:rxandroid:${Versions.RXANDROID_VERSION}")
+    implementation("io.reactivex.rxjava3:rxjava:${Versions.RXJAVA_VERSION}")
+
+    // Hilt
+    implementation("com.google.dagger:hilt-android:${Versions.HILT_VERSION}")
+    kapt("com.google.dagger:hilt-android-compiler:${Versions.HILT_VERSION}")
+
+    // Test implementations
+    testImplementation("junit:junit:${Versions.JUNIT_VERSION}")
+    testImplementation("org.mockito:mockito-core:${Versions.MOCKITO_VERSION}")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:${Versions.MOCKITO_KOTLIN_VERSION}")
+    testImplementation("com.google.dagger:hilt-android-testing:${Versions.HILT_TESTING_VERSION}")
+    kaptTest("com.google.dagger:hilt-android-compiler:${Versions.HILT_VERSION}")
+    androidTestImplementation("androidx.test.ext:junit:${Versions.ANDROIDX_JUNIT_VERSION}")
+    androidTestImplementation("androidx.test.espresso:espresso-core:${Versions.ANDROIDX_ESPRESSO_VERSION}")
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+
+    // Compose debug implementations
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+}
+
+kapt {
+    correctErrorTypes = true
 }
