@@ -21,6 +21,7 @@ object Versions {
     // Hilt
     const val HILT_VERSION = "2.48"
     const val HILT_TESTING_VERSION = "2.44"
+    const val HILT_NAVIGATION_COMPOSE_VERSION = "1.1.0"
 
     // DataStore
     const val DATASTORE_PREFERENCES_VERSION = "1.0.0"
