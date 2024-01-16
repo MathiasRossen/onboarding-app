@@ -9,6 +9,9 @@ interface NewsApiService {
     @GET("v2/top-headlines/sources")
     fun getSources(@Query("language") language: String = DEFAULT_LANGUAGE): Single<NewsSourcesResponse>
 
+    @GET("v2/everything")
+    fun getArticlesFromSource(@Query("sources") source: String, @Query("language") language: String = DEFAULT_LANGUAGE)
+
     companion object {
         private const val DEFAULT_LANGUAGE = "en"
     }
