@@ -7,5 +7,9 @@ import retrofit2.http.Query
 
 interface NewsApiService {
     @GET("v2/top-headlines/sources")
-    fun getSources(@Query("language") language: String = "en"): Single<NewsSourcesResponse>
+    fun getSources(@Query("language") language: String = DEFAULT_LANGUAGE): Single<NewsSourcesResponse>
+
+    companion object {
+        private const val DEFAULT_LANGUAGE = "en"
+    }
 }
