@@ -13,7 +13,7 @@ object ButtonColors {
 
     @Composable
     fun defaultTonal() = ButtonDefaults.buttonColors(
-        containerColor = Gray,
-        contentColor = GrayLight
+        containerColor = GrayLight,
+        contentColor = Gray
     )
 }
