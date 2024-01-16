@@ -17,7 +17,6 @@ class SourcesScreenViewModelTest {
     private val scheduler = Schedulers.trampoline()
     private lateinit var viewModel: SourcesScreenViewModel
 
-
     @Test
     fun init_onSucess_newsSourcesReturned() {
         val mockNewsSourcesResponse = NewsSourcesResponse(
