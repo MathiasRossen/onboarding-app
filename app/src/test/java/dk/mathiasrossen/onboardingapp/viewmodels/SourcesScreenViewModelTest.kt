@@ -21,8 +21,8 @@ class SourcesScreenViewModelTest {
         val mockNewsSourcesResponse = NewsSourcesResponse(
                 "ok",
                 listOf(
-                    newNewsSource("1", "HorseNews"),
-                    newNewsSource("2", "DonkeyNews")
+                    createNewsSource("1", "HorseNews"),
+                    createNewsSource("2", "DonkeyNews")
                 )
             )
         given(service.getSources()).willReturn(Single.just(mockNewsSourcesResponse))
@@ -43,7 +43,7 @@ class SourcesScreenViewModelTest {
 
     private fun createViewModel() = SourcesScreenViewModel(service, Schedulers.trampoline())
 
-    private fun newNewsSource(id: String, name: String): NewsSource {
+    private fun createNewsSource(id: String, name: String): NewsSource {
         return NewsSource(
             id,
             name,
