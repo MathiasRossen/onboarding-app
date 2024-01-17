@@ -1,7 +1,6 @@
 package dk.mathiasrossen.onboardingapp.ui.tutorial
 
 import androidx.annotation.StringRes
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,40 +11,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import dk.mathiasrossen.onboardingapp.R
 import dk.mathiasrossen.onboardingapp.ui.theme.ButtonColors
 import dk.mathiasrossen.onboardingapp.ui.theme.OnboardingAppTheme
 import dk.mathiasrossen.onboardingapp.ui.theme.Typography
-
-@Composable
-fun TutorialPageOne(onButtonClick: () -> Unit) {
-    TutorialPage(onButtonClick) {
-        Text(
-            text = stringResource(id = R.string.tutorial_screen_one_header),
-            textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth(),
-            style = Typography.headlineLarge
-        )
-        Text(
-            text = stringResource(id = R.string.tutorial_screen_one_subheader),
-            textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth(),
-            style = Typography.titleLarge
-        )
-        Image(
-            painter = painterResource(id = R.drawable.kitten),
-            contentDescription = null,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-        )
-    }
-}
 
 @Composable
 fun TutorialPageTwo(onButtonClick: () -> Unit) {
@@ -69,7 +41,7 @@ fun TutorialPageThree(onButtonClick: () -> Unit) {
 }
 
 @Composable
-private fun TutorialPage(
+fun TutorialPage(
     onButtonClick: () -> Unit,
     @StringRes buttonTextResource: Int = R.string.tutorial_button_next,
     content: @Composable () -> Unit
@@ -94,14 +66,6 @@ private fun TutorialPage(
         ) {
             Text(text = stringResource(buttonTextResource))
         }
-    }
-}
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-private fun TutorialPageOnePreview() {
-    OnboardingAppTheme {
-        TutorialPageOne { }
     }
 }
 
