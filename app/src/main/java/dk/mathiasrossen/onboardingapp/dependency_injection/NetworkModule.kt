@@ -1,5 +1,6 @@
 package dk.mathiasrossen.onboardingapp.dependency_injection
 
+import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -7,6 +8,7 @@ import dagger.hilt.components.SingletonComponent
 import dk.mathiasrossen.onboardingapp.BuildConfig
 import dk.mathiasrossen.onboardingapp.api.AuthorizationInterceptor
 import dk.mathiasrossen.onboardingapp.api.NewsApiService
+import dk.mathiasrossen.onboardingapp.utils.LocalDateTimeAdapter
 import io.reactivex.rxjava3.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -24,12 +26,18 @@ object NetworkModule {
         .build()
 
     @Provides
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
-        .baseUrl(BuildConfig.API_BASE_URL)
-        .addConverterFactory(MoshiConverterFactory.create())
-        .addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(Schedulers.io()))
-        .client(okHttpClient)
-        .build()
+    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
+        val moshi = Moshi.Builder()
+            .add(LocalDateTimeAdapter())
+            .build()
+
+        return Retrofit.Builder()
+            .baseUrl(BuildConfig.API_BASE_URL)
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(Schedulers.io()))
+            .client(okHttpClient)
+            .build()
+    }
 
     @Provides
     fun provideNewsApiService(retrofit: Retrofit): NewsApiService = retrofit.create(NewsApiService::class.java)
