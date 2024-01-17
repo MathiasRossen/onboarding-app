@@ -30,6 +30,9 @@ object Versions {
     // Joda time
     const val JODA_TIME_VERSION = "2.12.6"
 
+    // Coil
+    const val COIL_COMPOSE_VERSION = "2.5.0"
+
     // Test implementation versions
     const val JUNIT_VERSION = "4.13.2"
     const val MOCKITO_VERSION = "5.5.0"

@@ -93,6 +93,9 @@ dependencies {
     // Joda time
     implementation("joda-time:joda-time:${Versions.JODA_TIME_VERSION}")
 
+    // Coil
+    implementation("io.coil-kt:coil-compose:${Versions.COIL_COMPOSE_VERSION}")
+
     // Test implementations
     testImplementation("junit:junit:${Versions.JUNIT_VERSION}")
     testImplementation("org.mockito:mockito-core:${Versions.MOCKITO_VERSION}")
