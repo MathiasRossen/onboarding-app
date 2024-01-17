@@ -20,16 +20,6 @@ import dk.mathiasrossen.onboardingapp.ui.theme.OnboardingAppTheme
 import dk.mathiasrossen.onboardingapp.ui.theme.Typography
 
 @Composable
-fun TutorialPageTwo(onButtonClick: () -> Unit) {
-    TutorialPage(onButtonClick) {
-        Text(
-            text = stringResource(id = R.string.tutorial_screen_two_description),
-            style = Typography.titleLarge
-        )
-    }
-}
-
-@Composable
 fun TutorialPageThree(onButtonClick: () -> Unit) {
     TutorialPage(onButtonClick, buttonTextResource = R.string.tutorial_screen_three_button) {
         Text(
@@ -66,14 +56,6 @@ fun TutorialPage(
         ) {
             Text(text = stringResource(buttonTextResource))
         }
-    }
-}
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-private fun TutorialPageTwoPreview() {
-    OnboardingAppTheme {
-        TutorialPageTwo { }
     }
 }
 
