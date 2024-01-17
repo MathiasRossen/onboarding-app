@@ -1,4 +1,4 @@
-package dk.mathiasrossen.onboardingapp.ui.articles
+package dk.mathiasrossen.onboardingapp.ui.articles.list
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle

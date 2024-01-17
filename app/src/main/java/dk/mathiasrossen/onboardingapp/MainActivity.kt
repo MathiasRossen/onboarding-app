@@ -19,8 +19,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import dk.mathiasrossen.onboardingapp.navigation.Screen
 import dk.mathiasrossen.onboardingapp.ui.appbar.OnboardingBottomAppBar
 import dk.mathiasrossen.onboardingapp.ui.appbar.OnboardingTopAppBar
-import dk.mathiasrossen.onboardingapp.ui.articles.ArticleList
-import dk.mathiasrossen.onboardingapp.ui.articles.ArticleListViewModel
+import dk.mathiasrossen.onboardingapp.ui.articles.list.ArticleList
+import dk.mathiasrossen.onboardingapp.ui.articles.list.ArticleListViewModel
 import dk.mathiasrossen.onboardingapp.ui.sources.SourcesScreen
 import dk.mathiasrossen.onboardingapp.ui.sources.SourcesScreenViewModel
 import dk.mathiasrossen.onboardingapp.ui.theme.OnboardingAppTheme
