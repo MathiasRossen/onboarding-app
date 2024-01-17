@@ -20,22 +20,18 @@ import dk.mathiasrossen.onboardingapp.ui.appbar.OnboardingTopAppBar
 import dk.mathiasrossen.onboardingapp.ui.sources.SourcesScreen
 import dk.mathiasrossen.onboardingapp.ui.sources.SourcesScreenViewModel
 import dk.mathiasrossen.onboardingapp.ui.theme.OnboardingAppTheme
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.runBlocking
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val mainActivityViewModel: MainActivityViewModel by viewModels()
+        mainActivityViewModel.isTutorialCompleted.observe(this) { isTutorialCompleted ->
+            if (!isTutorialCompleted) {
+                startActivity(Intent(this, TutorialActivity::class.java))
+            }
+        }
         val sourcesScreenViewModel: SourcesScreenViewModel by viewModels()
-        val isTutorialCompleted: Boolean
-        runBlocking(Dispatchers.IO) {
-            isTutorialCompleted = TutorialActivity.isTutorialCompleted(this@MainActivity).first()
-        }
-        if (!isTutorialCompleted) {
-            startActivity(Intent(this, TutorialActivity::class.java))
-        }
         installSplashScreen().setKeepOnScreenCondition {
             sourcesScreenViewModel.newsSources.value.isEmpty()
         }
