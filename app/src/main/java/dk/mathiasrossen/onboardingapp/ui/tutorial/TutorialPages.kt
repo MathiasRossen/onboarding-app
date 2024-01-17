@@ -12,23 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import dk.mathiasrossen.onboardingapp.R
 import dk.mathiasrossen.onboardingapp.ui.theme.ButtonColors
-import dk.mathiasrossen.onboardingapp.ui.theme.OnboardingAppTheme
-import dk.mathiasrossen.onboardingapp.ui.theme.Typography
-
-@Composable
-fun TutorialPageThree(onButtonClick: () -> Unit) {
-    TutorialPage(onButtonClick, buttonTextResource = R.string.tutorial_screen_three_button) {
-        Text(
-            text = stringResource(id = R.string.tutorial_screen_three_description),
-            style = Typography.titleLarge
-        )
-        Text(text = stringResource(R.string.tutorial_screen_three_motivational_text), style = Typography.headlineLarge)
-    }
-}
 
 @Composable
 fun TutorialPage(
@@ -56,13 +42,5 @@ fun TutorialPage(
         ) {
             Text(text = stringResource(buttonTextResource))
         }
-    }
-}
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-private fun TutorialPageThreePreview() {
-    OnboardingAppTheme {
-        TutorialPageThree { }
     }
 }
