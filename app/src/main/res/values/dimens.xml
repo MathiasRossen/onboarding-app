@@ -10,4 +10,7 @@
     <!-- Tutorial -->
     <dimen name="tutorial_page_content_padding">32dp</dimen>
     <dimen name="tutorial_page_image_padding">16dp</dimen>
+
+    <!-- Articles -->
+    <dimen name="articles_image_width">100dp</dimen>
 </resources>
