@@ -10,13 +10,17 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import dk.mathiasrossen.onboardingapp.navigation.Screen
 import dk.mathiasrossen.onboardingapp.ui.appbar.OnboardingBottomAppBar
 import dk.mathiasrossen.onboardingapp.ui.appbar.OnboardingTopAppBar
+import dk.mathiasrossen.onboardingapp.ui.articles.ArticleList
+import dk.mathiasrossen.onboardingapp.ui.articles.ArticleListViewModel
 import dk.mathiasrossen.onboardingapp.ui.sources.SourcesScreen
 import dk.mathiasrossen.onboardingapp.ui.sources.SourcesScreenViewModel
 import dk.mathiasrossen.onboardingapp.ui.theme.OnboardingAppTheme
@@ -53,10 +57,18 @@ class MainActivity : AppCompatActivity() {
                     NavHost(
                         navController = navController,
                         startDestination = Screen.Sources.route,
-                        modifier = Modifier.padding(innerPadding)
+                        modifier = Modifier.padding(innerPadding),
                     ) {
-                        composable(Screen.Sources.route) {
-                            SourcesScreen(sourcesScreenViewModel)
+                        navigation(startDestination = Screen.Sources.routeMain, route = Screen.Sources.route) {
+                            composable(Screen.Sources.routeMain) {
+                                SourcesScreen(sourcesScreenViewModel) { articleId ->
+                                    navController.navigate("articles/${articleId}")
+                                }
+                            }
+                            composable(Screen.Sources.routeArticles) {
+                                val articleListViewModel = hiltViewModel<ArticleListViewModel>()
+                                ArticleList(articleListViewModel)
+                            }
                         }
                         composable(Screen.Favorites.route) {
                             Text(text = "Favorites")
