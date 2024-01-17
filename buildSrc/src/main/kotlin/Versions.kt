@@ -27,6 +27,9 @@ object Versions {
     const val DATASTORE_PREFERENCES_VERSION = "1.0.0"
     const val DATASTORE_PREFERENCES_RXJAVA_VERSION = "1.0.0"
 
+    // Joda time
+    const val JODA_TIME_VERSION = "2.12.6"
+
     // Test implementation versions
     const val JUNIT_VERSION = "4.13.2"
     const val MOCKITO_VERSION = "5.5.0"
