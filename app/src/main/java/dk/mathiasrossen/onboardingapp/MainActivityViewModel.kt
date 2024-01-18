@@ -1,25 +1,42 @@
 package dk.mathiasrossen.onboardingapp
 
+import android.util.Log
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dk.mathiasrossen.onboardingapp.dependency_injection.DataStoreModule
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainActivityViewModel @Inject constructor(dataStore: DataStore<Preferences>) : ViewModel() {
-    private val _isTutorialCompleted = MutableLiveData(false)
-    val isTutorialCompleted: LiveData<Boolean> = _isTutorialCompleted
+class MainActivityViewModel @Inject constructor(private val dataStore: DataStore<Preferences>) : ViewModel() {
+    var isTutorialCompleted by mutableStateOf(false)
+        private set
 
     init {
-        val key  = booleanPreferencesKey(DataStoreModule.KEY_TUTORIAL_COMPLETED)
-        dataStore.data.map { preferences ->
-            _isTutorialCompleted.postValue(preferences[key] ?: false)
+        viewModelScope.launch {
+            val preferences = dataStore.data.first()
+            val key = booleanPreferencesKey(DataStoreModule.KEY_TUTORIAL_COMPLETED)
+            isTutorialCompleted = preferences[key] ?: false
+        }
+    }
+
+    fun completeTutorial() {
+        viewModelScope.launch {
+            dataStore.edit { settings ->
+                val key = booleanPreferencesKey(DataStoreModule.KEY_TUTORIAL_COMPLETED)
+                settings[key] = true
+                isTutorialCompleted = true
+            }
         }
     }
 }
