@@ -33,4 +33,5 @@ object Versions {
     const val MOCKITO_KOTLIN_VERSION = "5.1.0"
     const val ANDROIDX_JUNIT_VERSION = "1.1.5"
     const val ANDROIDX_ESPRESSO_VERSION = "3.5.1"
+    const val COROUTINES_TEST_VERSION = "1.7.3"
 }

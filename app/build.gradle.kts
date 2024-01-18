@@ -95,6 +95,7 @@ dependencies {
     testImplementation("org.mockito:mockito-core:${Versions.MOCKITO_VERSION}")
     testImplementation("org.mockito.kotlin:mockito-kotlin:${Versions.MOCKITO_KOTLIN_VERSION}")
     testImplementation("com.google.dagger:hilt-android-testing:${Versions.HILT_TESTING_VERSION}")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.COROUTINES_TEST_VERSION}")
     kaptTest("com.google.dagger:hilt-android-compiler:${Versions.HILT_VERSION}")
     androidTestImplementation("androidx.test.ext:junit:${Versions.ANDROIDX_JUNIT_VERSION}")
     androidTestImplementation("androidx.test.espresso:espresso-core:${Versions.ANDROIDX_ESPRESSO_VERSION}")
