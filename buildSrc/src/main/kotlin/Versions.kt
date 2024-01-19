@@ -9,6 +9,9 @@ object Versions {
     // Jetpack Compose version
     const val COMPOSE_BOM_VERSION = "2023.10.01"
 
+    // Room
+    const val ROOM_VERSION = "2.6.1"
+
     // Retrofit
     const val RETROFIT_VERSION = "2.9.0"
     const val MOSHI_CONVERTER_VERSION = "2.9.0"

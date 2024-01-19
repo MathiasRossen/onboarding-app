@@ -72,6 +72,12 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.material:material")
 
+    // Room
+    implementation("androidx.room:room-runtime:${Versions.ROOM_VERSION}")
+    annotationProcessor("androidx.room:room-compiler:${Versions.ROOM_VERSION}")
+    ksp("androidx.room:room-compiler:${Versions.ROOM_VERSION}")
+    implementation("androidx.room:room-rxjava3:${Versions.ROOM_VERSION}")
+
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:${Versions.RETROFIT_VERSION}")
     implementation("com.squareup.retrofit2:converter-moshi:${Versions.MOSHI_CONVERTER_VERSION}")
