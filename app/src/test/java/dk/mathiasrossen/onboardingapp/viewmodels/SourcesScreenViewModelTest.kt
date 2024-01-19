@@ -18,7 +18,7 @@ class SourcesScreenViewModelTest {
     private lateinit var viewModel: SourcesScreenViewModel
 
     @Test
-    fun init_onSucess_newsSourcesReturned() {
+    fun init_onSuccess_newsSourcesReturned() {
         val mockNewsSourcesResponse = NewsSourcesResponse(
             "ok",
             listOf(
