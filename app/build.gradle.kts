@@ -1,5 +1,4 @@
 plugins {
-    kotlin("kapt")
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.dagger.hilt.android")
@@ -90,7 +89,7 @@ dependencies {
 
     // Hilt
     implementation("com.google.dagger:hilt-android:${Versions.HILT_VERSION}")
-    kapt("com.google.dagger:hilt-android-compiler:${Versions.HILT_VERSION}")
+    ksp("com.google.dagger:hilt-android-compiler:${Versions.HILT_VERSION}")
     implementation("androidx.hilt:hilt-navigation-compose:${Versions.HILT_NAVIGATION_COMPOSE_VERSION}")
 
     // DataStore
@@ -109,7 +108,7 @@ dependencies {
     testImplementation("org.mockito.kotlin:mockito-kotlin:${Versions.MOCKITO_KOTLIN_VERSION}")
     testImplementation("com.google.dagger:hilt-android-testing:${Versions.HILT_TESTING_VERSION}")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.COROUTINES_TEST_VERSION}")
-    kaptTest("com.google.dagger:hilt-android-compiler:${Versions.HILT_VERSION}")
+    kspTest("com.google.dagger:hilt-android-compiler:${Versions.HILT_VERSION}")
     androidTestImplementation("androidx.test.ext:junit:${Versions.ANDROIDX_JUNIT_VERSION}")
     androidTestImplementation("androidx.test.espresso:espresso-core:${Versions.ANDROIDX_ESPRESSO_VERSION}")
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
@@ -117,8 +116,4 @@ dependencies {
     // Compose debug implementations
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
-}
-
-kapt {
-    correctErrorTypes = true
 }
