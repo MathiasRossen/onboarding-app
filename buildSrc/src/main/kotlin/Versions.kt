@@ -21,6 +21,11 @@ object Versions {
     // Hilt
     const val HILT_VERSION = "2.48"
     const val HILT_TESTING_VERSION = "2.44"
+    const val HILT_NAVIGATION_COMPOSE_VERSION = "1.1.0"
+
+    // DataStore
+    const val DATASTORE_PREFERENCES_VERSION = "1.0.0"
+    const val DATASTORE_PREFERENCES_RXJAVA_VERSION = "1.0.0"
 
     // Test implementation versions
     const val JUNIT_VERSION = "4.13.2"
@@ -28,4 +33,5 @@ object Versions {
     const val MOCKITO_KOTLIN_VERSION = "5.1.0"
     const val ANDROIDX_JUNIT_VERSION = "1.1.5"
     const val ANDROIDX_ESPRESSO_VERSION = "3.5.1"
+    const val COROUTINES_TEST_VERSION = "1.7.3"
 }
