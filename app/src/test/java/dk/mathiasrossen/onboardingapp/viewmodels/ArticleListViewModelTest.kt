@@ -5,6 +5,7 @@ import dk.mathiasrossen.onboardingapp.api.NewsApiService
 import dk.mathiasrossen.onboardingapp.api.response_models.ArticlesResponse
 import dk.mathiasrossen.onboardingapp.models.Article
 import dk.mathiasrossen.onboardingapp.ui.articles.ArticleListViewModel
+import dk.mathiasrossen.onboardingapp.ui.articles.SortState
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import org.junit.Assert
@@ -50,6 +51,35 @@ class ArticleListViewModelTest {
     @Test
     fun init_onSuccess_articlesReturned() {
         Assert.assertEquals(mockArticleResponse.articles, viewModel.articles.value)
+    }
+
+    @Test
+    fun sortByPopularToday_sortStateEqualsPopularToday() {
+        viewModel.sortByPopularToday()
+
+        Assert.assertEquals(SortState.POPULAR_TODAY, viewModel.sortState.value)
+    }
+
+    @Test
+    fun sortByPopularAll_sortStateEqualsPopularAll() {
+        given(service.getArticlesFromSource(eq(sourceId), any(), any(), eq(null))).willReturn(
+            Single.just(mockArticleResponse)
+        )
+
+        viewModel.sortByPopularAllTime()
+
+        Assert.assertEquals(SortState.POPULAR_ALL_TIME, viewModel.sortState.value)
+    }
+
+    @Test
+    fun sortByNewest_sortStateEqualsNewest() {
+        given(service.getArticlesFromSource(eq(sourceId), any(), any(), eq(null))).willReturn(
+            Single.just(mockArticleResponse)
+        )
+
+        viewModel.sortByNewest()
+
+        Assert.assertEquals(SortState.NEWEST, viewModel.sortState.value)
     }
 
     private fun createViewModel() = ArticleListViewModel(service, scheduler, savedStateHandle)
