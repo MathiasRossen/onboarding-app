@@ -70,6 +70,6 @@ class ArticleListViewModel @Inject constructor(
     }
 
     companion object {
-        private const val SOURCE_ID_KEY = "sourceId"
+        const val SOURCE_ID_KEY = "sourceId"
     }
 }
