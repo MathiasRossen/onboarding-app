@@ -91,9 +91,6 @@ dependencies {
     implementation("androidx.datastore:datastore-preferences:${Versions.DATASTORE_PREFERENCES_VERSION}")
     implementation("androidx.datastore:datastore-preferences-rxjava3:${Versions.DATASTORE_PREFERENCES_RXJAVA_VERSION}")
 
-    // Joda time
-    implementation("joda-time:joda-time:${Versions.JODA_TIME_VERSION}")
-
     // Coil
     implementation("io.coil-kt:coil-compose:${Versions.COIL_COMPOSE_VERSION}")
 

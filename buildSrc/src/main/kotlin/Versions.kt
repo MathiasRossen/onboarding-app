@@ -27,9 +27,6 @@ object Versions {
     const val DATASTORE_PREFERENCES_VERSION = "1.0.0"
     const val DATASTORE_PREFERENCES_RXJAVA_VERSION = "1.0.0"
 
-    // Joda time
-    const val JODA_TIME_VERSION = "2.12.6"
-
     // Coil
     const val COIL_COMPOSE_VERSION = "2.5.0"
 
