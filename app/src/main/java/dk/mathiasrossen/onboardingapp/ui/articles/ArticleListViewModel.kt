@@ -37,7 +37,11 @@ class ArticleListViewModel @Inject constructor(
         isRefreshing.value = true
 
         val sortBy =
-            if (sortState.value == SortState.POPULAR_TODAY || sortState.value == SortState.POPULAR_ALL_TIME) NewsApiService.SORT_BY_POPULAR else NewsApiService.SORT_BY_PUBLISHED_AT
+            if (sortState.value == SortState.POPULAR_TODAY || sortState.value == SortState.POPULAR_ALL_TIME) {
+                NewsApiService.SORT_BY_POPULAR
+            } else {
+                NewsApiService.SORT_BY_PUBLISHED_AT
+            }
         val yesterday = LocalDate().minusDays(1)
         val from = if (sortState.value == SortState.POPULAR_TODAY) yesterday.toString() else null
 
