@@ -33,7 +33,6 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
-        isCoreLibraryDesugaringEnabled = true
     }
     kotlinOptions {
         jvmTarget = "17"
@@ -93,9 +92,6 @@ dependencies {
 
     // Coil
     implementation("io.coil-kt:coil-compose:${Versions.COIL_COMPOSE_VERSION}")
-
-    // Core library desugaring
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:${Versions.CORE_LIBRARY_DESUGARING_VERSION}")
 
     // Test implementations
     testImplementation("junit:junit:${Versions.JUNIT_VERSION}")
