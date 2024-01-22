@@ -33,6 +33,9 @@ object Versions {
     // Coil
     const val COIL_COMPOSE_VERSION = "2.5.0"
 
+    // Core library desugaring
+    const val CORE_LIBRARY_DESUGARING_VERSION = "2.0.4"
+
     // Test implementation versions
     const val JUNIT_VERSION = "4.13.2"
     const val MOCKITO_VERSION = "5.5.0"
