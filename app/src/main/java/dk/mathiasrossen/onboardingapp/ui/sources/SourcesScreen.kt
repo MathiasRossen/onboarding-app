@@ -12,7 +12,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import dk.mathiasrossen.onboardingapp.R
 import dk.mathiasrossen.onboardingapp.models.NewsSource
 import dk.mathiasrossen.onboardingapp.ui.theme.OnboardingAppTheme
@@ -20,7 +20,7 @@ import dk.mathiasrossen.onboardingapp.ui.theme.Typography
 
 @Composable
 fun SourcesScreen(
-    sourcesScreenViewModel: SourcesScreenViewModel = viewModel(),
+    sourcesScreenViewModel: SourcesScreenViewModel = hiltViewModel(),
     onNewsSourceClick: (sourceId: String) -> Unit
 ) {
     val sourcesState by sourcesScreenViewModel.newsSources
