@@ -5,7 +5,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -14,7 +13,6 @@ import dk.mathiasrossen.onboardingapp.navigation.Screen
 import dk.mathiasrossen.onboardingapp.ui.appbar.OnboardingBottomAppBar
 import dk.mathiasrossen.onboardingapp.ui.appbar.OnboardingTopAppBar
 import dk.mathiasrossen.onboardingapp.ui.articles.ArticleList
-import dk.mathiasrossen.onboardingapp.ui.articles.ArticleListViewModel
 import dk.mathiasrossen.onboardingapp.ui.sources.SourcesScreen
 import dk.mathiasrossen.onboardingapp.ui.sources.SourcesScreenViewModel
 import dk.mathiasrossen.onboardingapp.ui.theme.OnboardingAppTheme
@@ -43,8 +41,7 @@ fun MainScreen(sourcesScreenViewModel: SourcesScreenViewModel) {
                         }
                     }
                     composable(Screen.Sources.routeArticles) {
-                        val articleListViewModel = hiltViewModel<ArticleListViewModel>()
-                        ArticleList(articleListViewModel)
+                        ArticleList()
                     }
                 }
                 composable(Screen.Favorites.route) {
