@@ -17,14 +17,14 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import dk.mathiasrossen.onboardingapp.R
 import dk.mathiasrossen.onboardingapp.models.Article
 import dk.mathiasrossen.onboardingapp.ui.theme.ButtonColors
 import dk.mathiasrossen.onboardingapp.ui.theme.OnboardingAppTheme
 
 @Composable
-fun ArticleList(articleListViewModel: ArticleListViewModel = viewModel()) {
+fun ArticleList(articleListViewModel: ArticleListViewModel = hiltViewModel()) {
     ArticleList(
         articleListViewModel.articles.value,
         articleListViewModel.sortState.value,
@@ -47,15 +47,6 @@ fun ArticleList(
     onPopularAllTimeClick: () -> Unit,
     onNewestClick: () -> Unit
 ) {
-    val sortButtonItems = listOf(
-        SortButton(R.string.article_list_button_sort_popular_today, SortState.POPULAR_TODAY, onPopularTodayClick),
-        SortButton(
-            R.string.article_list_button_sort_popular_all_time,
-            SortState.POPULAR_ALL_TIME,
-            onPopularAllTimeClick
-        ),
-        SortButton(R.string.article_list_button_sort_newest, SortState.NEWEST, onNewestClick)
-    )
     val pullRefreshState =
         rememberPullRefreshState(refreshing = isRefreshing, onRefresh = onRefresh, refreshThreshold = 120.dp)
     LazyColumn(modifier = Modifier.pullRefresh(pullRefreshState)) {
@@ -71,11 +62,20 @@ fun ArticleList(
                     dimensionResource(id = R.dimen.base_arrangement_space_medium)
                 )
             ) {
-                items(sortButtonItems) { sortButton ->
+                items(SortState.entries) { sortState ->
                     val colors =
-                        if (sortButton.sortState == currentSortState) ButtonColors.defaultFilled() else ButtonColors.defaultTonal()
-                    Button(onClick = sortButton.onClick, colors = colors) {
-                        Text(stringResource(id = sortButton.titleResource))
+                        if (sortState == currentSortState) {
+                            ButtonColors.defaultFilled()
+                        } else {
+                            ButtonColors.defaultTonal()
+                        }
+                    val onButtonClick = when (sortState) {
+                        SortState.POPULAR_TODAY -> onPopularTodayClick
+                        SortState.POPULAR_ALL_TIME -> onPopularAllTimeClick
+                        else -> onNewestClick
+                    }
+                    Button(onClick = onButtonClick, colors = colors) {
+                        Text(stringResource(id = sortState.title))
                     }
                 }
             }
