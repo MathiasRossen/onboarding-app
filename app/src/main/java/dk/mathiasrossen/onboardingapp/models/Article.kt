@@ -1,6 +1,7 @@
 package dk.mathiasrossen.onboardingapp.models
 
-import org.joda.time.LocalDateTime
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 data class Article(
     val source: Source,
@@ -12,7 +13,10 @@ data class Article(
     val publishedAt: LocalDateTime,
     val content: String
 ) {
-    val authorAndPublishedAt get() = "$author - ${publishedAt.toString("yyyy-MM-dd HH:mm")}"
+    val authorAndPublishedAt: String get() {
+        val formattedDate = publishedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
+        return "$author - $formattedDate"
+    }
 
     data class Source(val id: String?, val name: String)
 
@@ -24,7 +28,7 @@ data class Article(
             "This horse can do a lot of fabolous tricks. The funny thing about my horse is that if you lick it, you get the taste of raisins.",
             "",
             "",
-            LocalDateTime("2024-01-16T10:05:12"),
+            LocalDateTime.parse("2024-01-16T10:05:12"),
             ""
         )
     }

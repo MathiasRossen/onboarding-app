@@ -8,7 +8,7 @@ import dk.mathiasrossen.onboardingapp.api.NewsApiService
 import dk.mathiasrossen.onboardingapp.models.Article
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.disposables.Disposable
-import org.joda.time.LocalDate
+import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
@@ -42,7 +42,7 @@ class ArticleListViewModel @Inject constructor(
             } else {
                 NewsApiService.SORT_BY_PUBLISHED_AT
             }
-        val yesterday = LocalDate().minusDays(1)
+        val yesterday = LocalDate.now().minusDays(1)
         val from = if (sortState.value == SortState.POPULAR_TODAY) yesterday.toString() else null
 
         disposable = newsApiService.getArticlesFromSource(sourceId, sortBy = sortBy, from = from)
