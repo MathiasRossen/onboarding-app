@@ -12,7 +12,7 @@ import androidx.navigation.navigation
 import dk.mathiasrossen.onboardingapp.navigation.Screen
 import dk.mathiasrossen.onboardingapp.ui.appbar.OnboardingBottomAppBar
 import dk.mathiasrossen.onboardingapp.ui.appbar.OnboardingTopAppBar
-import dk.mathiasrossen.onboardingapp.ui.articles.ArticleList
+import dk.mathiasrossen.onboardingapp.ui.articles.ArticlesScreen
 import dk.mathiasrossen.onboardingapp.ui.sources.SourcesScreen
 import dk.mathiasrossen.onboardingapp.ui.sources.SourcesScreenViewModel
 import dk.mathiasrossen.onboardingapp.ui.theme.OnboardingAppTheme
@@ -41,7 +41,7 @@ fun MainScreen(sourcesScreenViewModel: SourcesScreenViewModel) {
                         }
                     }
                     composable(Screen.Sources.routeArticles) {
-                        ArticleList()
+                        ArticlesScreen()
                     }
                 }
                 composable(Screen.Favorites.route) {
