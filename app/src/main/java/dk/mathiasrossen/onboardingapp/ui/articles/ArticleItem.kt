@@ -46,7 +46,7 @@ fun ArticleItem(article: Article, showDivider: Boolean) {
             }
         }
         if (showDivider) {
-            Divider(modifier = Modifier.run { height(dimensionResource(id = R.dimen.base_divider_size)) })
+            Divider(modifier = Modifier.height(dimensionResource(id = R.dimen.base_divider_size)))
         }
     }
 }
