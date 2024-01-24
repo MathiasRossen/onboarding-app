@@ -24,28 +24,24 @@ import dk.mathiasrossen.onboardingapp.ui.theme.ButtonColors
 import dk.mathiasrossen.onboardingapp.ui.theme.OnboardingAppTheme
 
 @Composable
-fun ArticleList(articleListViewModel: ArticleListViewModel = hiltViewModel()) {
-    ArticleList(
-        articleListViewModel.articles.value,
-        articleListViewModel.sortState.value,
-        articleListViewModel.isRefreshing.value,
-        articleListViewModel::refresh,
-        articleListViewModel::sortByPopularToday,
-        articleListViewModel::sortByPopularAllTime,
-        articleListViewModel::sortByNewest
+fun ArticlesScreen(articlesScreenViewModel: ArticlesScreenViewModel = hiltViewModel()) {
+    ArticlesScreen(
+        articlesScreenViewModel.articles.value,
+        articlesScreenViewModel.sortState.value,
+        articlesScreenViewModel.isRefreshing.value,
+        articlesScreenViewModel::refresh,
+        articlesScreenViewModel::setSortState
     )
 }
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun ArticleList(
+private fun ArticlesScreen(
     articles: List<Article>,
     currentSortState: SortState,
     isRefreshing: Boolean,
     onRefresh: () -> Unit,
-    onPopularTodayClick: () -> Unit,
-    onPopularAllTimeClick: () -> Unit,
-    onNewestClick: () -> Unit
+    onSortOptionClick: (sortState: SortState) -> Unit
 ) {
     val pullRefreshState =
         rememberPullRefreshState(refreshing = isRefreshing, onRefresh = onRefresh, refreshThreshold = 120.dp)
@@ -63,18 +59,12 @@ fun ArticleList(
                 )
             ) {
                 items(SortState.entries) { sortState ->
-                    val colors =
-                        if (sortState == currentSortState) {
-                            ButtonColors.defaultFilled()
-                        } else {
-                            ButtonColors.defaultTonal()
-                        }
-                    val onButtonClick = when (sortState) {
-                        SortState.POPULAR_TODAY -> onPopularTodayClick
-                        SortState.POPULAR_ALL_TIME -> onPopularAllTimeClick
-                        else -> onNewestClick
+                    val colors = if (sortState == currentSortState) {
+                        ButtonColors.defaultFilled()
+                    } else {
+                        ButtonColors.defaultTonal()
                     }
-                    Button(onClick = onButtonClick, colors = colors) {
+                    Button(onClick = { onSortOptionClick(sortState) }, colors = colors) {
                         Text(stringResource(id = sortState.title))
                     }
                 }
@@ -90,12 +80,10 @@ fun ArticleList(
 @Composable
 private fun ArticleListPreview() {
     OnboardingAppTheme {
-        ArticleList(
+        ArticlesScreen(
             listOf(Article.createSample(), Article.createSample(), Article.createSample()),
             SortState.POPULAR_TODAY,
             true,
-            {},
-            {},
             {},
             {}
         )
