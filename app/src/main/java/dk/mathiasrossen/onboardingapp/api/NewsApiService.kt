@@ -19,7 +19,7 @@ interface NewsApiService {
     ): Single<ArticlesResponse>
 
     companion object {
-        private const val DEFAULT_LANGUAGE = "en"
+        const val DEFAULT_LANGUAGE = "en"
         const val SORT_BY_POPULAR = "popularity"
         const val SORT_BY_PUBLISHED_AT = "publishedAt"
     }
