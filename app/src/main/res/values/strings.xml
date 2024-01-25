@@ -15,8 +15,8 @@
     <string name="tutorial_screen_three_button">Begin</string>
     <string name="tutorial_screen_three_motivational_text">I believe in you!</string>
 
-    <!-- ArticleList -->
-    <string name="article_list_button_sort_popular_today">Popular today</string>
-    <string name="article_list_button_sort_popular_all_time">Popular all time</string>
-    <string name="article_list_button_sort_newest">Newest</string>
+    <!-- Articles -->
+    <string name="articles_screen_button_sort_popular_today">Popular today</string>
+    <string name="articles_screen_button_sort_popular_all_time">Popular all time</string>
+    <string name="articles_screen_button_sort_newest">Newest</string>
 </resources>

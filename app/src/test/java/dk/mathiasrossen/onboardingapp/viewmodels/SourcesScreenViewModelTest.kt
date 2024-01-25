@@ -2,7 +2,6 @@ package dk.mathiasrossen.onboardingapp.viewmodels
 
 import dk.mathiasrossen.onboardingapp.api.NewsApiService
 import dk.mathiasrossen.onboardingapp.api.response_models.NewsSourcesResponse
-import dk.mathiasrossen.onboardingapp.models.NewsSource
 import dk.mathiasrossen.onboardingapp.ui.sources.SourcesScreenViewModel
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -44,8 +43,8 @@ class SourcesScreenViewModelTest {
 
     private fun createViewModel() = SourcesScreenViewModel(service, scheduler)
 
-    private fun createNewsSource(id: String, name: String): NewsSource {
-        return NewsSource(
+    private fun createNewsSource(id: String, name: String): NewsSourcesResponse.NewsSource {
+        return NewsSourcesResponse.NewsSource(
             id,
             name,
             "Your trusted source for breaking news, analysis, exclusive interviews, headlines, and videos related to horses at Horsenews.com",

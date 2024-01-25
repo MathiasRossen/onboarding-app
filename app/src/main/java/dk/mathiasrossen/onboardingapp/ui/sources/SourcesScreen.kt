@@ -12,15 +12,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import dk.mathiasrossen.onboardingapp.R
-import dk.mathiasrossen.onboardingapp.models.NewsSource
+import dk.mathiasrossen.onboardingapp.api.response_models.NewsSourcesResponse
 import dk.mathiasrossen.onboardingapp.ui.theme.OnboardingAppTheme
 import dk.mathiasrossen.onboardingapp.ui.theme.Typography
 
 @Composable
 fun SourcesScreen(
-    sourcesScreenViewModel: SourcesScreenViewModel = viewModel(),
+    sourcesScreenViewModel: SourcesScreenViewModel = hiltViewModel(),
     onNewsSourceClick: (sourceId: String) -> Unit
 ) {
     val sourcesState by sourcesScreenViewModel.newsSources
@@ -35,7 +35,7 @@ fun SourcesScreen(
 }
 
 @Composable
-fun NewsSourceView(newsSource: NewsSource, onNewsSourceClick: (sourceId: String) -> Unit) {
+fun NewsSourceView(newsSource: NewsSourcesResponse.NewsSource, onNewsSourceClick: (sourceId: String) -> Unit) {
     Column(
         modifier = Modifier.clickable { onNewsSourceClick(newsSource.id) },
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.base_arrangement_space_small))
@@ -50,7 +50,7 @@ fun NewsSourceView(newsSource: NewsSource, onNewsSourceClick: (sourceId: String)
 fun NewsSourceViewPreview() {
     OnboardingAppTheme {
         NewsSourceView(
-            NewsSource(
+            NewsSourcesResponse.NewsSource(
                 "1",
                 "HorseNews",
                 "Your trusted source for breaking news, analysis, exclusive interviews, headlines, and videos related to horses at Horsenews.com",

@@ -11,8 +11,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import dk.mathiasrossen.onboardingapp.R
 import dk.mathiasrossen.onboardingapp.ui.theme.ButtonColors
 
@@ -25,12 +25,12 @@ fun TutorialPage(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(dimensionResource(id = R.dimen.tutorial_page_content_padding))
+            .padding(36.dp)
     ) {
         Column(
             modifier = Modifier.weight(1f),
             verticalArrangement = Arrangement.spacedBy(
-                space = dimensionResource(id = R.dimen.base_arrangement_space_small), Alignment.CenterVertically
+                space = 8.dp, Alignment.CenterVertically
             )
         ) {
             content()

@@ -1,4 +1,4 @@
-package dk.mathiasrossen.onboardingapp.ui.articles.list
+package dk.mathiasrossen.onboardingapp.ui.articles
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
@@ -45,7 +46,7 @@ fun ArticleItem(article: Article, showDivider: Boolean) {
             }
         }
         if (showDivider) {
-            Divider(modifier = Modifier.run { height(dimensionResource(id = R.dimen.base_divider_size)) })
+            Divider(modifier = Modifier.height(dimensionResource(id = R.dimen.base_divider_size)))
         }
     }
 }
@@ -60,9 +61,7 @@ private fun ArticleItemAuthorRow(authorAndDate: String, favorite: Boolean) {
     ) {
         Text(text = authorAndDate, style = Typography.labelLarge, color = BlueGray)
         Image(
-            modifier = Modifier
-                .width(24.dp)
-                .height(24.dp),
+            modifier = Modifier.size(24.dp),
             painter = painterResource(id = favoriteResource),
             contentDescription = null,
             colorFilter = ColorFilter.tint(
