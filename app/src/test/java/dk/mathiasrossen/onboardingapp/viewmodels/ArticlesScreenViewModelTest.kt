@@ -12,7 +12,6 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import org.mockito.kotlin.eq
 import org.mockito.kotlin.given
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
@@ -42,7 +41,7 @@ class ArticlesScreenViewModelTest {
     @Before
     fun setup() {
         given(dateUtils.oneDayPast()).willReturn(LocalDate.parse(date))
-        given(service.getArticlesFromSource(eq(sourceId), eq(language), eq(sortBy), eq(date))).willReturn(
+        given(service.getArticlesFromSource(sourceId, language, sortBy, date)).willReturn(
             Single.just(mockArticleResponse)
         )
         viewModel = createViewModel()
@@ -69,10 +68,10 @@ class ArticlesScreenViewModelTest {
     fun sortByPopularAll_sortStateEqualsPopularAll() {
         given(
             service.getArticlesFromSource(
-                eq(sourceId),
-                eq(language),
-                eq(NewsApiService.SORT_BY_POPULAR),
-                eq(null)
+                sourceId,
+                language,
+                NewsApiService.SORT_BY_POPULAR,
+                null
             )
         ).willReturn(
             Single.just(mockArticleResponse)
@@ -87,10 +86,10 @@ class ArticlesScreenViewModelTest {
     fun sortByNewest_sortStateEqualsNewest() {
         given(
             service.getArticlesFromSource(
-                eq(sourceId),
-                eq(language),
-                eq(NewsApiService.SORT_BY_PUBLISHED_AT),
-                eq(null)
+                sourceId,
+                language,
+                NewsApiService.SORT_BY_PUBLISHED_AT,
+                null
             )
         ).willReturn(
             Single.just(mockArticleResponse)
