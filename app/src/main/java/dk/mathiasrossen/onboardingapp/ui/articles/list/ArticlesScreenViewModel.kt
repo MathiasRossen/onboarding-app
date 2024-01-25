@@ -5,7 +5,8 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dk.mathiasrossen.onboardingapp.api.NewsApiService
-import dk.mathiasrossen.onboardingapp.models.Article
+import dk.mathiasrossen.onboardingapp.data.article.Article
+import dk.mathiasrossen.onboardingapp.use_cases.ArticlesUseCase
 import dk.mathiasrossen.onboardingapp.utils.date.DateUtils
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.disposables.Disposable
@@ -13,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ArticlesScreenViewModel @Inject constructor(
-    private val newsApiService: NewsApiService,
+    private val articlesUseCase: ArticlesUseCase,
     private val uiScheduler: Scheduler,
     private val dateUtils: DateUtils,
     savedStateHandle: SavedStateHandle,
@@ -47,15 +48,10 @@ class ArticlesScreenViewModel @Inject constructor(
         val oneDayPast = dateUtils.oneDayPast().toString()
         val from = if (sortState.value == SortState.POPULAR_TODAY) oneDayPast else null
 
-        disposable = newsApiService.getArticlesFromSource(
-            sourceId,
-            language = NewsApiService.DEFAULT_LANGUAGE,
-            sortBy = sortBy,
-            from = from
-        )
+        disposable = articlesUseCase.getArticles(sourceId, sortBy, from)
             .observeOn(uiScheduler)
-            .subscribe({ articlesResponse ->
-                articles.value = articlesResponse.articles
+            .subscribe({ articleList ->
+                articles.value = articleList
                 isRefreshing.value = false
             }) { /* error */ }
     }
