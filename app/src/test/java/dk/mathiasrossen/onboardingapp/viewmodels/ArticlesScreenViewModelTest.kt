@@ -4,7 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import dk.mathiasrossen.onboardingapp.api.NewsApiService
 import dk.mathiasrossen.onboardingapp.api.response_models.ArticlesResponse
 import dk.mathiasrossen.onboardingapp.models.Article
-import dk.mathiasrossen.onboardingapp.ui.articles.ArticlesScreenViewModel
+import dk.mathiasrossen.onboardingapp.ui.articles.list.ArticlesScreenViewModel
 import dk.mathiasrossen.onboardingapp.ui.articles.list.SortState
 import dk.mathiasrossen.onboardingapp.utils.date.DateUtils
 import io.reactivex.rxjava3.core.Single

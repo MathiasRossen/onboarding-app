@@ -12,7 +12,7 @@ import androidx.navigation.navigation
 import dk.mathiasrossen.onboardingapp.navigation.Screen
 import dk.mathiasrossen.onboardingapp.ui.appbar.OnboardingBottomAppBar
 import dk.mathiasrossen.onboardingapp.ui.appbar.OnboardingTopAppBar
-import dk.mathiasrossen.onboardingapp.ui.articles.ArticlesScreen
+import dk.mathiasrossen.onboardingapp.ui.articles.list.ArticlesScreen
 import dk.mathiasrossen.onboardingapp.ui.sources.SourcesScreen
 import dk.mathiasrossen.onboardingapp.ui.sources.SourcesScreenViewModel
 import dk.mathiasrossen.onboardingapp.ui.theme.OnboardingAppTheme
