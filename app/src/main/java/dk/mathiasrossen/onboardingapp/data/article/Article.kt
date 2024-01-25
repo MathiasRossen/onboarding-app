@@ -18,6 +18,7 @@ data class Article(
     val urlToImage: String?,
     val publishedAt: LocalDateTime,
     val content: String,
+    val favorited: Boolean = false,
     val uuid: String = UUID.randomUUID().toString()
 ) {
     val authorAndPublishedAt: String
