@@ -1,5 +1,6 @@
 package dk.mathiasrossen.onboardingapp.ui.sources
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -8,29 +9,37 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
+import dk.mathiasrossen.onboardingapp.R
 import dk.mathiasrossen.onboardingapp.models.NewsSource
 import dk.mathiasrossen.onboardingapp.ui.theme.OnboardingAppTheme
 import dk.mathiasrossen.onboardingapp.ui.theme.Typography
 
 @Composable
-fun SourcesScreen(sourcesScreenViewModel: SourcesScreenViewModel = viewModel()) {
+fun SourcesScreen(
+    sourcesScreenViewModel: SourcesScreenViewModel = hiltViewModel(),
+    onNewsSourceClick: (sourceId: String) -> Unit
+) {
     val sourcesState by sourcesScreenViewModel.newsSources
     LazyColumn(
-        contentPadding = PaddingValues(16.dp),
-        verticalArrangement = Arrangement.spacedBy(26.dp)
+        contentPadding = PaddingValues(dimensionResource(id = R.dimen.base_content_padding)),
+        verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.base_arrangement_space_large))
     ) {
         items(sourcesState) { newsSource ->
-            NewsSourceView(newsSource)
+            NewsSourceView(newsSource, onNewsSourceClick)
         }
     }
 }
 
 @Composable
-fun NewsSourceView(newsSource: NewsSource) {
-    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+fun NewsSourceView(newsSource: NewsSource, onNewsSourceClick: (sourceId: String) -> Unit) {
+    Column(
+        modifier = Modifier.clickable { onNewsSourceClick(newsSource.id) },
+        verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.base_arrangement_space_small))
+    ) {
         Text(text = newsSource.name, style = Typography.titleLarge)
         Text(text = newsSource.description, style = Typography.bodyMedium)
     }
@@ -50,6 +59,6 @@ fun NewsSourceViewPreview() {
                 "en",
                 "us"
             )
-        )
+        ) {}
     }
 }

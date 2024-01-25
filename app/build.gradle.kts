@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "dk.mathiasrossen.onboardingapp"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -89,6 +89,9 @@ dependencies {
     // DataStore
     implementation("androidx.datastore:datastore-preferences:${Versions.DATASTORE_PREFERENCES_VERSION}")
     implementation("androidx.datastore:datastore-preferences-rxjava3:${Versions.DATASTORE_PREFERENCES_RXJAVA_VERSION}")
+
+    // Coil
+    implementation("io.coil-kt:coil-compose:${Versions.COIL_COMPOSE_VERSION}")
 
     // Test implementations
     testImplementation("junit:junit:${Versions.JUNIT_VERSION}")

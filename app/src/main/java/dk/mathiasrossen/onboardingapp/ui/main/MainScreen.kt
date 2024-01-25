@@ -8,9 +8,11 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navigation
 import dk.mathiasrossen.onboardingapp.navigation.Screen
 import dk.mathiasrossen.onboardingapp.ui.appbar.OnboardingBottomAppBar
 import dk.mathiasrossen.onboardingapp.ui.appbar.OnboardingTopAppBar
+import dk.mathiasrossen.onboardingapp.ui.articles.ArticlesScreen
 import dk.mathiasrossen.onboardingapp.ui.sources.SourcesScreen
 import dk.mathiasrossen.onboardingapp.ui.sources.SourcesScreenViewModel
 import dk.mathiasrossen.onboardingapp.ui.theme.OnboardingAppTheme
@@ -32,8 +34,15 @@ fun MainScreen(sourcesScreenViewModel: SourcesScreenViewModel) {
                 startDestination = Screen.Sources.route,
                 modifier = Modifier.padding(innerPadding)
             ) {
-                composable(Screen.Sources.route) {
-                    SourcesScreen(sourcesScreenViewModel)
+                navigation(startDestination = Screen.Sources.routeMain, route = Screen.Sources.route) {
+                    composable(Screen.Sources.routeMain) {
+                        SourcesScreen(sourcesScreenViewModel) { articleId ->
+                            navController.navigate("articles/${articleId}")
+                        }
+                    }
+                    composable(Screen.Sources.routeArticles) {
+                        ArticlesScreen()
+                    }
                 }
                 composable(Screen.Favorites.route) {
                     Text(text = "Favorites")

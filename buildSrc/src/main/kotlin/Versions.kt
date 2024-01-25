@@ -1,7 +1,7 @@
 object Versions {
     const val ANDROIDX_CORE_VERSION = "1.12.0"
     const val ANDROIDX_CORE_SPLASHSCREEN_VERSION = "1.0.1"
-    const val ANDROIDX_LIFECYCLE_VERSION = "2.6.2"
+    const val ANDROIDX_LIFECYCLE_VERSION = "2.7.0"
     const val ANDROIDX_ACTIVITY_COMPOSE_VERSION = "1.8.2"
     const val ANDROIDX_NAVIGATION_COMPOSE_VERSION = "2.7.6"
     const val ANDROIDX_APPCOMPAT_VERSION = "1.6.1"
@@ -26,6 +26,9 @@ object Versions {
     // DataStore
     const val DATASTORE_PREFERENCES_VERSION = "1.0.0"
     const val DATASTORE_PREFERENCES_RXJAVA_VERSION = "1.0.0"
+
+    // Coil
+    const val COIL_COMPOSE_VERSION = "2.5.0"
 
     // Test implementation versions
     const val JUNIT_VERSION = "4.13.2"

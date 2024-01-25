@@ -10,4 +10,10 @@ object ButtonColors {
         containerColor = BlueGray,
         contentColor = Color.White
     )
+
+    @Composable
+    fun defaultTonal() = ButtonDefaults.buttonColors(
+        containerColor = GrayLight,
+        contentColor = Gray
+    )
 }

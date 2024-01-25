@@ -14,4 +14,9 @@
     <string name="tutorial_screen_three_description">Now go out and explore the world of news. All you need to do is click the button. Go ahead. You can do it.</string>
     <string name="tutorial_screen_three_button">Begin</string>
     <string name="tutorial_screen_three_motivational_text">I believe in you!</string>
+
+    <!-- Articles -->
+    <string name="articles_screen_button_sort_popular_today">Popular today</string>
+    <string name="articles_screen_button_sort_popular_all_time">Popular all time</string>
+    <string name="articles_screen_button_sort_newest">Newest</string>
 </resources>
