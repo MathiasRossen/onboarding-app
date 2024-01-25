@@ -19,18 +19,22 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import dk.mathiasrossen.onboardingapp.R
-import dk.mathiasrossen.onboardingapp.models.Article
+import dk.mathiasrossen.onboardingapp.data.article.Article
 import dk.mathiasrossen.onboardingapp.ui.theme.ButtonColors
 import dk.mathiasrossen.onboardingapp.ui.theme.OnboardingAppTheme
 
 @Composable
-fun ArticlesScreen(articlesScreenViewModel: ArticlesScreenViewModel = hiltViewModel()) {
+fun ArticlesScreen(
+    articlesScreenViewModel: ArticlesScreenViewModel = hiltViewModel(),
+    onArticleClick: (article: Article) -> Unit
+) {
     ArticleList(
         articlesScreenViewModel.articles.value,
         articlesScreenViewModel.sortState.value,
         articlesScreenViewModel.isRefreshing.value,
         articlesScreenViewModel::refresh,
-        articlesScreenViewModel::setSortState
+        articlesScreenViewModel::setSortState,
+        onArticleClick
     )
 }
 
@@ -41,7 +45,8 @@ private fun ArticleList(
     currentSortState: SortState,
     isRefreshing: Boolean,
     onRefresh: () -> Unit,
-    onSortOptionClick: (sortState: SortState) -> Unit
+    onSortOptionClick: (sortState: SortState) -> Unit,
+    onArticleClick: (article: Article) -> Unit
 ) {
     val pullRefreshState =
         rememberPullRefreshState(refreshing = isRefreshing, onRefresh = onRefresh, refreshThreshold = 120.dp)
@@ -71,7 +76,9 @@ private fun ArticleList(
             }
         }
         itemsIndexed(articles) { index, article ->
-            ArticleItem(article = article, showDivider = index != articles.lastIndex)
+            ArticleItem(article = article, showDivider = index != articles.lastIndex) {
+                onArticleClick(article)
+            }
         }
     }
 }
@@ -84,6 +91,7 @@ private fun ArticleListPreview() {
             listOf(Article.createSample(), Article.createSample(), Article.createSample()),
             SortState.POPULAR_TODAY,
             true,
+            {},
             {},
             {}
         )

@@ -1,6 +1,7 @@
 package dk.mathiasrossen.onboardingapp.ui.articles.list
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,16 +23,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import dk.mathiasrossen.onboardingapp.R
-import dk.mathiasrossen.onboardingapp.models.Article
+import dk.mathiasrossen.onboardingapp.data.article.Article
 import dk.mathiasrossen.onboardingapp.ui.theme.BlueGray
 import dk.mathiasrossen.onboardingapp.ui.theme.OnboardingAppTheme
 import dk.mathiasrossen.onboardingapp.ui.theme.Typography
 
 @Composable
-fun ArticleItem(article: Article, showDivider: Boolean) {
+fun ArticleItem(article: Article, showDivider: Boolean, onClick: () -> Unit) {
     Column {
         Column(
-            modifier = Modifier.padding(dimensionResource(id = R.dimen.base_content_padding)),
+            modifier = Modifier
+                .padding(dimensionResource(id = R.dimen.base_content_padding))
+                .clickable { onClick() },
             verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.base_arrangement_space_medium))
         ) {
             ArticleItemAuthorRow(authorAndDate = article.authorAndPublishedAt, favorite = false)
@@ -94,6 +97,6 @@ private fun ArticleItemPreview() {
         ArticleItem(
             Article.createSample(),
             true
-        )
+        ) {}
     }
 }
