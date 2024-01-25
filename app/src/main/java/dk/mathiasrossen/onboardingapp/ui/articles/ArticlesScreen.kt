@@ -25,7 +25,7 @@ import dk.mathiasrossen.onboardingapp.ui.theme.OnboardingAppTheme
 
 @Composable
 fun ArticlesScreen(articlesScreenViewModel: ArticlesScreenViewModel = hiltViewModel()) {
-    ArticlesScreen(
+    ArticleList(
         articlesScreenViewModel.articles.value,
         articlesScreenViewModel.sortState.value,
         articlesScreenViewModel.isRefreshing.value,
@@ -36,7 +36,7 @@ fun ArticlesScreen(articlesScreenViewModel: ArticlesScreenViewModel = hiltViewMo
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-private fun ArticlesScreen(
+private fun ArticleList(
     articles: List<Article>,
     currentSortState: SortState,
     isRefreshing: Boolean,
@@ -80,7 +80,7 @@ private fun ArticlesScreen(
 @Composable
 private fun ArticleListPreview() {
     OnboardingAppTheme {
-        ArticlesScreen(
+        ArticleList(
             listOf(Article.createSample(), Article.createSample(), Article.createSample()),
             SortState.POPULAR_TODAY,
             true,
