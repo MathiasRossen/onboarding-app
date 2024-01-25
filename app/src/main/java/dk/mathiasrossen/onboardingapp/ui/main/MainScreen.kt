@@ -20,8 +20,6 @@ import dk.mathiasrossen.onboardingapp.ui.articles.list.ArticlesScreen
 import dk.mathiasrossen.onboardingapp.ui.sources.SourcesScreen
 import dk.mathiasrossen.onboardingapp.ui.sources.SourcesScreenViewModel
 import dk.mathiasrossen.onboardingapp.ui.theme.OnboardingAppTheme
-import java.net.URLEncoder
-import java.nio.charset.StandardCharsets
 
 @Composable
 fun MainScreen(sourcesScreenViewModel: SourcesScreenViewModel) {
