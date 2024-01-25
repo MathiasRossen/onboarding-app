@@ -1,4 +1,4 @@
-package dk.mathiasrossen.onboardingapp.ui.articles
+package dk.mathiasrossen.onboardingapp.ui.articles.list
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -20,7 +20,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import dk.mathiasrossen.onboardingapp.R
 import dk.mathiasrossen.onboardingapp.models.Article
-import dk.mathiasrossen.onboardingapp.ui.articles.list.SortState
 import dk.mathiasrossen.onboardingapp.ui.theme.ButtonColors
 import dk.mathiasrossen.onboardingapp.ui.theme.OnboardingAppTheme
 
