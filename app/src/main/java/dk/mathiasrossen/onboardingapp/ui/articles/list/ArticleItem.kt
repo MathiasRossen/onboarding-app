@@ -32,16 +32,14 @@ fun ArticleItem(article: Article, showDivider: Boolean, onClick: () -> Unit) {
                 .clickable { onClick() },
             verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.base_arrangement_space_medium))
         ) {
-            ArticleItemAuthorRow(authorAndDate = article.authorAndPublishedAt, favorite = false)
+            ArticleItemAuthorRow(authorAndDate = article.authorAndPublishedAt, favorite = false) {}
             ArticleItemImageAndTitleRow(imageUrl = article.urlToImage, title = article.title)
-            if (article.description != null) {
-                Text(
-                    text = article.description,
-                    style = Typography.bodyMedium,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis
-                )
-            }
+            Text(
+                text = article.description,
+                style = Typography.bodyMedium,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis
+            )
         }
         if (showDivider) {
             Divider(modifier = Modifier.height(dimensionResource(id = R.dimen.base_divider_size)))
