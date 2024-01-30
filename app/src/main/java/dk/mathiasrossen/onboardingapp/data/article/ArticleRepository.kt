@@ -4,7 +4,10 @@ import dk.mathiasrossen.onboardingapp.api.NewsApiService
 import dk.mathiasrossen.onboardingapp.utils.mappers.ArticleMapper
 import io.reactivex.rxjava3.core.Single
 
-class ArticleRepository(private val newsApiService: NewsApiService, private val articleDao: ArticleDao) {
+class ArticleRepository(
+    private val newsApiService: NewsApiService,
+    private val articleDao: ArticleDao
+) {
     fun getArticlesFromSource(sourceId: String, sortBy: String, from: String?): Single<List<Article>> =
         newsApiService.getArticlesFromSource(
             source = sourceId,
@@ -19,7 +22,7 @@ class ArticleRepository(private val newsApiService: NewsApiService, private val 
             articles
         }
 
-    private fun storeArticles(articles: List<Article>) {
-        articleDao.insertAll(articles)
-    }
+    private fun storeArticles(articles: List<Article>) = articleDao.insertAll(articles)
+
+    fun findArticle(uuid: String): Single<Article> = articleDao.findByUuid(uuid)
 }
