@@ -1,7 +1,6 @@
 package dk.mathiasrossen.onboardingapp.data.article
 
 import androidx.room.Entity
-import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import dk.mathiasrossen.onboardingapp.utils.date.DateUtils
 import java.time.LocalDateTime
