@@ -1,5 +1,6 @@
 package dk.mathiasrossen.onboardingapp.ui.articles.list
 
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -9,7 +10,9 @@ import dk.mathiasrossen.onboardingapp.data.article.Article
 import dk.mathiasrossen.onboardingapp.use_cases.ArticlesUseCase
 import dk.mathiasrossen.onboardingapp.utils.date.DateUtils
 import io.reactivex.rxjava3.core.Scheduler
-import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,12 +20,12 @@ class ArticlesScreenViewModel @Inject constructor(
     private val articlesUseCase: ArticlesUseCase,
     private val uiScheduler: Scheduler,
     private val dateUtils: DateUtils,
-    savedStateHandle: SavedStateHandle,
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
     private val sourceId: String = checkNotNull(savedStateHandle[SOURCE_ID_KEY])
-    private var disposable = Disposable.disposed()
+    private var compositeDisposable = CompositeDisposable()
 
-    var articles = mutableStateOf(listOf<Article>())
+    var articles = mapOf<Article, MutableState<Boolean>>()
         private set
 
     var isRefreshing = mutableStateOf(false)
@@ -45,15 +48,27 @@ class ArticlesScreenViewModel @Inject constructor(
     fun refresh() {
         isRefreshing.value = true
 
-        val oneDayPast = dateUtils.oneDayPast().toString()
-        val from = if (sortState.value == SortState.POPULAR_TODAY) oneDayPast else null
-
-        disposable = articlesUseCase.getArticles(sourceId, sortBy, from)
-            .observeOn(uiScheduler)
-            .subscribe({ articleList ->
-                articles.value = articleList
+        compositeDisposable.add(
+            getArticles().flatMap(
+                { articlesUseCase.getFavoriteArticles() },
+                { articleList, favoriteArticles ->
+                    articleList.associateWith { article ->
+                        val isFavorite =
+                            favoriteArticles.any { favoriteArticle -> favoriteArticle.articleUrl == article.url }
+                        mutableStateOf(isFavorite)
+                    }
+                }
+            ).subscribe({ articleList ->
+                articles = articleList
                 isRefreshing.value = false
             }) { /* error */ }
+        )
+    }
+
+    private fun getArticles(): Single<List<Article>> {
+        val oneDayPast = dateUtils.oneDayPast().toString()
+        val from = if (sortState.value == SortState.POPULAR_TODAY) oneDayPast else null
+        return articlesUseCase.getArticles(sourceId, sortBy, from).subscribeOn(uiScheduler)
     }
 
     fun setSortState(state: SortState) {
@@ -61,8 +76,18 @@ class ArticlesScreenViewModel @Inject constructor(
         refresh()
     }
 
+    fun toggleFavorite(article: Article) {
+        compositeDisposable.add(
+            articlesUseCase.toggleFavorite(article)
+                .subscribeOn(Schedulers.io())
+                .subscribe { isFavorite ->
+                    articles[article]?.value = isFavorite
+                }
+        )
+    }
+
     override fun onCleared() {
-        disposable.dispose()
+        compositeDisposable.dispose()
         super.onCleared()
     }
 
