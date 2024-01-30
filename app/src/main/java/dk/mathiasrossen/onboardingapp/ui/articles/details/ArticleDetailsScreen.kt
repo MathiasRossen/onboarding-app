@@ -16,11 +16,15 @@ import dk.mathiasrossen.onboardingapp.ui.theme.OnboardingAppTheme
 import dk.mathiasrossen.onboardingapp.ui.theme.Typography
 
 @Composable
-fun ArticleDetailsScreen(articleDetailsViewModel: ArticleDetailsViewModel = hiltViewModel()) {
+fun ArticleDetailsScreen(
+    articleDetailsViewModel: ArticleDetailsViewModel = hiltViewModel(),
+    onAppBarTitle: (title: String) -> Unit,
+    onAppBarImageUrl: (url: String?) -> Unit
+) {
     val article = articleDetailsViewModel.articleState.value
-    if (article == null) {
-        Text(text = "Loading placeholder")
-    } else {
+    if (article != null) {
+        onAppBarTitle(article.title)
+        onAppBarImageUrl(article.urlToImage)
         ArticleDetails(article, articleDetailsViewModel.favoriteState.value) {
             articleDetailsViewModel.toggleFavorite()
         }
