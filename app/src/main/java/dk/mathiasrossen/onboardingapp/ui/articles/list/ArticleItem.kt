@@ -59,9 +59,11 @@ private fun ArticleItemImageAndTitleRow(imageUrl: String?, title: String) {
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.base_arrangement_space_medium))
     ) {
+        val placeholderPainter = painterResource(id = R.drawable.image_placeholder)
         AsyncImage(
             model = imageUrl,
-            placeholder = painterResource(id = R.drawable.image_placeholder),
+            placeholder = placeholderPainter,
+            error = placeholderPainter,
             contentDescription = null,
             modifier = Modifier.width(dimensionResource(id = R.dimen.articles_image_width))
         )
