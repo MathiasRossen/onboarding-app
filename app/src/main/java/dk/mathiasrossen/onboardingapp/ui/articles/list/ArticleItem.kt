@@ -24,7 +24,13 @@ import dk.mathiasrossen.onboardingapp.ui.theme.OnboardingAppTheme
 import dk.mathiasrossen.onboardingapp.ui.theme.Typography
 
 @Composable
-fun ArticleItem(article: Article, showDivider: Boolean, onClick: () -> Unit) {
+fun ArticleItem(
+    article: Article,
+    showDivider: Boolean,
+    isFavorite: Boolean,
+    onFavoriteClick: () -> Unit,
+    onClick: () -> Unit
+) {
     Column {
         Column(
             modifier = Modifier
@@ -32,7 +38,7 @@ fun ArticleItem(article: Article, showDivider: Boolean, onClick: () -> Unit) {
                 .clickable { onClick() },
             verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.base_arrangement_space_medium))
         ) {
-            ArticleItemAuthorRow(authorAndDate = article.authorAndPublishedAt, favorite = false) {}
+            ArticleItemAuthorRow(authorAndDate = article.authorAndPublishedAt, isFavorite = isFavorite, onFavoriteClick)
             ArticleItemImageAndTitleRow(imageUrl = article.urlToImage, title = article.title)
             Text(
                 text = article.description,
@@ -69,7 +75,9 @@ private fun ArticleItemPreview() {
     OnboardingAppTheme {
         ArticleItem(
             Article.createSample(),
-            true
+            showDivider = true,
+            isFavorite = false,
+            onFavoriteClick = {}
         ) {}
     }
 }
