@@ -1,5 +1,6 @@
 package dk.mathiasrossen.onboardingapp.ui.articles.list
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
@@ -12,6 +13,8 @@ import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
@@ -29,11 +32,12 @@ fun ArticlesScreen(
     onArticleClick: (article: Article) -> Unit
 ) {
     ArticleList(
-        articlesScreenViewModel.articles.value,
+        articlesScreenViewModel.articles,
         articlesScreenViewModel.sortState.value,
         articlesScreenViewModel.isRefreshing.value,
         articlesScreenViewModel::refresh,
         articlesScreenViewModel::setSortState,
+        articlesScreenViewModel::toggleFavorite,
         onArticleClick
     )
 }
@@ -41,11 +45,12 @@ fun ArticlesScreen(
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun ArticleList(
-    articles: List<Article>,
+    articles: Map<Article, State<Boolean>>,
     currentSortState: SortState,
     isRefreshing: Boolean,
     onRefresh: () -> Unit,
     onSortOptionClick: (sortState: SortState) -> Unit,
+    onFavoriteClick: (article: Article) -> Unit,
     onArticleClick: (article: Article) -> Unit
 ) {
     val pullRefreshState =
@@ -75,22 +80,32 @@ private fun ArticleList(
                 }
             }
         }
-        itemsIndexed(articles) { index, article ->
-            ArticleItem(article = article, showDivider = index != articles.lastIndex) {
+        val articlesList = articles.keys.toList()
+        itemsIndexed(articlesList) { index, article ->
+            ArticleItem(
+                article = article,
+                showDivider = index != articlesList.lastIndex,
+                isFavorite = articles[article]?.value == true,
+                { onFavoriteClick(article) }) {
                 onArticleClick(article)
             }
         }
     }
 }
 
+@SuppressLint("UnrememberedMutableState")
 @Preview(showBackground = true)
 @Composable
 private fun ArticleListPreview() {
     OnboardingAppTheme {
         ArticleList(
-            listOf(Article.createSample(), Article.createSample(), Article.createSample()),
+            mapOf(
+                Article.createSample() to mutableStateOf(false),
+                Article.createSample() to mutableStateOf(false)
+            ),
             SortState.POPULAR_TODAY,
             true,
+            {},
             {},
             {},
             {}
