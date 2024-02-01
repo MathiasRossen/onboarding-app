@@ -41,6 +41,9 @@ class ArticlesScreenViewModelTest {
         given(useCase.getArticles(sourceId, sortBy, date)).willReturn(
             Single.just(mockArticles)
         )
+        given(useCase.getFavoriteArticles()).willReturn(
+            Single.just(listOf())
+        )
         viewModel = createViewModel()
     }
 
@@ -52,6 +55,11 @@ class ArticlesScreenViewModelTest {
     @Test
     fun init_serviceGetsArticles() {
         verify(useCase).getArticles(sourceId, sortBy, date)
+    }
+
+    @Test
+    fun init_serviceGetsFavoriteArticles() {
+        verify(useCase).getFavoriteArticles()
     }
 
     @Test
