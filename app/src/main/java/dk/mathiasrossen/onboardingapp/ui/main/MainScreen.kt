@@ -5,6 +5,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -25,13 +27,25 @@ import dk.mathiasrossen.onboardingapp.ui.theme.OnboardingAppTheme
 fun MainScreen(sourcesScreenViewModel: SourcesScreenViewModel) {
     val navController = rememberNavController()
     OnboardingAppTheme {
+        val appBarTitle = remember { mutableStateOf("NewsApp") }
+        val appBarImageUrl = remember { mutableStateOf<String?>(null) }
         Scaffold(
             topBar = {
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
+                val canNavigateBack = navController.previousBackStackEntry !== null
                 if (navBackStackEntry?.destination?.route == Screen.Sources.routeArticleDetails) {
-                    OnboardingLargeTopAppBar(title = "NewsApp")
+                    OnboardingLargeTopAppBar(
+                        appBarTitle.value,
+                        appBarImageUrl.value,
+                        canNavigateBack,
+                        navController::navigateUp
+                    )
                 } else {
-                    OnboardingTopAppBar()
+                    OnboardingTopAppBar(
+                        appBarTitle.value,
+                        canNavigateBack,
+                        navController::navigateUp
+                    )
                 }
             },
             bottomBar = {
@@ -45,17 +59,20 @@ fun MainScreen(sourcesScreenViewModel: SourcesScreenViewModel) {
             ) {
                 navigation(startDestination = Screen.Sources.routeMain, route = Screen.Sources.route) {
                     composable(Screen.Sources.routeMain) {
-                        SourcesScreen(sourcesScreenViewModel) { articleId ->
-                            navController.navigate("articles/${articleId}")
+                        appBarTitle.value = "NewsApp"
+                        SourcesScreen(sourcesScreenViewModel) { sourceId, sourceName ->
+                            navController.navigate("articles/$sourceId?name=$sourceName")
                         }
                     }
                     composable(Screen.Sources.routeArticles) {
-                        ArticlesScreen { article ->
+                        ArticlesScreen(onAppBarTitle = { title -> appBarTitle.value = title }) { article ->
                             navController.navigate("articleDetails/${article.uuid}")
                         }
                     }
                     composable(Screen.Sources.routeArticleDetails) {
-                        ArticleDetailsScreen()
+                        ArticleDetailsScreen(
+                            onAppBarTitle = { title -> appBarTitle.value = title },
+                            onAppBarImageUrl = { url -> appBarImageUrl.value = url })
                     }
                 }
                 composable(Screen.Favorites.route) {
