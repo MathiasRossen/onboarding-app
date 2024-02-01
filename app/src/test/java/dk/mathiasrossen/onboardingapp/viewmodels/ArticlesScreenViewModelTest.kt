@@ -126,5 +126,5 @@ class ArticlesScreenViewModelTest {
         Assert.assertTrue(viewModel.articles.values.first().value)
     }
 
-    private fun createViewModel() = ArticlesScreenViewModel(useCase, scheduler, dateUtils, savedStateHandle)
+    private fun createViewModel() = ArticlesScreenViewModel(useCase, scheduler, scheduler, dateUtils, savedStateHandle)
 }

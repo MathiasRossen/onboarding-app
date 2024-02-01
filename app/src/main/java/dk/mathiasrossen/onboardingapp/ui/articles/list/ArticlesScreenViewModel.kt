@@ -6,18 +6,22 @@ import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dk.mathiasrossen.onboardingapp.api.NewsApiService
 import dk.mathiasrossen.onboardingapp.data.article.Article
+import dk.mathiasrossen.onboardingapp.dependency_injection.annotations.IoScheduler
+import dk.mathiasrossen.onboardingapp.dependency_injection.annotations.UiScheduler
 import dk.mathiasrossen.onboardingapp.use_cases.ArticlesUseCase
 import dk.mathiasrossen.onboardingapp.utils.OnboardingViewModel
 import dk.mathiasrossen.onboardingapp.utils.date.DateUtils
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
 @HiltViewModel
 class ArticlesScreenViewModel @Inject constructor(
     private val articlesUseCase: ArticlesUseCase,
+    @UiScheduler
     private val uiScheduler: Scheduler,
+    @IoScheduler
+    private val ioScheduler: Scheduler,
     private val dateUtils: DateUtils,
     savedStateHandle: SavedStateHandle
 ) : OnboardingViewModel() {
@@ -79,7 +83,7 @@ class ArticlesScreenViewModel @Inject constructor(
     fun toggleFavorite(article: Article) {
         compositeDisposable.add(
             articlesUseCase.toggleFavorite(article)
-                .subscribeOn(Schedulers.io())
+                .subscribeOn(ioScheduler)
                 .subscribe { isFavorite ->
                     articles[article]?.value = isFavorite
                 }

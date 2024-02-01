@@ -4,16 +4,20 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dk.mathiasrossen.onboardingapp.data.article.Article
+import dk.mathiasrossen.onboardingapp.dependency_injection.annotations.IoScheduler
+import dk.mathiasrossen.onboardingapp.dependency_injection.annotations.UiScheduler
 import dk.mathiasrossen.onboardingapp.use_cases.ArticlesUseCase
 import dk.mathiasrossen.onboardingapp.utils.OnboardingViewModel
 import io.reactivex.rxjava3.core.Scheduler
-import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
 @HiltViewModel
 class ArticleDetailsViewModel @Inject constructor(
     private val articlesUseCase: ArticlesUseCase,
+    @UiScheduler
     uiScheduler: Scheduler,
+    @IoScheduler
+    private val ioScheduler: Scheduler,
     savedStateHandle: SavedStateHandle
 ) : OnboardingViewModel() {
     private val articleUuid: String = checkNotNull(savedStateHandle[ARTICLE_UUID_KEY])
@@ -24,7 +28,7 @@ class ArticleDetailsViewModel @Inject constructor(
     init {
         compositeDisposable.add(
             articlesUseCase.findArticle(articleUuid)
-                .subscribeOn(Schedulers.io())
+                .subscribeOn(ioScheduler)
                 .flatMap(
                     { article -> articlesUseCase.getIsArticleFavorited(article) },
                     { article, isFavorite -> article to isFavorite })
@@ -40,8 +44,9 @@ class ArticleDetailsViewModel @Inject constructor(
         articleState.value?.let { article ->
             compositeDisposable.add(
                 articlesUseCase.toggleFavorite(article)
-                    .subscribeOn(Schedulers.io())
+                    .subscribeOn(ioScheduler)
                     .subscribe { isFavorited ->
+                        println("horse $isFavorited")
                         favoriteState.value = isFavorited
                     }
             )

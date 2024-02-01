@@ -5,12 +5,14 @@ import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dk.mathiasrossen.onboardingapp.api.NewsApiService
 import dk.mathiasrossen.onboardingapp.api.response_models.NewsSourcesResponse
+import dk.mathiasrossen.onboardingapp.dependency_injection.annotations.UiScheduler
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.disposables.Disposable
 import javax.inject.Inject
 
 @HiltViewModel
-class SourcesScreenViewModel @Inject constructor(newsApiService: NewsApiService, uiScheduler: Scheduler) : ViewModel() {
+class SourcesScreenViewModel @Inject constructor(newsApiService: NewsApiService, @UiScheduler uiScheduler: Scheduler) :
+    ViewModel() {
     private var disposable = Disposable.disposed()
 
     var newsSources = mutableStateOf(listOf<NewsSourcesResponse.NewsSource>())
