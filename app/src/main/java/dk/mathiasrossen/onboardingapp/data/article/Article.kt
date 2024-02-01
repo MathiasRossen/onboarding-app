@@ -26,11 +26,11 @@ data class Article(
         }
 
     companion object {
-        fun createSample(): Article = Article(
+        fun createSample(url: String = ""): Article = Article(
             "Look at my horse, my horse is amazing - You should definately check out my creature",
             "John Doe",
             "This horse can do a lot of fabolous tricks. The funny thing about my horse is that if you lick it, you get the taste of raisins.",
-            "",
+            url,
             "",
             LocalDateTime.parse("2024-01-16T10:05:12"),
             ""
