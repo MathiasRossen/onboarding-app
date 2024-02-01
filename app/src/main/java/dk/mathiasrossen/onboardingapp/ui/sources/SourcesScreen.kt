@@ -21,7 +21,7 @@ import dk.mathiasrossen.onboardingapp.ui.theme.Typography
 @Composable
 fun SourcesScreen(
     sourcesScreenViewModel: SourcesScreenViewModel = hiltViewModel(),
-    onNewsSourceClick: (sourceId: String) -> Unit
+    onNewsSourceClick: (sourceId: String, sourceName: String) -> Unit
 ) {
     val sourcesState by sourcesScreenViewModel.newsSources
     LazyColumn(
@@ -35,9 +35,12 @@ fun SourcesScreen(
 }
 
 @Composable
-fun NewsSourceView(newsSource: NewsSourcesResponse.NewsSource, onNewsSourceClick: (sourceId: String) -> Unit) {
+fun NewsSourceView(
+    newsSource: NewsSourcesResponse.NewsSource,
+    onNewsSourceClick: (sourceId: String, sourceName: String) -> Unit
+) {
     Column(
-        modifier = Modifier.clickable { onNewsSourceClick(newsSource.id) },
+        modifier = Modifier.clickable { onNewsSourceClick(newsSource.id, newsSource.name) },
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.base_arrangement_space_small))
     ) {
         Text(text = newsSource.name, style = Typography.titleLarge)
@@ -59,6 +62,6 @@ fun NewsSourceViewPreview() {
                 "en",
                 "us"
             )
-        ) {}
+        ) { _, _ -> }
     }
 }
