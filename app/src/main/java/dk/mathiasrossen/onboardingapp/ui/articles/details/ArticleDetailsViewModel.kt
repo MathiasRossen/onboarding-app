@@ -5,7 +5,6 @@ import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dk.mathiasrossen.onboardingapp.data.article.Article
 import dk.mathiasrossen.onboardingapp.dependency_injection.annotations.IoScheduler
-import dk.mathiasrossen.onboardingapp.dependency_injection.annotations.UiScheduler
 import dk.mathiasrossen.onboardingapp.use_cases.ArticlesUseCase
 import dk.mathiasrossen.onboardingapp.utils.BaseViewModel
 import io.reactivex.rxjava3.core.Scheduler
