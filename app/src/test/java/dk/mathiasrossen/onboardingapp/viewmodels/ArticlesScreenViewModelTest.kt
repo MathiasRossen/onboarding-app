@@ -64,7 +64,7 @@ class ArticlesScreenViewModelTest {
 
     @Test
     fun init_onSuccess_articlesReturned() {
-        Assert.assertEquals(mockArticles, viewModel.articles.value)
+        Assert.assertEquals(mockArticles, viewModel.articles.keys.toList())
     }
 
     @Test
