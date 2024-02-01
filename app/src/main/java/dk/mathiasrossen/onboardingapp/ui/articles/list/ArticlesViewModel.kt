@@ -9,7 +9,7 @@ import dk.mathiasrossen.onboardingapp.data.article.Article
 import dk.mathiasrossen.onboardingapp.dependency_injection.annotations.IoScheduler
 import dk.mathiasrossen.onboardingapp.dependency_injection.annotations.UiScheduler
 import dk.mathiasrossen.onboardingapp.use_cases.ArticlesUseCase
-import dk.mathiasrossen.onboardingapp.utils.OnboardingViewModel
+import dk.mathiasrossen.onboardingapp.utils.BaseViewModel
 import dk.mathiasrossen.onboardingapp.utils.date.DateUtils
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.core.Single
@@ -24,7 +24,7 @@ class ArticlesViewModel @Inject constructor(
     private val ioScheduler: Scheduler,
     private val dateUtils: DateUtils,
     savedStateHandle: SavedStateHandle
-) : OnboardingViewModel() {
+) : BaseViewModel() {
     private val sourceId: String = savedStateHandle[SOURCE_ID_KEY] ?: ""
     private val sourceName: String = savedStateHandle[SOURCE_NAME_KEY] ?: ""
 

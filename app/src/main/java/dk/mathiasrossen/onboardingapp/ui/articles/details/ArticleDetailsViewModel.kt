@@ -7,7 +7,7 @@ import dk.mathiasrossen.onboardingapp.data.article.Article
 import dk.mathiasrossen.onboardingapp.dependency_injection.annotations.IoScheduler
 import dk.mathiasrossen.onboardingapp.dependency_injection.annotations.UiScheduler
 import dk.mathiasrossen.onboardingapp.use_cases.ArticlesUseCase
-import dk.mathiasrossen.onboardingapp.utils.OnboardingViewModel
+import dk.mathiasrossen.onboardingapp.utils.BaseViewModel
 import io.reactivex.rxjava3.core.Scheduler
 import javax.inject.Inject
 
@@ -19,7 +19,7 @@ class ArticleDetailsViewModel @Inject constructor(
     @IoScheduler
     private val ioScheduler: Scheduler,
     savedStateHandle: SavedStateHandle
-) : OnboardingViewModel() {
+) : BaseViewModel() {
     private val articleUuid: String = checkNotNull(savedStateHandle[ARTICLE_UUID_KEY])
 
     val articleState = mutableStateOf<Article?>(null)
