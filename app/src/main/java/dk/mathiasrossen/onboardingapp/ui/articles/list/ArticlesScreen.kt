@@ -88,9 +88,8 @@ private fun ArticleList(
                 article = article,
                 showDivider = index != articlesList.lastIndex,
                 isFavorite = articles[article]?.value == true,
-                { onFavoriteClick(article) }) {
-                onArticleClick(article)
-            }
+                onFavoriteClick = { onFavoriteClick(article) },
+                onClick = { onArticleClick(article) })
         }
     }
 }
