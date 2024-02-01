@@ -114,5 +114,17 @@ class ArticlesScreenViewModelTest {
         Assert.assertFalse(viewModel.articles.values.first().value)
     }
 
+    @Test
+    fun toggleFavorite_articleIsNowFavorited() {
+        val article = mockArticles.first()
+        given(useCase.toggleFavorite(article)).willReturn(
+            Single.just(true)
+        )
+
+        viewModel.toggleFavorite(article)
+
+        Assert.assertTrue(viewModel.articles.values.first().value)
+    }
+
     private fun createViewModel() = ArticlesScreenViewModel(useCase, scheduler, dateUtils, savedStateHandle)
 }
