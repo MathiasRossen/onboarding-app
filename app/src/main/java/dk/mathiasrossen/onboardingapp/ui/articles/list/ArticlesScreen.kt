@@ -29,8 +29,10 @@ import dk.mathiasrossen.onboardingapp.ui.theme.OnboardingAppTheme
 @Composable
 fun ArticlesScreen(
     articlesScreenViewModel: ArticlesScreenViewModel = hiltViewModel(),
+    onAppBarTitle: (title: String) -> Unit,
     onArticleClick: (article: Article) -> Unit
 ) {
+    onAppBarTitle(articlesScreenViewModel.appBarTitle.value)
     ArticleList(
         articlesScreenViewModel.articles,
         articlesScreenViewModel.sortState.value,
