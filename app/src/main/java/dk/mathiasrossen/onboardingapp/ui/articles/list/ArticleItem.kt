@@ -79,7 +79,8 @@ private fun ArticleItemPreview() {
             Article.createSample(),
             showDivider = true,
             isFavorite = false,
-            onFavoriteClick = {}
-        ) {}
+            onFavoriteClick = {},
+            onClick = {}
+        )
     }
 }
