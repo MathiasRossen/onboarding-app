@@ -45,8 +45,8 @@ class ArticleDetailsViewModel @Inject constructor(
             compositeDisposable.add(
                 articlesUseCase.toggleFavorite(article)
                     .subscribeOn(ioScheduler)
-                    .subscribe { isFavorited ->
-                        favoriteState.value = isFavorited
+                    .subscribe { isFavorite ->
+                        favoriteState.value = isFavorite
                     }
             )
         }
