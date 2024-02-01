@@ -21,6 +21,7 @@ class ArticlesScreenViewModelTest {
     private val sourceId = "123"
     private val appBarTitle = "appBarTitle"
     private val date = "2024-01-18"
+    private val sampleUrl = "horse"
     private val sortBy = NewsApiService.SORT_BY_POPULAR
     private val useCase = mock<ArticlesUseCase>()
     private val scheduler = Schedulers.trampoline()
@@ -31,7 +32,7 @@ class ArticlesScreenViewModelTest {
         set(ArticlesScreenViewModel.SOURCE_NAME_KEY, appBarTitle)
     }
     private val mockArticles = listOf(
-        Article.createSample(),
+        Article.createSample(sampleUrl),
         Article.createSample()
     )
 
