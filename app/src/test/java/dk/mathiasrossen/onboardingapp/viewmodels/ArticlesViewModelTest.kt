@@ -39,12 +39,8 @@ class ArticlesViewModelTest {
     @Before
     fun setup() {
         given(dateUtils.oneDayPast()).willReturn(LocalDate.parse(date))
-        given(useCase.getArticles(sourceId, sortBy, date)).willReturn(
-            Single.just(mockArticles)
-        )
-        given(useCase.getFavoriteArticles()).willReturn(
-            Single.just(listOf())
-        )
+        given(useCase.getArticles(sourceId, sortBy, date)).willReturn(Single.just(mockArticles))
+        given(useCase.getFavoriteArticles()).willReturn(Single.just(listOf()))
         viewModel = createViewModel()
     }
 
