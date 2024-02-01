@@ -28,7 +28,7 @@ class ArticleDetailsViewModelTest {
         given(useCase.findArticle(articleUuid)).willReturn(
             Single.just(mockArticle)
         )
-        given(useCase.getIsArticleFavorited(mockArticle)).willReturn(
+        given(useCase.getIsArticleFavorite(mockArticle)).willReturn(
             Single.just(false)
         )
         viewModel = createViewModel()
@@ -37,7 +37,7 @@ class ArticleDetailsViewModelTest {
     @Test
     fun init_articleIsFound() {
         verify(useCase).findArticle(articleUuid)
-        verify(useCase).getIsArticleFavorited(mockArticle)
+        verify(useCase).getIsArticleFavorite(mockArticle)
         Assert.assertNotNull(viewModel.articleState.value)
         Assert.assertEquals(mockArticle, viewModel.articleState.value)
         Assert.assertFalse(viewModel.favoriteState.value)

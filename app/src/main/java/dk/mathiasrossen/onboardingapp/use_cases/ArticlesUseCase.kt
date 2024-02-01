@@ -18,8 +18,8 @@ class ArticlesUseCase(
     fun getFavoriteArticles(): Single<List<FavoriteArticle>> =
         favoriteArticleDao.getAll()
 
-    fun getIsArticleFavorited(article: Article): Single<Boolean> =
-        Single.fromCallable { favoriteArticleDao.find(article.url) !== null }
+    fun getIsArticleFavorite(article: Article): Single<Boolean> =
+        Single.fromCallable { favoriteArticleDao.find(article.url) != null }
 
     fun toggleFavorite(article: Article): Single<Boolean> =
         Single.fromCallable {

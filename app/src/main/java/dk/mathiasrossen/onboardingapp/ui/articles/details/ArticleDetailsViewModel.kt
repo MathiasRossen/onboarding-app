@@ -30,7 +30,7 @@ class ArticleDetailsViewModel @Inject constructor(
             articlesUseCase.findArticle(articleUuid)
                 .subscribeOn(ioScheduler)
                 .flatMap(
-                    { article -> articlesUseCase.getIsArticleFavorited(article) },
+                    { article -> articlesUseCase.getIsArticleFavorite(article) },
                     { article, isFavorite -> article to isFavorite })
                 .subscribeOn(uiScheduler)
                 .subscribe { articleAndFavoritePair ->
