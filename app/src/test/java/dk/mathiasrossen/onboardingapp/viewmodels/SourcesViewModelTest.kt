@@ -2,7 +2,7 @@ package dk.mathiasrossen.onboardingapp.viewmodels
 
 import dk.mathiasrossen.onboardingapp.api.NewsApiService
 import dk.mathiasrossen.onboardingapp.api.response_models.NewsSourcesResponse
-import dk.mathiasrossen.onboardingapp.ui.sources.SourcesScreenViewModel
+import dk.mathiasrossen.onboardingapp.ui.sources.SourcesViewModel
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import org.junit.Assert.assertEquals
@@ -11,10 +11,10 @@ import org.mockito.BDDMockito.given
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 
-class SourcesScreenViewModelTest {
+class SourcesViewModelTest {
     private val service = mock<NewsApiService>()
     private val scheduler = Schedulers.trampoline()
-    private lateinit var viewModel: SourcesScreenViewModel
+    private lateinit var viewModel: SourcesViewModel
 
     @Test
     fun init_onSuccess_newsSourcesReturned() {
@@ -41,7 +41,7 @@ class SourcesScreenViewModelTest {
         verify(service).getSources()
     }
 
-    private fun createViewModel() = SourcesScreenViewModel(service, scheduler)
+    private fun createViewModel() = SourcesViewModel(service, scheduler)
 
     private fun createNewsSource(id: String, name: String): NewsSourcesResponse.NewsSource {
         return NewsSourcesResponse.NewsSource(

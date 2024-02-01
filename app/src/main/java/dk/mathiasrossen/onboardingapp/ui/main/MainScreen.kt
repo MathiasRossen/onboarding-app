@@ -21,11 +21,11 @@ import dk.mathiasrossen.onboardingapp.ui.appbar.OnboardingTopAppBar
 import dk.mathiasrossen.onboardingapp.ui.articles.details.ArticleDetailsScreen
 import dk.mathiasrossen.onboardingapp.ui.articles.list.ArticlesScreen
 import dk.mathiasrossen.onboardingapp.ui.sources.SourcesScreen
-import dk.mathiasrossen.onboardingapp.ui.sources.SourcesScreenViewModel
+import dk.mathiasrossen.onboardingapp.ui.sources.SourcesViewModel
 import dk.mathiasrossen.onboardingapp.ui.theme.OnboardingAppTheme
 
 @Composable
-fun MainScreen(sourcesScreenViewModel: SourcesScreenViewModel) {
+fun MainScreen(sourcesViewModel: SourcesViewModel) {
     val navController = rememberNavController()
     OnboardingAppTheme {
         val appBarTitle = remember { mutableStateOf("NewsApp") }
@@ -61,7 +61,7 @@ fun MainScreen(sourcesScreenViewModel: SourcesScreenViewModel) {
                 navigation(startDestination = Screen.Sources.routeMain, route = Screen.Sources.route) {
                     composable(Screen.Sources.routeMain) {
                         appBarTitle.value = "NewsApp"
-                        SourcesScreen(sourcesScreenViewModel) { sourceId, sourceName ->
+                        SourcesScreen(sourcesViewModel) { sourceId, sourceName ->
                             navController.navigate("${Routes.ARTICLES}/$sourceId?name=$sourceName")
                         }
                     }

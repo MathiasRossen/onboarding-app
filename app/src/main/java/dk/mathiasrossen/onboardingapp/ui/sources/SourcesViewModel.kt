@@ -11,7 +11,7 @@ import io.reactivex.rxjava3.disposables.Disposable
 import javax.inject.Inject
 
 @HiltViewModel
-class SourcesScreenViewModel @Inject constructor(newsApiService: NewsApiService, @UiScheduler uiScheduler: Scheduler) :
+class SourcesViewModel @Inject constructor(newsApiService: NewsApiService, @UiScheduler uiScheduler: Scheduler) :
     ViewModel() {
     private var disposable = Disposable.disposed()
 

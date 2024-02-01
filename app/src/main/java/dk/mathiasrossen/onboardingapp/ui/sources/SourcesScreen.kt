@@ -20,10 +20,10 @@ import dk.mathiasrossen.onboardingapp.ui.theme.Typography
 
 @Composable
 fun SourcesScreen(
-    sourcesScreenViewModel: SourcesScreenViewModel = hiltViewModel(),
+    sourcesViewModel: SourcesViewModel = hiltViewModel(),
     onNewsSourceClick: (sourceId: String, sourceName: String) -> Unit
 ) {
-    val sourcesState by sourcesScreenViewModel.newsSources
+    val sourcesState by sourcesViewModel.newsSources
     LazyColumn(
         contentPadding = PaddingValues(dimensionResource(id = R.dimen.base_content_padding)),
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.base_arrangement_space_large))
