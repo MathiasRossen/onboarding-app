@@ -7,7 +7,7 @@ import dk.mathiasrossen.onboardingapp.R
 sealed class Screen(val route: String, @StringRes val titleResourceId: Int, @DrawableRes val iconResourceId: Int) {
     data object Sources : Screen("sources", R.string.navigation_sources_title, R.drawable.icon_source_list) {
         const val routeMain = "main"
-        const val routeArticles = "articles/{sourceId}"
+        const val routeArticles = "articles/{sourceId}?name={sourceName}"
         const val routeArticleDetails = "articleDetails/{articleUuid}"
     }
     data object Favorites : Screen("favorites", R.string.navigation_favorites_title, R.drawable.icon_favorite)
