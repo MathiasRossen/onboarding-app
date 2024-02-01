@@ -2,12 +2,11 @@ package dk.mathiasrossen.onboardingapp.ui.articles.details
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dk.mathiasrossen.onboardingapp.data.article.Article
 import dk.mathiasrossen.onboardingapp.use_cases.ArticlesUseCase
+import dk.mathiasrossen.onboardingapp.utils.OnboardingViewModel
 import io.reactivex.rxjava3.core.Scheduler
-import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
@@ -16,9 +15,8 @@ class ArticleDetailsViewModel @Inject constructor(
     private val articlesUseCase: ArticlesUseCase,
     uiScheduler: Scheduler,
     savedStateHandle: SavedStateHandle
-) : ViewModel() {
+) : OnboardingViewModel() {
     private val articleUuid: String = checkNotNull(savedStateHandle[ARTICLE_UUID_KEY])
-    private val compositeDisposable = CompositeDisposable()
 
     val articleState = mutableStateOf<Article?>(null)
     val favoriteState = mutableStateOf(false)
@@ -48,11 +46,6 @@ class ArticleDetailsViewModel @Inject constructor(
                     }
             )
         }
-    }
-
-    override fun onCleared() {
-        compositeDisposable.dispose()
-        super.onCleared()
     }
 
     companion object {
