@@ -5,7 +5,7 @@ import dk.mathiasrossen.onboardingapp.api.response_models.NewsSourcesResponse
 import dk.mathiasrossen.onboardingapp.ui.sources.SourcesScreenViewModel
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
-import org.junit.Assert
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.mockito.BDDMockito.given
 import org.mockito.kotlin.mock
@@ -29,7 +29,7 @@ class SourcesScreenViewModelTest {
 
         viewModel = createViewModel()
 
-        Assert.assertEquals(mockNewsSourcesResponse.sourcesSorted, viewModel.newsSources.value)
+        assertEquals(mockNewsSourcesResponse.sourcesSorted, viewModel.newsSources.value)
     }
 
     @Test

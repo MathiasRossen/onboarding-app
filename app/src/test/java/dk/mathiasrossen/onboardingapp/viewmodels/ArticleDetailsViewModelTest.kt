@@ -6,7 +6,7 @@ import dk.mathiasrossen.onboardingapp.ui.articles.details.ArticleDetailsViewMode
 import dk.mathiasrossen.onboardingapp.use_cases.ArticlesUseCase
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
-import org.junit.Assert
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.mockito.kotlin.given
@@ -38,9 +38,9 @@ class ArticleDetailsViewModelTest {
     fun init_articleIsFound() {
         verify(useCase).findArticle(articleUuid)
         verify(useCase).getIsArticleFavorite(mockArticle)
-        Assert.assertNotNull(viewModel.articleState.value)
-        Assert.assertEquals(mockArticle, viewModel.articleState.value)
-        Assert.assertFalse(viewModel.favoriteState.value)
+        assertNotNull(viewModel.articleState.value)
+        assertEquals(mockArticle, viewModel.articleState.value)
+        assertFalse(viewModel.favoriteState.value)
     }
 
     @Test
@@ -51,7 +51,7 @@ class ArticleDetailsViewModelTest {
 
         viewModel.toggleFavorite()
 
-        Assert.assertTrue(viewModel.favoriteState.value)
+        assertTrue(viewModel.favoriteState.value)
     }
 
 
