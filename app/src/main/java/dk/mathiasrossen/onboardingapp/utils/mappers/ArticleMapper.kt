@@ -9,7 +9,7 @@ class ArticleMapper {
         articlesResponseArticle.author,
         articlesResponseArticle.description ?: "",
         articlesResponseArticle.url,
-        articlesResponseArticle.urlToImage,
+        articlesResponseArticle.urlToImage ?: "",
         articlesResponseArticle.publishedAt,
         articlesResponseArticle.content
     )

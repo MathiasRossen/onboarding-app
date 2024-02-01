@@ -29,7 +29,7 @@ fun MainScreen(sourcesViewModel: SourcesViewModel) {
     val navController = rememberNavController()
     OnboardingAppTheme {
         val appBarTitle = remember { mutableStateOf("NewsApp") }
-        val appBarImageUrl = remember { mutableStateOf<String?>(null) }
+        val appBarImageUrl = remember { mutableStateOf("") }
         Scaffold(
             topBar = {
                 val navBackStackEntry by navController.currentBackStackEntryAsState()

@@ -14,7 +14,7 @@ data class Article(
     val description: String,
     @PrimaryKey
     val url: String,
-    val urlToImage: String?,
+    val urlToImage: String,
     val publishedAt: LocalDateTime,
     val content: String,
     val uuid: String = UUID.randomUUID().toString(),

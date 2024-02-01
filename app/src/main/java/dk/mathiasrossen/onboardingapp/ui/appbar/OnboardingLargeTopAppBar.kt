@@ -24,7 +24,7 @@ import dk.mathiasrossen.onboardingapp.ui.theme.OnboardingAppTheme
 @Composable
 fun OnboardingLargeTopAppBar(
     title: String,
-    imageUrl: String?,
+    imageUrl: String,
     canNavigateBack: Boolean = false,
     onNavigateUp: () -> Unit
 ) {
@@ -57,6 +57,6 @@ fun OnboardingLargeTopAppBar(
 @Composable
 private fun TopAppBarPreview() {
     OnboardingAppTheme {
-        OnboardingLargeTopAppBar("Someone was doing something somewhere and it was quite a sight", null) {}
+        OnboardingLargeTopAppBar("Someone was doing something somewhere and it was quite a sight", "") {}
     }
 }

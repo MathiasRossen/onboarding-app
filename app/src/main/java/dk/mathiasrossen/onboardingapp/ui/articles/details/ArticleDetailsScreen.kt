@@ -19,7 +19,7 @@ import dk.mathiasrossen.onboardingapp.ui.theme.Typography
 fun ArticleDetailsScreen(
     articleDetailsViewModel: ArticleDetailsViewModel = hiltViewModel(),
     onAppBarTitle: (title: String) -> Unit,
-    onAppBarImageUrl: (url: String?) -> Unit
+    onAppBarImageUrl: (url: String) -> Unit
 ) {
     val article = articleDetailsViewModel.articleState.value
     if (article != null) {
