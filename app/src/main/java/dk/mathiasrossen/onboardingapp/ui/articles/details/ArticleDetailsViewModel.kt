@@ -14,8 +14,6 @@ import javax.inject.Inject
 @HiltViewModel
 class ArticleDetailsViewModel @Inject constructor(
     private val articlesUseCase: ArticlesUseCase,
-    @UiScheduler
-    uiScheduler: Scheduler,
     @IoScheduler
     private val ioScheduler: Scheduler,
     savedStateHandle: SavedStateHandle
@@ -32,7 +30,6 @@ class ArticleDetailsViewModel @Inject constructor(
                 .flatMap(
                     { article -> articlesUseCase.getIsArticleFavorite(article) },
                     { article, isFavorite -> article to isFavorite })
-                .subscribeOn(uiScheduler)
                 .subscribe { articleAndFavoritePair ->
                     articleState.value = articleAndFavoritePair.first
                     favoriteState.value = articleAndFavoritePair.second
