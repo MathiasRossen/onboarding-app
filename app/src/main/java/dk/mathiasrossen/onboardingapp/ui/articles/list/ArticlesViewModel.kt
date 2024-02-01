@@ -25,8 +25,8 @@ class ArticlesViewModel @Inject constructor(
     private val dateUtils: DateUtils,
     savedStateHandle: SavedStateHandle
 ) : OnboardingViewModel() {
-    private val sourceId: String = checkNotNull(savedStateHandle[SOURCE_ID_KEY])
-    private val sourceName: String = checkNotNull(savedStateHandle[SOURCE_NAME_KEY])
+    private val sourceId: String = savedStateHandle[SOURCE_ID_KEY] ?: ""
+    private val sourceName: String = savedStateHandle[SOURCE_NAME_KEY] ?: ""
 
     var articles = mapOf<Article, MutableState<Boolean>>()
         private set
