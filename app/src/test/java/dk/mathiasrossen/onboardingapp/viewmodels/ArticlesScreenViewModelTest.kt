@@ -19,6 +19,7 @@ import java.time.LocalDate
 
 class ArticlesScreenViewModelTest {
     private val sourceId = "123"
+    private val appBarTitle = "appBarTitle"
     private val date = "2024-01-18"
     private val sortBy = NewsApiService.SORT_BY_POPULAR
     private val useCase = mock<ArticlesUseCase>()
@@ -27,6 +28,7 @@ class ArticlesScreenViewModelTest {
     private lateinit var viewModel: ArticlesScreenViewModel
     private val savedStateHandle = SavedStateHandle().apply {
         set(ArticlesScreenViewModel.SOURCE_ID_KEY, sourceId)
+        set(ArticlesScreenViewModel.SOURCE_NAME_KEY, appBarTitle)
     }
     private val mockArticles = listOf(
         Article.createSample(),
@@ -40,6 +42,11 @@ class ArticlesScreenViewModelTest {
             Single.just(mockArticles)
         )
         viewModel = createViewModel()
+    }
+
+    @Test
+    fun init_appBarTitleIsSet() {
+        Assert.assertEquals(appBarTitle, viewModel.appBarTitle.value)
     }
 
     @Test
