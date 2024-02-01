@@ -9,7 +9,9 @@ import dk.mathiasrossen.onboardingapp.use_cases.ArticlesUseCase
 import dk.mathiasrossen.onboardingapp.utils.date.DateUtils
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
-import org.junit.Assert
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.mockito.kotlin.given
@@ -46,7 +48,7 @@ class ArticlesViewModelTest {
 
     @Test
     fun init_appBarTitleIsSet() {
-        Assert.assertEquals(appBarTitle, viewModel.appBarTitle.value)
+        assertEquals(appBarTitle, viewModel.appBarTitle.value)
     }
 
     @Test
@@ -61,14 +63,14 @@ class ArticlesViewModelTest {
 
     @Test
     fun init_onSuccess_articlesReturned() {
-        Assert.assertEquals(mockArticles, viewModel.articles.keys.toList())
+        assertEquals(mockArticles, viewModel.articles.keys.toList())
     }
 
     @Test
     fun sortByPopularToday_sortStateEqualsPopularToday() {
         viewModel.setSortState(SortState.POPULAR_TODAY)
 
-        Assert.assertEquals(SortState.POPULAR_TODAY, viewModel.sortState.value)
+        assertEquals(SortState.POPULAR_TODAY, viewModel.sortState.value)
     }
 
     @Test
@@ -85,7 +87,7 @@ class ArticlesViewModelTest {
 
         viewModel.setSortState(SortState.POPULAR_ALL_TIME)
 
-        Assert.assertEquals(SortState.POPULAR_ALL_TIME, viewModel.sortState.value)
+        assertEquals(SortState.POPULAR_ALL_TIME, viewModel.sortState.value)
     }
 
     @Test
@@ -102,12 +104,12 @@ class ArticlesViewModelTest {
 
         viewModel.setSortState(SortState.NEWEST)
 
-        Assert.assertEquals(SortState.NEWEST, viewModel.sortState.value)
+        assertEquals(SortState.NEWEST, viewModel.sortState.value)
     }
 
     @Test
     fun init_articleIsNotFavorited() {
-        Assert.assertFalse(viewModel.articles.values.first().value)
+        assertFalse(viewModel.articles.values.first().value)
     }
 
     @Test
@@ -119,7 +121,7 @@ class ArticlesViewModelTest {
 
         viewModel.toggleFavorite(article)
 
-        Assert.assertTrue(viewModel.articles.values.first().value)
+        assertTrue(viewModel.articles.values.first().value)
     }
 
     private fun createViewModel() = ArticlesViewModel(useCase, scheduler, scheduler, dateUtils, savedStateHandle)
