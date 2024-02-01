@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
 import dk.mathiasrossen.onboardingapp.R
@@ -41,7 +42,7 @@ fun OnboardingLargeTopAppBar(
         )
         LargeTopAppBar(
             title = {
-                Text(title)
+                Text(title, maxLines = 2, overflow = TextOverflow.Ellipsis)
             },
             colors = TopAppBarDefaults.topAppBarColors(
                 containerColor = Color.Transparent,
@@ -56,6 +57,6 @@ fun OnboardingLargeTopAppBar(
 @Composable
 private fun TopAppBarPreview() {
     OnboardingAppTheme {
-        OnboardingLargeTopAppBar("NewsApp", null) {}
+        OnboardingLargeTopAppBar("Someone was doing something somewhere and it was quite a sight", null) {}
     }
 }
