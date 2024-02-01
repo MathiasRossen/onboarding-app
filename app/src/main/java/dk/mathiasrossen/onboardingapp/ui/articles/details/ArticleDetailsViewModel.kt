@@ -46,7 +46,6 @@ class ArticleDetailsViewModel @Inject constructor(
                 articlesUseCase.toggleFavorite(article)
                     .subscribeOn(ioScheduler)
                     .subscribe { isFavorited ->
-                        println("horse $isFavorited")
                         favoriteState.value = isFavorited
                     }
             )
