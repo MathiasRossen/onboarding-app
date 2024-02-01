@@ -109,5 +109,10 @@ class ArticlesScreenViewModelTest {
         Assert.assertEquals(SortState.NEWEST, viewModel.sortState.value)
     }
 
+    @Test
+    fun init_articleIsNotFavorited() {
+        Assert.assertFalse(viewModel.articles.values.first().value)
+    }
+
     private fun createViewModel() = ArticlesScreenViewModel(useCase, scheduler, dateUtils, savedStateHandle)
 }
