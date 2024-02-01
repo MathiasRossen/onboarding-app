@@ -13,6 +13,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
+import dk.mathiasrossen.onboardingapp.navigation.Routes
 import dk.mathiasrossen.onboardingapp.navigation.Screen
 import dk.mathiasrossen.onboardingapp.ui.appbar.OnboardingBottomAppBar
 import dk.mathiasrossen.onboardingapp.ui.appbar.OnboardingLargeTopAppBar
@@ -61,12 +62,12 @@ fun MainScreen(sourcesScreenViewModel: SourcesScreenViewModel) {
                     composable(Screen.Sources.routeMain) {
                         appBarTitle.value = "NewsApp"
                         SourcesScreen(sourcesScreenViewModel) { sourceId, sourceName ->
-                            navController.navigate("articles/$sourceId?name=$sourceName")
+                            navController.navigate("${Routes.ARTICLES}/$sourceId?name=$sourceName")
                         }
                     }
                     composable(Screen.Sources.routeArticles) {
                         ArticlesScreen(onAppBarTitle = { title -> appBarTitle.value = title }) { article ->
-                            navController.navigate("articleDetails/${article.uuid}")
+                            navController.navigate("${Routes.ARTICLE_DETAILS}/${article.uuid}")
                         }
                     }
                     composable(Screen.Sources.routeArticleDetails) {
