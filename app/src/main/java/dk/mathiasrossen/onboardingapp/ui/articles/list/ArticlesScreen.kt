@@ -28,18 +28,18 @@ import dk.mathiasrossen.onboardingapp.ui.theme.OnboardingAppTheme
 
 @Composable
 fun ArticlesScreen(
-    articlesScreenViewModel: ArticlesScreenViewModel = hiltViewModel(),
+    articlesViewModel: ArticlesViewModel = hiltViewModel(),
     onAppBarTitle: (title: String) -> Unit,
     onArticleClick: (article: Article) -> Unit
 ) {
-    onAppBarTitle(articlesScreenViewModel.appBarTitle.value)
+    onAppBarTitle(articlesViewModel.appBarTitle.value)
     ArticleList(
-        articlesScreenViewModel.articles,
-        articlesScreenViewModel.sortState.value,
-        articlesScreenViewModel.isRefreshing.value,
-        articlesScreenViewModel::refresh,
-        articlesScreenViewModel::setSortState,
-        articlesScreenViewModel::toggleFavorite,
+        articlesViewModel.articles,
+        articlesViewModel.sortState.value,
+        articlesViewModel.isRefreshing.value,
+        articlesViewModel::refresh,
+        articlesViewModel::setSortState,
+        articlesViewModel::toggleFavorite,
         onArticleClick
     )
 }

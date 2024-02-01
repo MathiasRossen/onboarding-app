@@ -16,7 +16,7 @@ import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
 @HiltViewModel
-class ArticlesScreenViewModel @Inject constructor(
+class ArticlesViewModel @Inject constructor(
     private val articlesUseCase: ArticlesUseCase,
     @UiScheduler
     private val uiScheduler: Scheduler,

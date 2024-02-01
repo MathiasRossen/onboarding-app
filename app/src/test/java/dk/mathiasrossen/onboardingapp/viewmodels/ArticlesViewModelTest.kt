@@ -3,7 +3,7 @@ package dk.mathiasrossen.onboardingapp.viewmodels
 import androidx.lifecycle.SavedStateHandle
 import dk.mathiasrossen.onboardingapp.api.NewsApiService
 import dk.mathiasrossen.onboardingapp.data.article.Article
-import dk.mathiasrossen.onboardingapp.ui.articles.list.ArticlesScreenViewModel
+import dk.mathiasrossen.onboardingapp.ui.articles.list.ArticlesViewModel
 import dk.mathiasrossen.onboardingapp.ui.articles.list.SortState
 import dk.mathiasrossen.onboardingapp.use_cases.ArticlesUseCase
 import dk.mathiasrossen.onboardingapp.utils.date.DateUtils
@@ -17,7 +17,7 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import java.time.LocalDate
 
-class ArticlesScreenViewModelTest {
+class ArticlesViewModelTest {
     private val sourceId = "123"
     private val appBarTitle = "appBarTitle"
     private val date = "2024-01-18"
@@ -26,10 +26,10 @@ class ArticlesScreenViewModelTest {
     private val useCase = mock<ArticlesUseCase>()
     private val scheduler = Schedulers.trampoline()
     private val dateUtils = mock<DateUtils>()
-    private lateinit var viewModel: ArticlesScreenViewModel
+    private lateinit var viewModel: ArticlesViewModel
     private val savedStateHandle = SavedStateHandle().apply {
-        set(ArticlesScreenViewModel.SOURCE_ID_KEY, sourceId)
-        set(ArticlesScreenViewModel.SOURCE_NAME_KEY, appBarTitle)
+        set(ArticlesViewModel.SOURCE_ID_KEY, sourceId)
+        set(ArticlesViewModel.SOURCE_NAME_KEY, appBarTitle)
     }
     private val mockArticles = listOf(
         Article.createSample(sampleUrl),
@@ -126,5 +126,5 @@ class ArticlesScreenViewModelTest {
         Assert.assertTrue(viewModel.articles.values.first().value)
     }
 
-    private fun createViewModel() = ArticlesScreenViewModel(useCase, scheduler, scheduler, dateUtils, savedStateHandle)
+    private fun createViewModel() = ArticlesViewModel(useCase, scheduler, scheduler, dateUtils, savedStateHandle)
 }
