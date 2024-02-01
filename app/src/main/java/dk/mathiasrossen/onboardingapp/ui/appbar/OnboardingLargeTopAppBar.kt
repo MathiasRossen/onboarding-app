@@ -31,13 +31,13 @@ fun OnboardingLargeTopAppBar(
     Box(modifier = Modifier.fillMaxWidth()) {
         val placeholderPainter = painterResource(id = R.drawable.image_placeholder)
         AsyncImage(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(dimensionResource(id = R.dimen.base_large_top_app_bar_height)),
             model = imageUrl,
             placeholder = placeholderPainter,
             error = placeholderPainter,
             contentDescription = null,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(dimensionResource(id = R.dimen.base_large_top_app_bar_height)),
             contentScale = ContentScale.Crop
         )
         LargeTopAppBar(
