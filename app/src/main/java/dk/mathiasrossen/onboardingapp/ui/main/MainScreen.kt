@@ -2,7 +2,6 @@ package dk.mathiasrossen.onboardingapp.ui.main
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -15,6 +14,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
 import dk.mathiasrossen.onboardingapp.navigation.Routes
 import dk.mathiasrossen.onboardingapp.navigation.Screen
+import dk.mathiasrossen.onboardingapp.ui.about.AboutScreen
 import dk.mathiasrossen.onboardingapp.ui.appbar.OnboardingBottomAppBar
 import dk.mathiasrossen.onboardingapp.ui.appbar.OnboardingLargeTopAppBar
 import dk.mathiasrossen.onboardingapp.ui.appbar.OnboardingTopAppBar
@@ -89,7 +89,7 @@ fun MainScreen(sourcesViewModel: SourcesViewModel) {
                     }
                 }
                 composable(Screen.About.route) {
-                    Text(text = "About")
+                    AboutScreen()
                 }
             }
         }
