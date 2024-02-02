@@ -33,7 +33,12 @@ fun MainScreen(sourcesViewModel: SourcesViewModel) {
         Scaffold(
             topBar = {
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
-                val canNavigateBack = navController.previousBackStackEntry !== null
+                val isBottomBarRoute = listOf(
+                    Screen.Sources.route,
+                    Screen.Favorites.route,
+                    Screen.About.route
+                ).contains(navBackStackEntry?.destination?.route)
+                val canNavigateBack = navController.previousBackStackEntry !== null && !isBottomBarRoute
                 if (navBackStackEntry?.destination?.route == Screen.Sources.routeArticleDetails) {
                     OnboardingLargeTopAppBar(
                         appBarTitle.value,
