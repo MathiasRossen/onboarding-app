@@ -11,15 +11,16 @@ import dk.mathiasrossen.onboardingapp.ui.theme.OnboardingAppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun OnboardingTopAppBar() {
+fun OnboardingTopAppBar(title: String, canNavigateBack: Boolean = false, onNavigateUp: () -> Unit) {
     TopAppBar(
         title = {
-            Text("NewsApp")
+            Text(title)
         },
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer,
             titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
-        )
+        ),
+        navigationIcon = { TopAppBarBackButton(canNavigateBack, onNavigateUp) }
     )
 }
 
@@ -27,6 +28,6 @@ fun OnboardingTopAppBar() {
 @Composable
 private fun TopAppBarPreview() {
     OnboardingAppTheme {
-        OnboardingTopAppBar()
+        OnboardingTopAppBar("NewsApp") {}
     }
 }

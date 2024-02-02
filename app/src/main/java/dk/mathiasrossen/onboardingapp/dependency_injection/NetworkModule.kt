@@ -8,7 +8,7 @@ import dagger.hilt.components.SingletonComponent
 import dk.mathiasrossen.onboardingapp.BuildConfig
 import dk.mathiasrossen.onboardingapp.api.AuthorizationInterceptor
 import dk.mathiasrossen.onboardingapp.api.NewsApiService
-import dk.mathiasrossen.onboardingapp.utils.LocalDateTimeAdapter
+import dk.mathiasrossen.onboardingapp.api.adapters.LocalDateTimeAdapter
 import io.reactivex.rxjava3.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

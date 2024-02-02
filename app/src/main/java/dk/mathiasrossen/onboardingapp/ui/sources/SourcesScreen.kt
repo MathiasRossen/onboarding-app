@@ -14,16 +14,16 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import dk.mathiasrossen.onboardingapp.R
-import dk.mathiasrossen.onboardingapp.models.NewsSource
+import dk.mathiasrossen.onboardingapp.api.response_models.NewsSourcesResponse
 import dk.mathiasrossen.onboardingapp.ui.theme.OnboardingAppTheme
 import dk.mathiasrossen.onboardingapp.ui.theme.Typography
 
 @Composable
 fun SourcesScreen(
-    sourcesScreenViewModel: SourcesScreenViewModel = hiltViewModel(),
-    onNewsSourceClick: (sourceId: String) -> Unit
+    sourcesViewModel: SourcesViewModel = hiltViewModel(),
+    onNewsSourceClick: (sourceId: String, sourceName: String) -> Unit
 ) {
-    val sourcesState by sourcesScreenViewModel.newsSources
+    val sourcesState by sourcesViewModel.newsSources
     LazyColumn(
         contentPadding = PaddingValues(dimensionResource(id = R.dimen.base_content_padding)),
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.base_arrangement_space_large))
@@ -35,9 +35,12 @@ fun SourcesScreen(
 }
 
 @Composable
-fun NewsSourceView(newsSource: NewsSource, onNewsSourceClick: (sourceId: String) -> Unit) {
+fun NewsSourceView(
+    newsSource: NewsSourcesResponse.NewsSource,
+    onNewsSourceClick: (sourceId: String, sourceName: String) -> Unit
+) {
     Column(
-        modifier = Modifier.clickable { onNewsSourceClick(newsSource.id) },
+        modifier = Modifier.clickable { onNewsSourceClick(newsSource.id, newsSource.name) },
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.base_arrangement_space_small))
     ) {
         Text(text = newsSource.name, style = Typography.titleLarge)
@@ -50,7 +53,7 @@ fun NewsSourceView(newsSource: NewsSource, onNewsSourceClick: (sourceId: String)
 fun NewsSourceViewPreview() {
     OnboardingAppTheme {
         NewsSourceView(
-            NewsSource(
+            NewsSourcesResponse.NewsSource(
                 "1",
                 "HorseNews",
                 "Your trusted source for breaking news, analysis, exclusive interviews, headlines, and videos related to horses at Horsenews.com",
@@ -59,6 +62,6 @@ fun NewsSourceViewPreview() {
                 "en",
                 "us"
             )
-        ) {}
+        ) { _, _ -> }
     }
 }

@@ -6,6 +6,8 @@
     <dimen name="base_arrangement_space_medium">16dp</dimen>
     <dimen name="base_arrangement_space_large">24dp</dimen>
     <dimen name="base_divider_size">4dp</dimen>
+    <dimen name="base_large_top_app_bar_height">152dp</dimen>
+    <dimen name="base_icon_size">24dp</dimen>
 
     <!-- Tutorial -->
     <dimen name="tutorial_page_content_padding">32dp</dimen>

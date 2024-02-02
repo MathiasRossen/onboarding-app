@@ -1,8 +1,8 @@
 plugins {
-    kotlin("kapt")
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.dagger.hilt.android")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -71,6 +71,12 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.material:material")
 
+    // Room
+    implementation("androidx.room:room-runtime:${Versions.ROOM_VERSION}")
+    annotationProcessor("androidx.room:room-compiler:${Versions.ROOM_VERSION}")
+    ksp("androidx.room:room-compiler:${Versions.ROOM_VERSION}")
+    implementation("androidx.room:room-rxjava3:${Versions.ROOM_VERSION}")
+
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:${Versions.RETROFIT_VERSION}")
     implementation("com.squareup.retrofit2:converter-moshi:${Versions.MOSHI_CONVERTER_VERSION}")
@@ -83,7 +89,7 @@ dependencies {
 
     // Hilt
     implementation("com.google.dagger:hilt-android:${Versions.HILT_VERSION}")
-    kapt("com.google.dagger:hilt-android-compiler:${Versions.HILT_VERSION}")
+    ksp("com.google.dagger:hilt-android-compiler:${Versions.HILT_VERSION}")
     implementation("androidx.hilt:hilt-navigation-compose:${Versions.HILT_NAVIGATION_COMPOSE_VERSION}")
 
     // DataStore
@@ -99,7 +105,7 @@ dependencies {
     testImplementation("org.mockito.kotlin:mockito-kotlin:${Versions.MOCKITO_KOTLIN_VERSION}")
     testImplementation("com.google.dagger:hilt-android-testing:${Versions.HILT_TESTING_VERSION}")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.COROUTINES_TEST_VERSION}")
-    kaptTest("com.google.dagger:hilt-android-compiler:${Versions.HILT_VERSION}")
+    kspTest("com.google.dagger:hilt-android-compiler:${Versions.HILT_VERSION}")
     androidTestImplementation("androidx.test.ext:junit:${Versions.ANDROIDX_JUNIT_VERSION}")
     androidTestImplementation("androidx.test.espresso:espresso-core:${Versions.ANDROIDX_ESPRESSO_VERSION}")
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
@@ -107,8 +113,4 @@ dependencies {
     // Compose debug implementations
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
-}
-
-kapt {
-    correctErrorTypes = true
 }

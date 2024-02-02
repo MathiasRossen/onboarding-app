@@ -8,22 +8,22 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.hilt.navigation.compose.hiltViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import dk.mathiasrossen.onboardingapp.ui.main.MainScreen
-import dk.mathiasrossen.onboardingapp.ui.sources.SourcesScreenViewModel
+import dk.mathiasrossen.onboardingapp.ui.sources.SourcesViewModel
 import dk.mathiasrossen.onboardingapp.ui.tutorial.Tutorial
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    private val sourcesScreenViewModel: SourcesScreenViewModel by viewModels()
+    private val sourcesViewModel: SourcesViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen().setKeepOnScreenCondition {
-            sourcesScreenViewModel.newsSources.value.isEmpty()
+            sourcesViewModel.newsSources.value.isEmpty()
         }
         setContent {
             val mainActivityViewModel: MainActivityViewModel = hiltViewModel()
             if (mainActivityViewModel.isTutorialCompleted) {
-                MainScreen(sourcesScreenViewModel)
+                MainScreen(sourcesViewModel)
             } else {
                 Tutorial {
                     mainActivityViewModel.completeTutorial()

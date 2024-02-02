@@ -2,20 +2,19 @@ package dk.mathiasrossen.onboardingapp.viewmodels
 
 import dk.mathiasrossen.onboardingapp.api.NewsApiService
 import dk.mathiasrossen.onboardingapp.api.response_models.NewsSourcesResponse
-import dk.mathiasrossen.onboardingapp.models.NewsSource
-import dk.mathiasrossen.onboardingapp.ui.sources.SourcesScreenViewModel
+import dk.mathiasrossen.onboardingapp.ui.sources.SourcesViewModel
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
-import org.junit.Assert
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.mockito.BDDMockito.given
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 
-class SourcesScreenViewModelTest {
+class SourcesViewModelTest {
     private val service = mock<NewsApiService>()
     private val scheduler = Schedulers.trampoline()
-    private lateinit var viewModel: SourcesScreenViewModel
+    private lateinit var viewModel: SourcesViewModel
 
     @Test
     fun init_onSuccess_newsSourcesReturned() {
@@ -30,7 +29,7 @@ class SourcesScreenViewModelTest {
 
         viewModel = createViewModel()
 
-        Assert.assertEquals(mockNewsSourcesResponse.sourcesSorted, viewModel.newsSources.value)
+        assertEquals(mockNewsSourcesResponse.sourcesSorted, viewModel.newsSources.value)
     }
 
     @Test
@@ -42,10 +41,10 @@ class SourcesScreenViewModelTest {
         verify(service).getSources()
     }
 
-    private fun createViewModel() = SourcesScreenViewModel(service, scheduler)
+    private fun createViewModel() = SourcesViewModel(service, scheduler)
 
-    private fun createNewsSource(id: String, name: String): NewsSource {
-        return NewsSource(
+    private fun createNewsSource(id: String, name: String): NewsSourcesResponse.NewsSource {
+        return NewsSourcesResponse.NewsSource(
             id,
             name,
             "Your trusted source for breaking news, analysis, exclusive interviews, headlines, and videos related to horses at Horsenews.com",
