@@ -20,7 +20,7 @@ class ArticleDetailsViewModel @Inject constructor(
     private val uiScheduler: Scheduler,
     savedStateHandle: SavedStateHandle
 ) : BaseViewModel() {
-    private val articleUuid: String = checkNotNull(savedStateHandle[ARTICLE_UUID_KEY])
+    private val articleUuid: String = savedStateHandle[ARTICLE_UUID_KEY] ?: ""
 
     val articleState = mutableStateOf<Article?>(null)
     val favoriteState = mutableStateOf(false)
