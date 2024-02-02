@@ -20,5 +20,4 @@ interface FavoriteArticleDao {
 
     @Delete
     fun delete(favoriteArticle: FavoriteArticle)
-
 }
