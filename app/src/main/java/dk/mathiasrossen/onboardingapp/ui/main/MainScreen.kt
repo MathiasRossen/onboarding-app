@@ -20,6 +20,7 @@ import dk.mathiasrossen.onboardingapp.ui.appbar.OnboardingLargeTopAppBar
 import dk.mathiasrossen.onboardingapp.ui.appbar.OnboardingTopAppBar
 import dk.mathiasrossen.onboardingapp.ui.articles.details.ArticleDetailsScreen
 import dk.mathiasrossen.onboardingapp.ui.articles.list.ArticlesScreen
+import dk.mathiasrossen.onboardingapp.ui.favorites.FavoritesScreen
 import dk.mathiasrossen.onboardingapp.ui.sources.SourcesScreen
 import dk.mathiasrossen.onboardingapp.ui.sources.SourcesViewModel
 import dk.mathiasrossen.onboardingapp.ui.theme.OnboardingAppTheme
@@ -82,7 +83,10 @@ fun MainScreen(sourcesViewModel: SourcesViewModel) {
                     }
                 }
                 composable(Screen.Favorites.route) {
-                    Text(text = "Favorites")
+                    appBarTitle.value = "Favorites"
+                    FavoritesScreen { article ->
+                        navController.navigate("articleDetails/${article.uuid}")
+                    }
                 }
                 composable(Screen.About.route) {
                     Text(text = "About")
