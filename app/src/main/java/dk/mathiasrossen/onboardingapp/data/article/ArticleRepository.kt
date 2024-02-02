@@ -25,4 +25,6 @@ class ArticleRepository(
     private fun storeArticles(articles: List<Article>) = articleDao.insertAll(articles)
 
     fun findArticle(uuid: String): Single<Article> = articleDao.findByUuid(uuid)
+
+    fun getArticlesByUrls(urls: List<String>) = articleDao.allByUrls(urls)
 }
