@@ -34,8 +34,7 @@ class ArticlesViewModelTest {
         set(ArticlesViewModel.SOURCE_NAME_KEY, appBarTitle)
     }
     private val mockArticles = listOf(
-        Article.createSample(sampleUrl),
-        Article.createSample()
+        Article.createSample(sampleUrl), Article.createSample()
     )
 
     @Before
@@ -75,15 +74,8 @@ class ArticlesViewModelTest {
 
     @Test
     fun sortByPopularAll_sortStateEqualsPopularAll() {
-        given(
-            useCase.getArticles(
-                sourceId,
-                NewsApiService.SORT_BY_POPULAR,
-                null
-            )
-        ).willReturn(
-            Single.just(mockArticles)
-        )
+        given(useCase.getArticles(sourceId, NewsApiService.SORT_BY_POPULAR, null))
+            .willReturn(Single.just(mockArticles))
 
         viewModel.setSortState(SortState.POPULAR_ALL_TIME)
 
@@ -92,15 +84,8 @@ class ArticlesViewModelTest {
 
     @Test
     fun sortByNewest_sortStateEqualsNewest() {
-        given(
-            useCase.getArticles(
-                sourceId,
-                NewsApiService.SORT_BY_PUBLISHED_AT,
-                null
-            )
-        ).willReturn(
-            Single.just(mockArticles)
-        )
+        given(useCase.getArticles(sourceId, NewsApiService.SORT_BY_PUBLISHED_AT, null))
+            .willReturn(Single.just(mockArticles))
 
         viewModel.setSortState(SortState.NEWEST)
 
@@ -115,9 +100,7 @@ class ArticlesViewModelTest {
     @Test
     fun toggleFavorite_articleIsNowFavorited() {
         val article = mockArticles.first()
-        given(useCase.toggleFavorite(article)).willReturn(
-            Single.just(true)
-        )
+        given(useCase.toggleFavorite(article)).willReturn(Single.just(true))
 
         viewModel.toggleFavorite(article)
 
