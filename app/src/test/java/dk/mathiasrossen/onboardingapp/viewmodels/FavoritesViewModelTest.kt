@@ -34,5 +34,15 @@ class FavoritesViewModelTest {
         assertEquals(mockArticles, viewModel.articles.value)
     }
 
+    @Test
+    fun toggleFavorite_articleIsRemovedFromList() {
+        given(useCase.toggleFavorite(mockArticles.first())).willReturn(Single.just(false))
+
+        viewModel.loadArticles()
+        viewModel.toggleFavorite(mockArticles.first())
+
+        assertEquals(listOf(mockArticles.last()), viewModel.articles.value)
+    }
+
     private fun createViewModel() = FavoritesViewModel(useCase, scheduler)
 }
