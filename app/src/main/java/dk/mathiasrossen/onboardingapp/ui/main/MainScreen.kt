@@ -2,6 +2,8 @@ package dk.mathiasrossen.onboardingapp.ui.main
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -31,7 +33,11 @@ fun MainScreen(sourcesViewModel: SourcesViewModel) {
     OnboardingAppTheme {
         val appBarTitle = remember { mutableStateOf("NewsApp") }
         val appBarImageUrl = remember { mutableStateOf("") }
+        val snackbarHostState = remember { SnackbarHostState() }
         Scaffold(
+            snackbarHost = {
+                SnackbarHost(hostState = snackbarHostState)
+            },
             topBar = {
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 val isBottomBarRoute = listOf(
