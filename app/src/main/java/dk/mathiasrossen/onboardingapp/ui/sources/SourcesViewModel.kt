@@ -15,15 +15,20 @@ class SourcesViewModel @Inject constructor(newsApiService: NewsApiService, @UiSc
     ViewModel() {
     private var disposable = Disposable.disposed()
 
-    var newsSources = mutableStateOf(listOf<NewsSourcesResponse.NewsSource>())
-        private set
+    val isLoading = mutableStateOf(true)
+    val newsSources = mutableStateOf(listOf<NewsSourcesResponse.NewsSource>())
+    var onError: () -> Unit = {}
 
     init {
         disposable = newsApiService.getSources()
             .observeOn(uiScheduler)
             .subscribe({ newsSourcesResponse ->
                 newsSources.value = newsSourcesResponse.sourcesSorted
-            }) { /* error */ }
+                isLoading.value = false
+            }) {
+                isLoading.value = false
+                onError()
+            }
     }
 
     override fun onCleared() {
