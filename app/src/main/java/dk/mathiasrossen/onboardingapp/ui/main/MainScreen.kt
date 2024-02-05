@@ -89,6 +89,7 @@ fun MainScreen(sourcesViewModel: SourcesViewModel) {
                     }
                 }
                 composable(Screen.About.route) {
+                    appBarTitle.value = "About"
                     AboutScreen()
                 }
             }
