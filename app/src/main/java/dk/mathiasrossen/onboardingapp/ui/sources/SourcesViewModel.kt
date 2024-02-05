@@ -11,7 +11,11 @@ import io.reactivex.rxjava3.disposables.Disposable
 import javax.inject.Inject
 
 @HiltViewModel
-class SourcesViewModel @Inject constructor(newsApiService: NewsApiService, @UiScheduler uiScheduler: Scheduler) :
+class SourcesViewModel @Inject constructor(
+    private val newsApiService: NewsApiService,
+    @UiScheduler
+    private val uiScheduler: Scheduler
+) :
     ViewModel() {
     private var disposable = Disposable.disposed()
 
@@ -20,6 +24,10 @@ class SourcesViewModel @Inject constructor(newsApiService: NewsApiService, @UiSc
     var onError: () -> Unit = {}
 
     init {
+        loadSources()
+    }
+
+    fun loadSources() {
         disposable = newsApiService.getSources()
             .observeOn(uiScheduler)
             .subscribe({ newsSourcesResponse ->
