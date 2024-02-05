@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen().setKeepOnScreenCondition {
-            sourcesViewModel.newsSources.value.isEmpty()
+            sourcesViewModel.isLoading.value
         }
         setContent {
             val mainActivityViewModel: MainActivityViewModel = hiltViewModel()
