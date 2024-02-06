@@ -14,21 +14,23 @@ class SourcesViewModel @Inject constructor(
     private val newsApiService: NewsApiService, @UiScheduler private val uiScheduler: Scheduler
 ) : BaseViewModel() {
     val isLoading = mutableStateOf(true)
+    val hasError = mutableStateOf(false)
     val newsSources = mutableStateOf(listOf<NewsSourcesResponse.NewsSource>())
-    var onError: () -> Unit = {}
 
     init {
         loadSources()
     }
 
     fun loadSources() {
+        isLoading.value = true
         compositeDisposable.add(
             newsApiService.getSources().observeOn(uiScheduler).subscribe({ newsSourcesResponse ->
                 newsSources.value = newsSourcesResponse.sourcesSorted
                 isLoading.value = false
+                hasError.value = false
             }) {
                 isLoading.value = false
-                onError()
+                hasError.value = true
             }
         )
     }

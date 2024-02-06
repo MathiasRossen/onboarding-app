@@ -73,7 +73,7 @@ fun MainScreen(sourcesViewModel: SourcesViewModel) {
                 navigation(startDestination = Screen.Sources.routeMain, route = Screen.Sources.route) {
                     composable(Screen.Sources.routeMain) {
                         appBarTitle.value = "NewsApp"
-                        SourcesScreen(sourcesViewModel) { sourceId, sourceName ->
+                        SourcesScreen(sourcesViewModel, snackbarHostState) { sourceId, sourceName ->
                             navController.navigate("${Routes.ARTICLES}/$sourceId?name=$sourceName")
                         }
                     }
