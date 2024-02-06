@@ -27,14 +27,9 @@ class ArticlesViewModel @Inject constructor(
 ) : BaseViewModel() {
     private val sourceId: String = savedStateHandle[SOURCE_ID_KEY] ?: ""
     private val sourceName: String = savedStateHandle[SOURCE_NAME_KEY] ?: ""
+    val sortState = mutableStateOf(SortState.POPULAR_TODAY)
 
     var articles = mapOf<Article, MutableState<Boolean>>()
-        private set
-
-    var isRefreshing = mutableStateOf(false)
-        private set
-
-    var sortState = mutableStateOf(SortState.POPULAR_TODAY)
         private set
 
     private val sortBy
@@ -50,8 +45,7 @@ class ArticlesViewModel @Inject constructor(
     }
 
     fun refresh() {
-        isRefreshing.value = true
-
+        isLoading.value = true
         compositeDisposable.add(
             getArticles().flatMap(
                 { articlesUseCase.getFavoriteArticles() },
@@ -64,8 +58,12 @@ class ArticlesViewModel @Inject constructor(
                 }
             ).subscribe({ articleList ->
                 articles = articleList
-                isRefreshing.value = false
-            }) { /* error */ }
+                isLoading.value = false
+                hasError.value = false
+            }) {
+                isLoading.value = false
+                hasError.value = true
+            }
         )
     }
 
