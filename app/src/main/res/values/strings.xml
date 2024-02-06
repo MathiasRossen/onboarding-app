@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">OnboardingApp</string>
 
+    <!-- Base -->
+    <string name="base_error_retry">Retry</string>
+
     <!-- Navigation -->
     <string name="navigation_sources_title">Source list</string>
     <string name="navigation_favorites_title">Favorites</string>
@@ -15,16 +18,18 @@
     <string name="tutorial_screen_three_button">Begin</string>
     <string name="tutorial_screen_three_motivational_text">I believe in you!</string>
 
+    <!-- Sources -->
+    <string name="sources_error">Can\'t fetch sources</string>
+
     <!-- Articles -->
     <string name="articles_screen_button_sort_popular_today">Popular today</string>
     <string name="articles_screen_button_sort_popular_all_time">Popular all time</string>
     <string name="articles_screen_button_sort_newest">Newest</string>
+    <string name="articles_error">Can\'t fetch articles</string>
 
     <!-- About -->
     <string name="about_screen_header">What is this?</string>
     <string name="about_screen_body1">This app is an onboarding app made for the purpose of learning the tools used for Play apps.</string>
     <string name="about_screen_body2">All code has been crafted with care and peer reviewed by very competent developers, to ensure the best user experience possible.</string>
     <string name="about_version">Version %1$s</string>
-    <string name="sources_error">Can\'t fetch sources</string>
-    <string name="base_error_retry">Retry</string>
 </resources>
