@@ -8,6 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LifecycleEventEffect
 import dk.mathiasrossen.onboardingapp.data.article.Article
 import dk.mathiasrossen.onboardingapp.ui.articles.list.ArticleItem
 import dk.mathiasrossen.onboardingapp.ui.theme.OnboardingAppTheme
@@ -17,7 +19,9 @@ fun FavoritesScreen(
     favoritesViewModel: FavoritesViewModel = hiltViewModel(),
     onArticleClick: (article: Article) -> Unit
 ) {
-    favoritesViewModel.loadArticles()
+    LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
+        favoritesViewModel.onResume()
+    }
     val articles = favoritesViewModel.articles.value
     if (articles.isEmpty()) {
         NoFavoriteArticlesPlaceholder()
