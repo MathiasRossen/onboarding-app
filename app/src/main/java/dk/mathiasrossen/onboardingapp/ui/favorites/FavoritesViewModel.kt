@@ -16,7 +16,7 @@ class FavoritesViewModel @Inject constructor(
 ) : BaseViewModel() {
     val articles = mutableStateOf<List<Article>>(listOf())
 
-    fun loadArticles() {
+    private fun loadArticles() {
         compositeDisposable.add(
             articlesUseCase.getFavoriteArticles()
                 .subscribeOn(ioScheduler)
@@ -40,5 +40,9 @@ class FavoritesViewModel @Inject constructor(
                     }
                 }
         )
+    }
+
+    fun onResume() {
+        loadArticles()
     }
 }
