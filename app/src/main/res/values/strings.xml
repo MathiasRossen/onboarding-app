@@ -19,4 +19,7 @@
     <string name="articles_screen_button_sort_popular_today">Popular today</string>
     <string name="articles_screen_button_sort_popular_all_time">Popular all time</string>
     <string name="articles_screen_button_sort_newest">Newest</string>
+
+    <!-- Favorites -->
+    <string name="favorites_screen_no_articles">You don\'t have any favorite articles yet</string>
 </resources>

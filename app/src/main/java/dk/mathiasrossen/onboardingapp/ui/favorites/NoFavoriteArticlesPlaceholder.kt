@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import dk.mathiasrossen.onboardingapp.R
@@ -35,7 +36,7 @@ fun NoFavoriteArticlesPlaceholder() {
         )
         Text(
             modifier = Modifier.fillMaxWidth(),
-            text = "You don't have any favorite articles yet",
+            text = stringResource(R.string.favorites_screen_no_articles),
             textAlign = TextAlign.Center
         )
     }
