@@ -91,7 +91,7 @@ fun MainScreen(sourcesViewModel: SourcesViewModel) {
                 composable(Screen.Favorites.route) {
                     appBarTitle.value = "Favorites"
                     FavoritesScreen { article ->
-                        navController.navigate("articleDetails/${article.uuid}")
+                        navController.navigate("${Routes.ARTICLE_DETAILS}/${article.uuid}")
                     }
                 }
                 composable(Screen.About.route) {
