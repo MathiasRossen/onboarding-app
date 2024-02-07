@@ -24,8 +24,8 @@ fun NoFavoriteArticlesPlaceholder() {
             .fillMaxSize()
             .padding(dimensionResource(id = R.dimen.base_content_padding)),
         verticalArrangement = Arrangement.spacedBy(
-            dimensionResource(id = R.dimen.base_arrangement_space_medium),
-            Alignment.CenterVertically
+            space = dimensionResource(id = R.dimen.base_arrangement_space_medium),
+            alignment = Alignment.CenterVertically
         )
     ) {
         Image(
