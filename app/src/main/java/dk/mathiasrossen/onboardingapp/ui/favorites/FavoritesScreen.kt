@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -19,12 +18,12 @@ fun FavoritesScreen(
     onArticleClick: (article: Article) -> Unit
 ) {
     favoritesViewModel.loadArticles()
-    val articles by favoritesViewModel.articles
+    val articles = favoritesViewModel.articles.value
     if (articles.isEmpty()) {
         NoFavoriteArticlesPlaceholder()
     } else {
         FavoriteArticlesList(
-            articles = favoritesViewModel.articles.value,
+            articles = articles,
             onFavoriteClick = { article -> favoritesViewModel.toggleFavorite(article) },
             onArticleClick = onArticleClick
         )
