@@ -6,7 +6,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -20,7 +19,7 @@ fun FavoritesScreen(
     onArticleClick: (article: Article) -> Unit
 ) {
     favoritesViewModel.loadArticles()
-    val articles by remember { favoritesViewModel.articles }
+    val articles by favoritesViewModel.articles
     if (articles.isEmpty()) {
         NoFavoriteArticlesPlaceholder()
     } else {
