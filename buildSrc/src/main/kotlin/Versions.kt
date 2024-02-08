@@ -10,6 +10,9 @@ object Versions {
     // Jetpack Compose version
     const val COMPOSE_BOM_VERSION = "2023.10.01"
 
+    // Firebase
+    const val FIREBASE_BOM_VERSION = "32.7.1"
+
     // Room
     const val ROOM_VERSION = "2.6.1"
 
