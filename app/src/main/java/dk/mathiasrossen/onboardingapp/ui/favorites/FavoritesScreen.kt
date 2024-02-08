@@ -5,11 +5,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LifecycleEventEffect
 import dk.mathiasrossen.onboardingapp.data.article.Article
 import dk.mathiasrossen.onboardingapp.ui.articles.list.ArticleItem
 import dk.mathiasrossen.onboardingapp.ui.theme.OnboardingAppTheme
@@ -19,13 +19,15 @@ fun FavoritesScreen(
     favoritesViewModel: FavoritesViewModel = hiltViewModel(),
     onArticleClick: (article: Article) -> Unit
 ) {
-    favoritesViewModel.loadArticles()
-    val articles by remember { favoritesViewModel.articles }
+    LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
+        favoritesViewModel.onResume()
+    }
+    val articles = favoritesViewModel.articles.value
     if (articles.isEmpty()) {
         NoFavoriteArticlesPlaceholder()
     } else {
         FavoriteArticlesList(
-            articles = favoritesViewModel.articles.value,
+            articles = articles,
             onFavoriteClick = { article -> favoritesViewModel.toggleFavorite(article) },
             onArticleClick = onArticleClick
         )

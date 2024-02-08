@@ -32,4 +32,7 @@
     <string name="about_screen_body1">This app is an onboarding app made for the purpose of learning the tools used for Play apps.</string>
     <string name="about_screen_body2">All code has been crafted with care and peer reviewed by very competent developers, to ensure the best user experience possible.</string>
     <string name="about_version">Version %1$s</string>
+
+    <!-- Favorites -->
+    <string name="favorites_screen_no_articles">You don\'t have any favorite articles yet</string>
 </resources>
