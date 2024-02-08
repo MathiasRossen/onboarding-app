@@ -60,6 +60,7 @@ dependencies {
     implementation("androidx.core:core-ktx:${Versions.ANDROIDX_CORE_VERSION}")
     implementation("androidx.core:core-splashscreen:${Versions.ANDROIDX_CORE_SPLASHSCREEN_VERSION}")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:${Versions.ANDROIDX_LIFECYCLE_VERSION}")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:${Versions.ANDROIDX_LIFECYCLE_COMPOSE_VERSION}")
     implementation("androidx.activity:activity-compose:${Versions.ANDROIDX_ACTIVITY_COMPOSE_VERSION}")
     implementation("androidx.navigation:navigation-compose:${Versions.ANDROIDX_NAVIGATION_COMPOSE_VERSION}")
     implementation("androidx.appcompat:appcompat:${Versions.ANDROIDX_APPCOMPAT_VERSION}")

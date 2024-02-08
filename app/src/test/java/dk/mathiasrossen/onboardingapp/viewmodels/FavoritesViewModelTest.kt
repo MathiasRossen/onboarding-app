@@ -28,8 +28,8 @@ class FavoritesViewModelTest {
     }
 
     @Test
-    fun loadArticles_favoriteArticlesAreLoaded() {
-        viewModel.loadArticles()
+    fun onResume_favoriteArticlesAreLoaded() {
+        viewModel.onResume()
 
         assertEquals(mockArticles, viewModel.articles.value)
     }
@@ -38,7 +38,7 @@ class FavoritesViewModelTest {
     fun toggleFavorite_articleIsRemovedFromList() {
         given(useCase.toggleFavorite(mockArticles.first())).willReturn(Single.just(false))
 
-        viewModel.loadArticles()
+        viewModel.onResume()
         viewModel.toggleFavorite(mockArticles.first())
 
         assertEquals(listOf(mockArticles.last()), viewModel.articles.value)
