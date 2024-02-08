@@ -22,14 +22,17 @@ import dk.mathiasrossen.onboardingapp.ui.appbar.OnboardingLargeTopAppBar
 import dk.mathiasrossen.onboardingapp.ui.appbar.OnboardingTopAppBar
 import dk.mathiasrossen.onboardingapp.ui.articles.details.ArticleDetailsScreen
 import dk.mathiasrossen.onboardingapp.ui.articles.list.ArticlesScreen
+import dk.mathiasrossen.onboardingapp.ui.base.SnackbarErrors
 import dk.mathiasrossen.onboardingapp.ui.favorites.FavoritesScreen
 import dk.mathiasrossen.onboardingapp.ui.sources.SourcesScreen
 import dk.mathiasrossen.onboardingapp.ui.sources.SourcesViewModel
 import dk.mathiasrossen.onboardingapp.ui.theme.OnboardingAppTheme
+import dk.mathiasrossen.onboardingapp.utils.errors.ErrorPromoter
 
 @Composable
-fun MainScreen(sourcesViewModel: SourcesViewModel) {
+fun MainScreen(errorPromoter: ErrorPromoter, sourcesViewModel: SourcesViewModel) {
     val navController = rememberNavController()
+    navController.addOnDestinationChangedListener { _, _, _ -> errorPromoter.dismissAllErrors() }
     OnboardingAppTheme {
         val appBarTitle = remember { mutableStateOf("NewsApp") }
         val appBarImageUrl = remember { mutableStateOf("") }
@@ -65,6 +68,11 @@ fun MainScreen(sourcesViewModel: SourcesViewModel) {
                 OnboardingBottomAppBar(navController)
             }
         ) { innerPadding ->
+            SnackbarErrors(
+                errors = errorPromoter.errors.value,
+                snackbarHostState = snackbarHostState,
+                onDismissError = errorPromoter::dismissError
+            )
             NavHost(
                 navController = navController,
                 startDestination = Screen.Sources.route,
@@ -73,7 +81,7 @@ fun MainScreen(sourcesViewModel: SourcesViewModel) {
                 navigation(startDestination = Screen.Sources.routeMain, route = Screen.Sources.route) {
                     composable(Screen.Sources.routeMain) {
                         appBarTitle.value = "NewsApp"
-                        SourcesScreen(sourcesViewModel, snackbarHostState) { sourceId, sourceName ->
+                        SourcesScreen(sourcesViewModel) { sourceId, sourceName ->
                             navController.navigate("${Routes.ARTICLES}/$sourceId?name=$sourceName")
                         }
                     }
