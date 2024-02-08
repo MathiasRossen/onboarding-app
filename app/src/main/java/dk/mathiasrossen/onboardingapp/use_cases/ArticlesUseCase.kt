@@ -32,4 +32,6 @@ class ArticlesUseCase(
                 false
             }
         }
+
+    fun getArticlesByUrls(urls: List<String>) = articleRepository.getArticlesByUrls(urls)
 }

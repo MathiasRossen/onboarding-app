@@ -11,6 +11,9 @@ interface ArticleDao {
     @Query("SELECT * FROM article WHERE uuid = :uuid LIMIT 1")
     fun findByUuid(uuid: String): Single<Article>
 
+    @Query("SELECT * FROM article WHERE url in (:urls)")
+    fun allByUrls(urls: List<String>): Single<List<Article>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(articles: List<Article>)
 }

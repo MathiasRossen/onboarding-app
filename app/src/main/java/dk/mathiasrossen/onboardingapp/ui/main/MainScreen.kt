@@ -20,6 +20,7 @@ import dk.mathiasrossen.onboardingapp.ui.appbar.OnboardingLargeTopAppBar
 import dk.mathiasrossen.onboardingapp.ui.appbar.OnboardingTopAppBar
 import dk.mathiasrossen.onboardingapp.ui.articles.details.ArticleDetailsScreen
 import dk.mathiasrossen.onboardingapp.ui.articles.list.ArticlesScreen
+import dk.mathiasrossen.onboardingapp.ui.favorites.FavoritesScreen
 import dk.mathiasrossen.onboardingapp.ui.sources.SourcesScreen
 import dk.mathiasrossen.onboardingapp.ui.sources.SourcesViewModel
 import dk.mathiasrossen.onboardingapp.ui.theme.OnboardingAppTheme
@@ -33,7 +34,12 @@ fun MainScreen(sourcesViewModel: SourcesViewModel) {
         Scaffold(
             topBar = {
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
-                val canNavigateBack = navController.previousBackStackEntry !== null
+                val isBottomBarRoute = listOf(
+                    Screen.Sources.route,
+                    Screen.Favorites.route,
+                    Screen.About.route
+                ).contains(navBackStackEntry?.destination?.route)
+                val canNavigateBack = navController.previousBackStackEntry !== null && !isBottomBarRoute
                 if (navBackStackEntry?.destination?.route == Screen.Sources.routeArticleDetails) {
                     OnboardingLargeTopAppBar(
                         appBarTitle.value,
@@ -77,7 +83,10 @@ fun MainScreen(sourcesViewModel: SourcesViewModel) {
                     }
                 }
                 composable(Screen.Favorites.route) {
-                    Text(text = "Favorites")
+                    appBarTitle.value = "Favorites"
+                    FavoritesScreen { article ->
+                        navController.navigate("${Routes.ARTICLE_DETAILS}/${article.uuid}")
+                    }
                 }
                 composable(Screen.About.route) {
                     Text(text = "About")
