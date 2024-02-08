@@ -4,6 +4,7 @@
     <!-- Base -->
     <string name="base_error_retry">Retry</string>
     <string name="base_error_dismiss">Dismiss</string>
+    <string name="base_error_screen_message">This page didn\'t load the content correctly</string>
 
     <!-- Navigation -->
     <string name="navigation_sources_title">Source list</string>

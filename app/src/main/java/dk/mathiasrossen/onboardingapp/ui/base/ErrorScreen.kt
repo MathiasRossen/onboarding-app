@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import dk.mathiasrossen.onboardingapp.R
@@ -35,7 +36,7 @@ fun ErrorScreen() {
         )
         Text(
             modifier = Modifier.fillMaxWidth(),
-            text = "This page didn't load the content correctly",
+            text = stringResource(R.string.base_error_screen_message),
             textAlign = TextAlign.Center
         )
     }
