@@ -12,6 +12,10 @@ class ErrorPromoter {
         }
     }
 
+    fun submitGenericError() {
+        submitError(DismissError())
+    }
+
     fun dismissError(error: AppError) {
         errors.value = errors.value.toMutableList().apply {
             remove(error)
