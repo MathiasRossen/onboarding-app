@@ -12,7 +12,6 @@ import dk.mathiasrossen.onboardingapp.dependency_injection.annotations.UiSchedul
 import dk.mathiasrossen.onboardingapp.use_cases.ArticlesUseCase
 import dk.mathiasrossen.onboardingapp.utils.BaseViewModel
 import dk.mathiasrossen.onboardingapp.utils.date.DateUtils
-import dk.mathiasrossen.onboardingapp.utils.errors.ErrorPromoter
 import dk.mathiasrossen.onboardingapp.utils.errors.RetryActionError
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.core.Single
@@ -26,7 +25,6 @@ class ArticlesViewModel @Inject constructor(
     @IoScheduler
     private val ioScheduler: Scheduler,
     private val dateUtils: DateUtils,
-    private val errorPromoter: ErrorPromoter,
     savedStateHandle: SavedStateHandle
 ) : BaseViewModel() {
     private val sourceId: String = savedStateHandle[SOURCE_ID_KEY] ?: ""
@@ -92,7 +90,7 @@ class ArticlesViewModel @Inject constructor(
                 .subscribeOn(ioScheduler)
                 .subscribe({ isFavorite ->
                     articles[article]?.value = isFavorite
-                }) { /* error */ }
+                }) { errorPromoter.submitGenericError() }
         )
     }
 
