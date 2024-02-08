@@ -11,7 +11,6 @@ import org.mockito.BDDMockito.given
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
-import org.mockito.verification.VerificationMode
 
 class SourcesViewModelTest {
     private val service = mock<NewsApiService>()
