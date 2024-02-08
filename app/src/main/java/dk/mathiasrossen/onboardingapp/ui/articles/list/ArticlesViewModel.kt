@@ -4,6 +4,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dk.mathiasrossen.onboardingapp.R
 import dk.mathiasrossen.onboardingapp.api.NewsApiService
 import dk.mathiasrossen.onboardingapp.data.article.Article
 import dk.mathiasrossen.onboardingapp.dependency_injection.annotations.IoScheduler
@@ -11,6 +12,8 @@ import dk.mathiasrossen.onboardingapp.dependency_injection.annotations.UiSchedul
 import dk.mathiasrossen.onboardingapp.use_cases.ArticlesUseCase
 import dk.mathiasrossen.onboardingapp.utils.BaseViewModel
 import dk.mathiasrossen.onboardingapp.utils.date.DateUtils
+import dk.mathiasrossen.onboardingapp.utils.errors.ErrorPromoter
+import dk.mathiasrossen.onboardingapp.utils.errors.RetryActionError
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
@@ -23,6 +26,7 @@ class ArticlesViewModel @Inject constructor(
     @IoScheduler
     private val ioScheduler: Scheduler,
     private val dateUtils: DateUtils,
+    private val errorPromoter: ErrorPromoter,
     savedStateHandle: SavedStateHandle
 ) : BaseViewModel() {
     private val sourceId: String = savedStateHandle[SOURCE_ID_KEY] ?: ""
@@ -59,10 +63,14 @@ class ArticlesViewModel @Inject constructor(
             ).subscribe({ articleList ->
                 articles = articleList
                 isLoading.value = false
-                hasError.value = false
             }) {
                 isLoading.value = false
-                hasError.value = true
+                errorPromoter.submitError(
+                    RetryActionError(
+                        messageStringResource = R.string.articles_error,
+                        retryAction = ::refresh
+                    )
+                )
             }
         )
     }
