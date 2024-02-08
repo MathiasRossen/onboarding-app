@@ -19,15 +19,15 @@ object Versions {
     // Retrofit
     const val RETROFIT_VERSION = "2.9.0"
     const val MOSHI_CONVERTER_VERSION = "2.9.0"
-    const val LOGGING_INTERCEPTOR_VERSION = "4.10.0"
+    const val LOGGING_INTERCEPTOR_VERSION = "4.12.0"
 
     // RxJava
     const val RXANDROID_VERSION = "3.0.2"
     const val RXJAVA_VERSION = "3.1.8"
 
     // Hilt
-    const val HILT_VERSION = "2.48"
-    const val HILT_TESTING_VERSION = "2.44"
+    const val HILT_VERSION = "2.50"
+    const val HILT_TESTING_VERSION = "2.50"
     const val HILT_NAVIGATION_COMPOSE_VERSION = "1.1.0"
 
     // DataStore
