@@ -9,7 +9,9 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.mockito.BDDMockito.given
 import org.mockito.kotlin.mock
+import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
+import org.mockito.verification.VerificationMode
 
 class SourcesViewModelTest {
     private val service = mock<NewsApiService>()
@@ -39,6 +41,33 @@ class SourcesViewModelTest {
         viewModel = createViewModel()
 
         verify(service).getSources()
+    }
+
+    @Test
+    fun onResume_listIsEmpty_shouldLoadArticles() {
+        given(service.getSources()).willReturn(Single.just(NewsSourcesResponse("", emptyList())))
+
+        viewModel = createViewModel()
+        viewModel.onResume()
+
+        verify(service, times(2)).getSources()
+    }
+
+    @Test
+    fun onResume_listIsNotEmpty_shouldNotLoadArticles() {
+        val mockNewsSourcesResponse = NewsSourcesResponse(
+            "ok",
+            listOf(
+                createNewsSource("1", "HorseNews"),
+                createNewsSource("2", "DonkeyNews")
+            )
+        )
+        given(service.getSources()).willReturn(Single.just(mockNewsSourcesResponse))
+
+        viewModel = createViewModel()
+        viewModel.onResume()
+
+        verify(service, times(1)).getSources()
     }
 
     private fun createViewModel() = SourcesViewModel(service, scheduler)
