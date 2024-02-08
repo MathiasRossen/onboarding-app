@@ -28,7 +28,7 @@ class FavoritesViewModelTest {
     }
 
     @Test
-    fun loadArticles_favoriteArticlesAreLoaded() {
+    fun onResume_favoriteArticlesAreLoaded() {
         viewModel.onResume()
 
         assertEquals(mockArticles, viewModel.articles.value)
