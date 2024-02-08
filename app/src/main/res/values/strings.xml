@@ -4,6 +4,7 @@
     <!-- Base -->
     <string name="base_error_retry">Retry</string>
     <string name="base_error_dismiss">Dismiss</string>
+    <string name="base_error_message">Something unexpected happened. Sorry :(</string>
     <string name="base_error_screen_message">This page didn\'t load the content correctly</string>
 
     <!-- Navigation -->
