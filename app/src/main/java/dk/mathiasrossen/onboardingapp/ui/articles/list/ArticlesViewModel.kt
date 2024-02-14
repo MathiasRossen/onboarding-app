@@ -72,7 +72,7 @@ class ArticlesViewModel @Inject constructor(
     }
 
     private fun listenToErrorAction() {
-        compositeDisposable.add(errorActionBus.listenErrorAction().observeOn(uiScheduler).subscribe { refresh() })
+        compositeDisposable.add(errorActionBus.listenErrorAction().observeOn(uiScheduler).subscribe({ refresh() }) {})
     }
 
     private fun getArticles(): Single<List<Article>> {
