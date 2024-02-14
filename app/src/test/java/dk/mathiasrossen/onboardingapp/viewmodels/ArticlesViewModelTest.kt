@@ -49,26 +49,35 @@ class ArticlesViewModelTest {
 
     @Test
     fun init_appBarTitleIsSet() {
+        viewModel = createViewModel()
+
         assertEquals(appBarTitle, viewModel.appBarTitle.value)
     }
 
     @Test
     fun init_serviceGetsArticles() {
+        viewModel = createViewModel()
+
         verify(useCase).getArticles(sourceId, sortBy, date)
     }
 
     @Test
     fun init_serviceGetsFavoriteArticles() {
+        viewModel = createViewModel()
+
         verify(useCase).getFavoriteArticles()
     }
 
     @Test
     fun init_onSuccess_articlesReturned() {
+        viewModel = createViewModel()
+
         assertEquals(mockArticles, viewModel.articles.keys.toList())
     }
 
     @Test
     fun sortByPopularToday_sortStateEqualsPopularToday() {
+        viewModel = createViewModel()
         viewModel.setSortState(SortState.POPULAR_TODAY)
 
         assertEquals(SortState.POPULAR_TODAY, viewModel.sortState.value)
@@ -79,6 +88,7 @@ class ArticlesViewModelTest {
         given(useCase.getArticles(sourceId, NewsApiService.SORT_BY_POPULAR, null))
             .willReturn(Single.just(mockArticles))
 
+        viewModel = createViewModel()
         viewModel.setSortState(SortState.POPULAR_ALL_TIME)
 
         assertEquals(SortState.POPULAR_ALL_TIME, viewModel.sortState.value)
@@ -89,6 +99,7 @@ class ArticlesViewModelTest {
         given(useCase.getArticles(sourceId, NewsApiService.SORT_BY_PUBLISHED_AT, null))
             .willReturn(Single.just(mockArticles))
 
+        viewModel = createViewModel()
         viewModel.setSortState(SortState.NEWEST)
 
         assertEquals(SortState.NEWEST, viewModel.sortState.value)
@@ -96,6 +107,8 @@ class ArticlesViewModelTest {
 
     @Test
     fun init_articleIsNotFavorited() {
+        viewModel = createViewModel()
+
         assertFalse(viewModel.articles.values.first().value)
     }
 
@@ -104,6 +117,7 @@ class ArticlesViewModelTest {
         val article = mockArticles.first()
         given(useCase.toggleFavorite(article)).willReturn(Single.just(true))
 
+        viewModel = createViewModel()
         viewModel.toggleFavorite(article)
 
         assertTrue(viewModel.articles.values.first().value)
