@@ -2,6 +2,8 @@ package dk.mathiasrossen.onboardingapp.ui.main
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -22,19 +24,27 @@ import dk.mathiasrossen.onboardingapp.ui.appbar.OnboardingLargeTopAppBar
 import dk.mathiasrossen.onboardingapp.ui.appbar.OnboardingTopAppBar
 import dk.mathiasrossen.onboardingapp.ui.articles.details.ArticleDetailsScreen
 import dk.mathiasrossen.onboardingapp.ui.articles.list.ArticlesScreen
+import dk.mathiasrossen.onboardingapp.ui.base.SnackbarErrors
 import dk.mathiasrossen.onboardingapp.ui.favorites.FavoritesScreen
 import dk.mathiasrossen.onboardingapp.ui.sources.SourcesScreen
 import dk.mathiasrossen.onboardingapp.ui.sources.SourcesViewModel
 import dk.mathiasrossen.onboardingapp.ui.theme.OnboardingAppTheme
+import dk.mathiasrossen.onboardingapp.utils.errors.ErrorActionBus
+import dk.mathiasrossen.onboardingapp.utils.errors.ErrorPromoter
 
 @Composable
-fun MainScreen(sourcesViewModel: SourcesViewModel) {
+fun MainScreen(errorPromoter: ErrorPromoter, errorActionBus: ErrorActionBus, sourcesViewModel: SourcesViewModel) {
     val navController = rememberNavController()
+    navController.addOnDestinationChangedListener { _, _, _ -> errorPromoter.dismissAllErrors() }
     OnboardingAppTheme {
         val appName = stringResource(R.string.app_name)
         val appBarTitle = remember { mutableStateOf(appName) }
         val appBarImageUrl = remember { mutableStateOf("") }
+        val snackbarHostState = remember { SnackbarHostState() }
         Scaffold(
+            snackbarHost = {
+                SnackbarHost(hostState = snackbarHostState)
+            },
             topBar = {
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 val isBottomBarRoute = listOf(
@@ -62,6 +72,12 @@ fun MainScreen(sourcesViewModel: SourcesViewModel) {
                 OnboardingBottomAppBar(navController)
             }
         ) { innerPadding ->
+            SnackbarErrors(
+                errors = errorPromoter.errors.value,
+                snackbarHostState = snackbarHostState,
+                onDismissError = errorPromoter::dismissError,
+                onAction = errorActionBus::updateErrorAction
+            )
             NavHost(
                 navController = navController,
                 startDestination = Screen.Sources.route,

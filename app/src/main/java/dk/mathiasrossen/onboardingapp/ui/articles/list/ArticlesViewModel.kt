@@ -4,6 +4,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dk.mathiasrossen.onboardingapp.R
 import dk.mathiasrossen.onboardingapp.api.NewsApiService
 import dk.mathiasrossen.onboardingapp.data.article.Article
 import dk.mathiasrossen.onboardingapp.dependency_injection.annotations.IoScheduler
@@ -11,6 +12,8 @@ import dk.mathiasrossen.onboardingapp.dependency_injection.annotations.UiSchedul
 import dk.mathiasrossen.onboardingapp.use_cases.ArticlesUseCase
 import dk.mathiasrossen.onboardingapp.utils.BaseViewModel
 import dk.mathiasrossen.onboardingapp.utils.date.DateUtils
+import dk.mathiasrossen.onboardingapp.utils.errors.ErrorActionBus
+import dk.mathiasrossen.onboardingapp.utils.errors.RetryActionError
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
@@ -23,18 +26,14 @@ class ArticlesViewModel @Inject constructor(
     @IoScheduler
     private val ioScheduler: Scheduler,
     private val dateUtils: DateUtils,
+    private val errorActionBus: ErrorActionBus,
     savedStateHandle: SavedStateHandle
 ) : BaseViewModel() {
     private val sourceId: String = savedStateHandle[SOURCE_ID_KEY] ?: ""
     private val sourceName: String = savedStateHandle[SOURCE_NAME_KEY] ?: ""
+    val sortState = mutableStateOf(SortState.POPULAR_TODAY)
 
     var articles = mapOf<Article, MutableState<Boolean>>()
-        private set
-
-    var isRefreshing = mutableStateOf(false)
-        private set
-
-    var sortState = mutableStateOf(SortState.POPULAR_TODAY)
         private set
 
     private val sortBy
@@ -46,12 +45,12 @@ class ArticlesViewModel @Inject constructor(
 
     init {
         appBarTitle.value = sourceName
+        listenToErrorAction()
         refresh()
     }
 
     fun refresh() {
-        isRefreshing.value = true
-
+        isLoading.value = true
         compositeDisposable.add(
             getArticles().flatMap(
                 { articlesUseCase.getFavoriteArticles() },
@@ -62,11 +61,18 @@ class ArticlesViewModel @Inject constructor(
                         mutableStateOf(isFavorite)
                     }
                 }
-            ).subscribe({ articleList ->
-                articles = articleList
-                isRefreshing.value = false
-            }) { /* error */ }
+            )
+                .doFinally { isLoading.value = false }
+                .subscribe({ articleList ->
+                    articles = articleList
+                }) {
+                    errorPromoter.submitError(RetryActionError(messageStringResource = R.string.articles_error))
+                }
         )
+    }
+
+    private fun listenToErrorAction() {
+        compositeDisposable.add(errorActionBus.listenErrorAction().observeOn(uiScheduler).subscribe({ refresh() }) {})
     }
 
     private fun getArticles(): Single<List<Article>> {
@@ -86,7 +92,7 @@ class ArticlesViewModel @Inject constructor(
                 .subscribeOn(ioScheduler)
                 .subscribe({ isFavorite ->
                     articles[article]?.value = isFavorite
-                }) { /* error */ }
+                }) { errorPromoter.submitGenericError() }
         )
     }
 

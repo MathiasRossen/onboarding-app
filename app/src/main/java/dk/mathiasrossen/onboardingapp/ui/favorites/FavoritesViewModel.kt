@@ -24,9 +24,9 @@ class FavoritesViewModel @Inject constructor(
                     val urls = favoriteArticles.map { it.articleUrl }
                     articlesUseCase.getArticlesByUrls(urls)
                 }
-                .subscribe { articleList ->
+                .subscribe({ articleList ->
                     articles.value = articleList
-                }
+                }) { errorPromoter.submitGenericError() }
         )
     }
 
@@ -34,11 +34,11 @@ class FavoritesViewModel @Inject constructor(
         compositeDisposable.add(
             articlesUseCase.toggleFavorite(article)
                 .subscribeOn(ioScheduler)
-                .subscribe { _ ->
+                .subscribe({ _ ->
                     articles.value = articles.value.toMutableList().apply {
                         remove(article)
                     }
-                }
+                }) { errorPromoter.submitGenericError() }
         )
     }
 

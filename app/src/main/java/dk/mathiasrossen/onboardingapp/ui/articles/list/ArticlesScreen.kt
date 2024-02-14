@@ -2,7 +2,9 @@ package dk.mathiasrossen.onboardingapp.ui.articles.list
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -23,6 +25,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import dk.mathiasrossen.onboardingapp.R
 import dk.mathiasrossen.onboardingapp.data.article.Article
+import dk.mathiasrossen.onboardingapp.ui.base.ErrorScreen
+import dk.mathiasrossen.onboardingapp.ui.base.LoadingScreen
 import dk.mathiasrossen.onboardingapp.ui.theme.ButtonColors
 import dk.mathiasrossen.onboardingapp.ui.theme.OnboardingAppTheme
 
@@ -33,10 +37,10 @@ fun ArticlesScreen(
     onArticleClick: (article: Article) -> Unit
 ) {
     onAppBarTitle(articlesViewModel.appBarTitle.value)
-    ArticleList(
+    ArticleListParent(
         articlesViewModel.articles,
         articlesViewModel.sortState.value,
-        articlesViewModel.isRefreshing.value,
+        articlesViewModel.isLoading.value,
         articlesViewModel::refresh,
         articlesViewModel::setSortState,
         articlesViewModel::toggleFavorite,
@@ -46,7 +50,7 @@ fun ArticlesScreen(
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-private fun ArticleList(
+private fun ArticleListParent(
     articles: Map<Article, State<Boolean>>,
     currentSortState: SortState,
     isRefreshing: Boolean,
@@ -57,31 +61,54 @@ private fun ArticleList(
 ) {
     val pullRefreshState =
         rememberPullRefreshState(refreshing = isRefreshing, onRefresh = onRefresh, refreshThreshold = 120.dp)
-    LazyColumn(modifier = Modifier.pullRefresh(pullRefreshState)) {
-        item {
-            val rowContentPadding = dimensionResource(id = R.dimen.base_content_padding)
-            LazyRow(
-                contentPadding = PaddingValues(
-                    start = rowContentPadding,
-                    top = rowContentPadding,
-                    end = rowContentPadding
-                ),
-                horizontalArrangement = Arrangement.spacedBy(
-                    dimensionResource(id = R.dimen.base_arrangement_space_medium)
-                )
-            ) {
-                items(SortState.entries) { sortState ->
-                    val colors = if (sortState == currentSortState) {
-                        ButtonColors.defaultFilled()
-                    } else {
-                        ButtonColors.defaultTonal()
-                    }
-                    Button(onClick = { onSortOptionClick(sortState) }, colors = colors) {
-                        Text(stringResource(id = sortState.title))
-                    }
+    Column(
+        modifier = Modifier
+            .pullRefresh(pullRefreshState)
+            .fillMaxSize()
+    ) {
+        val rowContentPadding = dimensionResource(id = R.dimen.base_content_padding)
+        LazyRow(
+            contentPadding = PaddingValues(
+                start = rowContentPadding,
+                top = rowContentPadding,
+                end = rowContentPadding
+            ),
+            horizontalArrangement = Arrangement.spacedBy(
+                dimensionResource(id = R.dimen.base_arrangement_space_medium)
+            )
+        ) {
+            items(SortState.entries) { sortState ->
+                val colors = if (sortState == currentSortState) {
+                    ButtonColors.defaultFilled()
+                } else {
+                    ButtonColors.defaultTonal()
+                }
+                Button(onClick = { onSortOptionClick(sortState) }, colors = colors) {
+                    Text(stringResource(id = sortState.title))
                 }
             }
         }
+        if (isRefreshing) {
+            LoadingScreen()
+        } else if (articles.isEmpty()) {
+            ErrorScreen()
+        } else {
+            ArticleList(
+                articles = articles,
+                onFavoriteClick = onFavoriteClick,
+                onArticleClick = onArticleClick
+            )
+        }
+    }
+}
+
+@Composable
+private fun ArticleList(
+    articles: Map<Article, State<Boolean>>,
+    onFavoriteClick: (article: Article) -> Unit,
+    onArticleClick: (article: Article) -> Unit
+) {
+    LazyColumn {
         val articlesList = articles.keys.toList()
         itemsIndexed(articlesList) { index, article ->
             ArticleItem(
@@ -89,7 +116,8 @@ private fun ArticleList(
                 showDivider = index != articlesList.lastIndex,
                 isFavorite = articles[article]?.value == true,
                 onFavoriteClick = { onFavoriteClick(article) },
-                onClick = { onArticleClick(article) })
+                onClick = { onArticleClick(article) }
+            )
         }
     }
 }
@@ -99,17 +127,17 @@ private fun ArticleList(
 @Composable
 private fun ArticleListPreview() {
     OnboardingAppTheme {
-        ArticleList(
-            mapOf(
+        ArticleListParent(
+            articles = mapOf(
                 Article.createSample() to mutableStateOf(false),
                 Article.createSample() to mutableStateOf(false)
             ),
-            SortState.POPULAR_TODAY,
-            true,
-            {},
-            {},
-            {},
-            {}
+            currentSortState = SortState.POPULAR_TODAY,
+            isRefreshing = false,
+            onRefresh = {},
+            onSortOptionClick = {},
+            onFavoriteClick = {},
+            onArticleClick = {}
         )
     }
 }

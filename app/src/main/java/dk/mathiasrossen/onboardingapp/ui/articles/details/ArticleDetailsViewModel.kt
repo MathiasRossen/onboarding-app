@@ -33,10 +33,10 @@ class ArticleDetailsViewModel @Inject constructor(
                     { article -> articlesUseCase.getIsArticleFavorite(article) },
                     { article, isFavorite -> article to isFavorite })
                 .observeOn(uiScheduler)
-                .subscribe { articleAndFavoritePair ->
+                .subscribe({ articleAndFavoritePair ->
                     articleState.value = articleAndFavoritePair.first
                     favoriteState.value = articleAndFavoritePair.second
-                }
+                }) { errorPromoter.submitGenericError() }
         )
     }
 
@@ -45,9 +45,9 @@ class ArticleDetailsViewModel @Inject constructor(
             compositeDisposable.add(
                 articlesUseCase.toggleFavorite(article)
                     .subscribeOn(ioScheduler)
-                    .subscribe { isFavorite ->
+                    .subscribe({ isFavorite ->
                         favoriteState.value = isFavorite
-                    }
+                    }) { errorPromoter.submitGenericError() }
             )
         }
     }

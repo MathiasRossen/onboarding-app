@@ -5,6 +5,12 @@
     <string name="appbar_title_favorites">Favorites</string>
     <string name="appbar_title_about">About</string>
 
+    <!-- Base -->
+    <string name="base_error_retry">Retry</string>
+    <string name="base_error_dismiss">Dismiss</string>
+    <string name="base_error_message">Something unexpected happened. Sorry :(</string>
+    <string name="base_error_screen_message">This page didn\'t load the content correctly</string>
+
     <!-- Navigation -->
     <string name="navigation_sources_title">Source list</string>
     <string name="navigation_favorites_title">Favorites</string>
@@ -19,10 +25,14 @@
     <string name="tutorial_screen_three_button">Begin</string>
     <string name="tutorial_screen_three_motivational_text">I believe in you!</string>
 
+    <!-- Sources -->
+    <string name="sources_error">Can\'t fetch sources</string>
+
     <!-- Articles -->
     <string name="articles_screen_button_sort_popular_today">Popular today</string>
     <string name="articles_screen_button_sort_popular_all_time">Popular all time</string>
     <string name="articles_screen_button_sort_newest">Newest</string>
+    <string name="articles_error">Can\'t fetch articles</string>
 
     <!-- About -->
     <string name="about_screen_header">What is this?</string>
