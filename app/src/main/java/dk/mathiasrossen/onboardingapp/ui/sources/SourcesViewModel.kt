@@ -41,7 +41,11 @@ class SourcesViewModel @Inject constructor(
     }
 
     private fun listenToErrorAction() {
-        compositeDisposable.add(errorActionBus.listenErrorAction().observeOn(uiScheduler).subscribe { loadSources() })
+        compositeDisposable.add(
+            errorActionBus.listenErrorAction()
+                .observeOn(uiScheduler)
+                .subscribe({ loadSources() }) {}
+        )
     }
 
     fun onResume() {
