@@ -7,6 +7,7 @@ import dk.mathiasrossen.onboardingapp.ui.articles.list.ArticlesViewModel
 import dk.mathiasrossen.onboardingapp.ui.articles.list.SortState
 import dk.mathiasrossen.onboardingapp.use_cases.ArticlesUseCase
 import dk.mathiasrossen.onboardingapp.utils.date.DateUtils
+import dk.mathiasrossen.onboardingapp.utils.errors.ErrorActionBus
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import org.junit.Assert.assertEquals
@@ -28,6 +29,7 @@ class ArticlesViewModelTest {
     private val useCase = mock<ArticlesUseCase>()
     private val scheduler = Schedulers.trampoline()
     private val dateUtils = mock<DateUtils>()
+    private val errorActionBus = mock<ErrorActionBus>()
     private lateinit var viewModel: ArticlesViewModel
     private val savedStateHandle = SavedStateHandle().apply {
         set(ArticlesViewModel.SOURCE_ID_KEY, sourceId)
@@ -107,5 +109,12 @@ class ArticlesViewModelTest {
         assertTrue(viewModel.articles.values.first().value)
     }
 
-    private fun createViewModel() = ArticlesViewModel(useCase, scheduler, scheduler, dateUtils, savedStateHandle)
+    private fun createViewModel() = ArticlesViewModel(
+        useCase,
+        scheduler,
+        scheduler,
+        dateUtils,
+        errorActionBus,
+        savedStateHandle
+    )
 }
