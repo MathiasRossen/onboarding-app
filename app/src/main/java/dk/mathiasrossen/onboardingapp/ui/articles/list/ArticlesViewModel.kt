@@ -12,6 +12,7 @@ import dk.mathiasrossen.onboardingapp.dependency_injection.annotations.UiSchedul
 import dk.mathiasrossen.onboardingapp.use_cases.ArticlesUseCase
 import dk.mathiasrossen.onboardingapp.utils.BaseViewModel
 import dk.mathiasrossen.onboardingapp.utils.date.DateUtils
+import dk.mathiasrossen.onboardingapp.utils.errors.ErrorActionBus
 import dk.mathiasrossen.onboardingapp.utils.errors.RetryActionError
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.core.Single
@@ -25,6 +26,7 @@ class ArticlesViewModel @Inject constructor(
     @IoScheduler
     private val ioScheduler: Scheduler,
     private val dateUtils: DateUtils,
+    private val errorActionBus: ErrorActionBus,
     savedStateHandle: SavedStateHandle
 ) : BaseViewModel() {
     private val sourceId: String = savedStateHandle[SOURCE_ID_KEY] ?: ""
@@ -43,6 +45,7 @@ class ArticlesViewModel @Inject constructor(
 
     init {
         appBarTitle.value = sourceName
+        listenToErrorAction()
         refresh()
     }
 
@@ -58,19 +61,18 @@ class ArticlesViewModel @Inject constructor(
                         mutableStateOf(isFavorite)
                     }
                 }
-            ).subscribe({ articleList ->
-                articles = articleList
-                isLoading.value = false
-            }) {
-                isLoading.value = false
-                errorPromoter.submitError(
-                    RetryActionError(
-                        messageStringResource = R.string.articles_error,
-                        retryAction = ::refresh
-                    )
-                )
-            }
+            )
+                .doFinally { isLoading.value = false }
+                .subscribe({ articleList ->
+                    articles = articleList
+                }) {
+                    errorPromoter.submitError(RetryActionError(messageStringResource = R.string.articles_error))
+                }
         )
+    }
+
+    private fun listenToErrorAction() {
+        compositeDisposable.add(errorActionBus.listenErrorAction().observeOn(uiScheduler).subscribe({ refresh() }) {})
     }
 
     private fun getArticles(): Single<List<Article>> {

@@ -14,7 +14,8 @@ import dk.mathiasrossen.onboardingapp.utils.errors.RetryActionError
 fun SnackbarErrors(
     errors: List<AppError>,
     snackbarHostState: SnackbarHostState,
-    onDismissError: (error: AppError) -> Unit
+    onDismissError: (error: AppError) -> Unit,
+    onAction: () -> Unit
 ) {
     if (errors.isNotEmpty()) {
         val displayError = errors.last()
@@ -32,9 +33,7 @@ fun SnackbarErrors(
             )
             when (result) {
                 SnackbarResult.ActionPerformed -> {
-                    if (displayError is RetryActionError) {
-                        displayError.retryAction()
-                    }
+                    onAction()
                     onDismissError(displayError)
                 }
                 else -> onDismissError(displayError)

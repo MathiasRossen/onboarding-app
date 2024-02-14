@@ -3,9 +3,13 @@ package dk.mathiasrossen.onboardingapp.viewmodels
 import dk.mathiasrossen.onboardingapp.api.NewsApiService
 import dk.mathiasrossen.onboardingapp.api.response_models.NewsSourcesResponse
 import dk.mathiasrossen.onboardingapp.ui.sources.SourcesViewModel
+import dk.mathiasrossen.onboardingapp.utils.errors.ErrorActionBus
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
+import io.reactivex.rxjava3.subjects.PublishSubject
 import org.junit.Assert.assertEquals
+import org.junit.Before
 import org.junit.Test
 import org.mockito.BDDMockito.given
 import org.mockito.kotlin.mock
@@ -15,7 +19,13 @@ import org.mockito.kotlin.verify
 class SourcesViewModelTest {
     private val service = mock<NewsApiService>()
     private val scheduler = Schedulers.trampoline()
+    private val errorActionBus = mock<ErrorActionBus>()
     private lateinit var viewModel: SourcesViewModel
+
+    @Before
+    fun setup() {
+        given(errorActionBus.listenErrorAction()).willReturn(PublishSubject.create())
+    }
 
     @Test
     fun init_onSuccess_newsSourcesReturned() {
@@ -69,7 +79,17 @@ class SourcesViewModelTest {
         verify(service, times(1)).getSources()
     }
 
-    private fun createViewModel() = SourcesViewModel(service, scheduler)
+    @Test
+    fun onErrorActionCalled_shouldLoadSources() {
+        given(service.getSources()).willReturn(Single.just(NewsSourcesResponse("", emptyList())))
+        given(errorActionBus.listenErrorAction()).willReturn(Observable.just(Unit))
+
+        viewModel = createViewModel()
+
+        verify(service, times(2)).getSources()
+    }
+
+    private fun createViewModel() = SourcesViewModel(service, scheduler, errorActionBus)
 
     private fun createNewsSource(id: String, name: String): NewsSourcesResponse.NewsSource {
         return NewsSourcesResponse.NewsSource(

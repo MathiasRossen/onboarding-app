@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">OnboardingApp</string>
 
+    <!-- AppBar titles -->
+    <string name="appbar_title_favorites">Favorites</string>
+    <string name="appbar_title_about">About</string>
+
     <!-- Base -->
     <string name="base_error_retry">Retry</string>
     <string name="base_error_dismiss">Dismiss</string>
