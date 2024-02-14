@@ -58,18 +58,13 @@ class ArticlesViewModel @Inject constructor(
                         mutableStateOf(isFavorite)
                     }
                 }
-            ).subscribe({ articleList ->
-                articles = articleList
-                isLoading.value = false
-            }) {
-                isLoading.value = false
-                errorPromoter.submitError(
-                    RetryActionError(
-                        messageStringResource = R.string.articles_error,
-                        retryAction = ::refresh
-                    )
-                )
-            }
+            )
+                .doFinally { isLoading.value = false }
+                .subscribe({ articleList ->
+                    articles = articleList
+                }) {
+                    errorPromoter.submitError(RetryActionError(messageStringResource = R.string.articles_error))
+                }
         )
     }
 
