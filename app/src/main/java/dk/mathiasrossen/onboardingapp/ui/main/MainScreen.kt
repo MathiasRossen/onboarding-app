@@ -29,10 +29,11 @@ import dk.mathiasrossen.onboardingapp.ui.favorites.FavoritesScreen
 import dk.mathiasrossen.onboardingapp.ui.sources.SourcesScreen
 import dk.mathiasrossen.onboardingapp.ui.sources.SourcesViewModel
 import dk.mathiasrossen.onboardingapp.ui.theme.OnboardingAppTheme
+import dk.mathiasrossen.onboardingapp.utils.errors.ErrorActionBus
 import dk.mathiasrossen.onboardingapp.utils.errors.ErrorPromoter
 
 @Composable
-fun MainScreen(errorPromoter: ErrorPromoter, sourcesViewModel: SourcesViewModel) {
+fun MainScreen(errorPromoter: ErrorPromoter, errorActionBus: ErrorActionBus, sourcesViewModel: SourcesViewModel) {
     val navController = rememberNavController()
     navController.addOnDestinationChangedListener { _, _, _ -> errorPromoter.dismissAllErrors() }
     OnboardingAppTheme {
@@ -74,7 +75,8 @@ fun MainScreen(errorPromoter: ErrorPromoter, sourcesViewModel: SourcesViewModel)
             SnackbarErrors(
                 errors = errorPromoter.errors.value,
                 snackbarHostState = snackbarHostState,
-                onDismissError = errorPromoter::dismissError
+                onDismissError = errorPromoter::dismissError,
+                onAction = errorActionBus::updateErrorAction
             )
             NavHost(
                 navController = navController,

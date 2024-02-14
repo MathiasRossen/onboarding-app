@@ -10,6 +10,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import dk.mathiasrossen.onboardingapp.ui.main.MainScreen
 import dk.mathiasrossen.onboardingapp.ui.sources.SourcesViewModel
 import dk.mathiasrossen.onboardingapp.ui.tutorial.Tutorial
+import dk.mathiasrossen.onboardingapp.utils.errors.ErrorActionBus
 import dk.mathiasrossen.onboardingapp.utils.errors.ErrorPromoter
 import javax.inject.Inject
 
@@ -17,6 +18,8 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var errorPromoter: ErrorPromoter
+    @Inject
+    lateinit var errorActionBus: ErrorActionBus
     private val sourcesViewModel: SourcesViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         setContent {
             val mainActivityViewModel: MainActivityViewModel = hiltViewModel()
             if (mainActivityViewModel.isTutorialCompleted) {
-                MainScreen(errorPromoter, sourcesViewModel)
+                MainScreen(errorPromoter, errorActionBus, sourcesViewModel)
             } else {
                 Tutorial {
                     mainActivityViewModel.completeTutorial()
