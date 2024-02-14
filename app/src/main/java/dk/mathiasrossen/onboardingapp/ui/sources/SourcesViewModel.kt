@@ -26,18 +26,14 @@ class SourcesViewModel @Inject constructor(
     private fun loadSources() {
         isLoading.value = true
         compositeDisposable.add(
-            newsApiService.getSources().observeOn(uiScheduler).subscribe({ newsSourcesResponse ->
-                newsSources.value = newsSourcesResponse.sourcesSorted
-                isLoading.value = false
-            }) {
-                isLoading.value = false
-                errorPromoter.submitError(
-                    RetryActionError(
-                        messageStringResource = R.string.sources_error,
-                        retryAction = ::loadSources
-                    )
-                )
-            }
+            newsApiService.getSources()
+                .observeOn(uiScheduler)
+                .doFinally { isLoading.value = false }
+                .subscribe({ newsSourcesResponse ->
+                    newsSources.value = newsSourcesResponse.sourcesSorted
+                }) {
+                    errorPromoter.submitError(RetryActionError(messageStringResource = R.string.sources_error))
+                }
         )
     }
 
