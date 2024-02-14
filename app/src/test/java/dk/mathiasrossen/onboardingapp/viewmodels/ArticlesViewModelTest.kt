@@ -8,8 +8,10 @@ import dk.mathiasrossen.onboardingapp.ui.articles.list.SortState
 import dk.mathiasrossen.onboardingapp.use_cases.ArticlesUseCase
 import dk.mathiasrossen.onboardingapp.utils.date.DateUtils
 import dk.mathiasrossen.onboardingapp.utils.errors.ErrorActionBus
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
+import io.reactivex.rxjava3.subjects.PublishSubject
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -17,6 +19,7 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.kotlin.given
 import org.mockito.kotlin.mock
+import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
 import java.time.LocalDate
 
@@ -44,7 +47,7 @@ class ArticlesViewModelTest {
         given(dateUtils.oneDayPast()).willReturn(LocalDate.parse(date))
         given(useCase.getArticles(sourceId, sortBy, date)).willReturn(Single.just(mockArticles))
         given(useCase.getFavoriteArticles()).willReturn(Single.just(listOf()))
-        viewModel = createViewModel()
+        given(errorActionBus.listenErrorAction()).willReturn(PublishSubject.create())
     }
 
     @Test
@@ -121,6 +124,15 @@ class ArticlesViewModelTest {
         viewModel.toggleFavorite(article)
 
         assertTrue(viewModel.articles.values.first().value)
+    }
+
+    @Test
+    fun onErrorActionCalled_shouldLoadArticles() {
+        given(errorActionBus.listenErrorAction()).willReturn(Observable.just(Unit))
+
+        viewModel = createViewModel()
+
+        verify(useCase, times(2)).getArticles(sourceId, sortBy, date)
     }
 
     private fun createViewModel() = ArticlesViewModel(
