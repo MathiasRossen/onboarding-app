@@ -3,6 +3,8 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("com.google.dagger.hilt.android")
     id("com.google.devtools.ksp")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -55,6 +57,11 @@ dependencies {
     val composeBom = platform("androidx.compose:compose-bom:${Versions.COMPOSE_BOM_VERSION}")
     implementation(composeBom)
     androidTestImplementation(composeBom)
+
+    // Firebase
+    implementation(platform("com.google.firebase:firebase-bom:${Versions.FIREBASE_BOM_VERSION}"))
+    implementation("com.google.firebase:firebase-crashlytics")
+    implementation("com.google.firebase:firebase-analytics")
 
     // Android libraries
     implementation("androidx.core:core-ktx:${Versions.ANDROIDX_CORE_VERSION}")
